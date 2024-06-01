@@ -19,37 +19,22 @@ module TogglV9
     # done_seconds      : duration (in seconds) of all the time entries registered for this task
     # uname             : full name of the person to whom the task is assigned to
 
-    def create_task(params)
-      requireParams(params, ['name', 'pid'])
-      post "tasks", { 'task' => params }
+    def create_task(workspace_id, project_id, params)
+      requireParams(params, ['name'])
+      post "workspaces/#{workspace_id}/projects/#{project_id}/tasks", params
     end
 
-    def get_task(task_id)
-      get "tasks/#{task_id}"
+    def get_task(workspace_id, project_id, task_id)
+      get "workspaces/#{workspace_id}/projects/#{project_id}tasks/#{task_id}"
     end
 
     # ex: update_task(1894675, { :active => true, :estimated_seconds => 4500, :fields => "done_seconds,uname"})
-    def update_task(task_id, params)
-      put "tasks/#{task_id}", { 'task' => params }
+    def update_task(workspace_id, project_id, task_id, params)
+      put "workspaces/#{workspace_id}/projects/#{project_id}/tasks/#{task_id}", params
     end
 
-    def delete_task(task_id)
-      delete "tasks/#{task_id}"
+    def delete_task(workspace_id, project_id, task_id)
+      delete "workspaces/#{workspace_id}/projects/#{project_id}/tasks/#{task_id}"
     end
-
-    # ------------ #
-    # Mass Actions #
-    # ------------ #
-
-    def update_tasks(task_ids, params)
-      return if task_ids.nil?
-      put "tasks/#{task_ids.join(',')}", { 'task' => params }
-    end
-
-    def delete_tasks(task_ids)
-      return if task_ids.nil?
-      delete "tasks/#{task_ids.join(',')}"
-    end
-
   end
 end

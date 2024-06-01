@@ -12,26 +12,27 @@ module TogglV9
     # cur   : The name of the client's currency (string, not required, available only for pro workspaces)
     # at    : timestamp that is sent in the response, indicates the time client was last updated
 
-    def create_client(params)
+    def create_client(workspace_id, params)
       requireParams(params, ['name', 'wid'])
-      post "clients", { 'client' => params }
+      post "workspaces/#{workspace_id}/clients", params
     end
 
-    def get_client(client_id)
-      get "clients/#{client_id}"
+    def get_client(workspace_id, client_id)
+      get "workspaces/#{workspace_id}/clients/#{client_id}"
     end
 
-    def update_client(client_id, params)
-      put "clients/#{client_id}", { 'client' => params }
+    def update_client(workspace_id, client_id, params)
+      put "workspaces/#{workspace_id}/clients/#{client_id}", params
     end
 
-    def delete_client(client_id)
-      delete "clients/#{client_id}"
+    def delete_client(workspace_id, client_id)
+      delete "workspaces/#{workspace_id}/clients/#{client_id}"
     end
 
-    def get_client_projects(client_id, params={})
-      active = params.has_key?('active') ? "?active=#{params['active']}" : ""
-      get "clients/#{client_id}/projects#{active}"
+    def get_client_projects(workspace_id, client_id, params={})
+      qs = "?clients=#{client_id}"
+      active = params.has_key?('active') ? "&active=#{params['active']}" : ""
+      get "workspaces/#{workspace_id}/projects#{qs}#{active}"
     end
   end
 end

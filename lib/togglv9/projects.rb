@@ -56,7 +56,7 @@ module TogglV9
     #
     # Examples
     #
-    #     toggl.create_project({ :name => 'My project', :wid => 1060392 })
+    #     toggl.create_project(1060392, { :name => 'My project' })
     #     => {"id"=>10918774,
     #      "wid"=>1060392,
     #      "name"=>"project5",
@@ -71,42 +71,44 @@ module TogglV9
     # Returns a +Hash+ representing the newly created Project.
     #
     # See Toggl {Create Project}[https://github.com/toggl/toggl_api_docs/blob/master/chapters/projects.md#create-project]
-    def create_project(params)
-      requireParams(params, ['name', 'wid'])
-      post "projects", { 'project' => params }
+    def create_project(workspace_id, params)
+      requireParams(params, ['name'])
+      params['active'] = true unless params.key?('active')
+      post "workspaces/#{workspace_id}/projects", params
     end
 
     # [Get project data](https://github.com/toggl/toggl_api_docs/blob/master/chapters/projects.md#get-project-data)
-    def get_project(project_id)
-      get "projects/#{project_id}"
+    def get_project(workspace_id, project_id)
+      get "workspaces/#{workspace_id}/projects/#{project_id}"
     end
 
     # [Update project data](https://github.com/toggl/toggl_api_docs/blob/master/chapters/projects.md#update-project-data)
-    def update_project(project_id, params)
-      put "projects/#{project_id}", { 'project' => params }
+    def update_project(workspace_id, project_id, params)
+      put "workspaces/#{workspace_id}/projects/#{project_id}", params
     end
 
     # [Delete a project](https://github.com/toggl/toggl_api_docs/blob/master/chapters/projects.md#delete-a-project)
-    def delete_project(project_id)
-      delete "projects/#{project_id}"
+    def delete_project(workspace_id, project_id)
+      delete "workspaces/#{workspace_id}/projects/#{project_id}"
     end
 
     # [Get project users](https://github.com/toggl/toggl_api_docs/blob/master/chapters/projects.md#get-project-users)
-    def get_project_users(project_id)
-      get "projects/#{project_id}/project_users"
+    def get_project_users(workspace_id, project_id)
+      qs = "?project_ids=#{project_id}"
+      get "workspaces/#{workspace_id}/project_users#{qs}"
     end
 
     # [Get project tasks](https://github.com/toggl/toggl_api_docs/blob/master/chapters/projects.md#get-project-tasks)
-    def get_project_tasks(project_id)
-      get "projects/#{project_id}/tasks"
+    def get_project_tasks(workspace_id, project_id)
+      get "workspaces/#{workspace_id}/tasks", { 'pid': project_id }
     end
 
-    # [Get workspace projects](https://github.com/toggl/toggl_api_docs/blob/master/chapters/projects.md#get-workspace-projects)
-
     # [Delete multiple projects](https://github.com/toggl/toggl_api_docs/blob/master/chapters/projects.md#delete-multiple-projects)
-    def delete_projects(project_ids)
+    def delete_projects(workspace_id, project_ids)
       return if project_ids.nil?
-      delete "projects/#{project_ids.join(',')}"
+      project_ids.each do |project_id|
+        delete_project(workspace_id, project_id)
+      end
     end
   end
 end

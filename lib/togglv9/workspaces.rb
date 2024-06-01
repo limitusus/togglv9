@@ -11,15 +11,11 @@ module TogglV9
     # at      : timestamp that is sent in the response, indicates the time item was last updated
 
     def workspaces
-      get "workspaces"
+      get "me/workspaces"
     end
 
-    def clients(workspace_id=nil)
-      if workspace_id.nil?
-        get "clients"
-      else
-        get "workspaces/#{workspace_id}/clients"
-      end
+    def clients(workspace_id)
+      get "workspaces/#{workspace_id}/clients"
     end
 
     def projects(workspace_id, params={})
@@ -27,8 +23,8 @@ module TogglV9
       get "workspaces/#{workspace_id}/projects#{active}"
     end
 
-    def users(workspace_id)
-      get "workspaces/#{workspace_id}/users"
+    def users(organization_id, workspace_id)
+      get "organizations/#{organization_id}/workspaces/#{workspace_id}/workspace_users"
     end
 
     def tasks(workspace_id, params={})

@@ -12,7 +12,7 @@ describe 'Projects' do
 
   context 'new project' do
     before :all do
-      @project = @toggl.create_project({ 'name' => 'new project +1', 'wid' => @workspace_id })
+      @project = @toggl.create_project(@workspace_id, { 'name' => 'new project +1' })
       project_ids = @toggl.my_projects.map { |p| p['id'] }
       expect(project_ids).to eq [ @project['id'] ]
     end
@@ -26,16 +26,16 @@ describe 'Projects' do
     it 'creates a project' do
       expect(@project).to_not be nil
       expect(@project['name']).to eq 'new project +1'
-      expect(@project['billable']).to eq false
+      expect(@project['billable']).to eq nil
       expect(@project['is_private']).to eq true
       expect(@project['active']).to eq true
-      expect(@project['template']).to eq false
-      expect(@project['auto_estimates']).to eq false
+      expect(@project['template']).to eq nil
+      expect(@project['auto_estimates']).to eq nil
       expect(@project['wid']).to eq @workspace_id
     end
 
     it 'gets project data' do
-      project = @toggl.get_project(@project['id'])
+      project = @toggl.get_project(@workspace_id, @project['id'])
       expect(project).to_not be nil
       expect(project['wid']).to eq @project['wid']
       expect(project['name']).to eq @project['name']
@@ -48,20 +48,20 @@ describe 'Projects' do
     end
 
     it 'gets project users' do
-      users = @toggl.get_project_users(@project['id'])
+      users = @toggl.get_project_users(@workspace_id, @project['id'])
       expect(users.length).to eq 1
-      expect(users.first['uid']).to eq Testing::USER_ID
+      expect(users.first['user_id']).to eq Testing::USER_ID
       expect(users.first['manager']).to eq true
     end
   end
 
   context 'updated project' do
     before :each do
-      @project = @toggl.create_project({ 'name' => 'project to update', 'wid' => @workspace_id })
+      @project = @toggl.create_project(@workspace_id, { 'name' => 'project to update' })
     end
 
     after :each do
-      @toggl.delete_project(@project['id'])
+      @toggl.delete_project(@workspace_id, @project['id'])
     end
 
     it 'updates project data' do
@@ -71,7 +71,7 @@ describe 'Projects' do
         'active' => false,
         'auto_estimates' => true,
       }
-      project = @toggl.update_project(@project['id'], new_values)
+      project = @toggl.update_project(@workspace_id, @project['id'], new_values)
       expect(project).to include(new_values)
     end
 
@@ -80,7 +80,7 @@ describe 'Projects' do
         'template' => true,
         'billable' => true,
       }
-      project = @toggl.update_project(@project['id'], new_values)
+      project = @toggl.update_project(@workspace_id, @project['id'], new_values)
       expect(project).to include(new_values)
     end
   end
@@ -94,15 +94,15 @@ describe 'Projects' do
       # start with no projects
       expect(@toggl.projects(@workspace_id)).to be_empty
 
-      p1 = @toggl.create_project({ 'name' => 'p1', 'wid' => @workspace_id })
-      p2 = @toggl.create_project({ 'name' => 'p2', 'wid' => @workspace_id })
-      p3 = @toggl.create_project({ 'name' => 'p3', 'wid' => @workspace_id })
+      p1 = @toggl.create_project(@workspace_id, { 'name' => 'p1' })
+      p2 = @toggl.create_project(@workspace_id, { 'name' => 'p2' })
+      p3 = @toggl.create_project(@workspace_id, { 'name' => 'p3' })
 
       # see 3 new projects
       expect(@toggl.projects(@workspace_id).length).to eq 3
 
       p_ids = [p1, p2, p3].map { |p| p['id'] }
-      @toggl.delete_projects(p_ids)
+      @toggl.delete_projects(@workspace_id, p_ids)
 
       # end with no projects
       expect(@toggl.projects(@workspace_id)).to be_empty

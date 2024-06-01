@@ -7,7 +7,7 @@ describe 'Tags' do
 
   context 'new tag' do
     before :all do
-      @tag = @toggl.create_tag({ 'name' => 'new tag +1', 'wid' => @workspace_id })
+      @tag = @toggl.create_tag(@workspace_id, { 'name' => 'new tag +1' })
       tag_ids = @toggl.my_tags.map { |t| t['id'] }
       expect(tag_ids).to eq [ @tag['id'] ]
     end
@@ -22,24 +22,24 @@ describe 'Tags' do
       expect(@tag).to_not be nil
       expect(@tag['name']).to eq 'new tag +1'
       expect(@tag['notes']).to eq nil
-      expect(@tag['wid']).to eq @workspace_id
+      expect(@tag['workspace_id']).to eq @workspace_id
     end
 
     it 'returns tag associated with workspace_id' do
       tags = @toggl.tags(@workspace_id)
       expect(tags).not_to be_empty
       expect(tags.first['name']).to eq 'new tag +1'
-      expect(tags.first['wid']).to eq @workspace_id
+      expect(tags.first['workspace_id']).to eq @workspace_id
     end
   end
 
   context 'updated tag' do
     before :each do
-      @tag = @toggl.create_tag({ 'name' => 'tag to update', 'wid' => @workspace_id })
+      @tag = @toggl.create_tag(@workspace_id, { 'name' => 'tag to update' })
     end
 
     after :each do
-      @toggl.delete_tag(@tag['id'])
+      @toggl.delete_tag(@workspace_id, @tag['id'])
     end
 
     it 'updates tag data' do
@@ -47,7 +47,7 @@ describe 'Tags' do
         'name' => 'TAG-NEW',
       }
 
-      tag = @toggl.update_tag(@tag['id'], new_values)
+      tag = @toggl.update_tag(@workspace_id, @tag['id'], new_values)
       expect(tag).to include(new_values)
     end
   end

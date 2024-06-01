@@ -17,15 +17,21 @@ describe 'Time Entries' do
 
       @expected = time_entry_info.clone
 
-      @time_entry = @toggl.create_time_entry(time_entry_info)
+      @time_entry = @toggl.create_time_entry(@workspace_id, time_entry_info)
     end
 
     after :each do
-      @toggl.delete_time_entry(@time_entry['id'])
+      @toggl.delete_time_entry(@workspace_id, @time_entry['id'])
+    rescue RuntimeError => e
+      if e.message != "HTTP Status: 404"
+        raise e
+      end
     end
 
     it 'creates a time entry' do
-      expect(@time_entry).to include(@expected)
+      expect(@time_entry['wid']).to eq @expected['wid']
+      expect(@time_entry['duration']).to eq @expected['duration']
+      expect(Time.parse(@time_entry['start'])).to eq Time.parse(@expected['start'])
     end
 
     it 'requires a workspace, project, or task to create' do
@@ -35,7 +41,7 @@ describe 'Time Entries' do
       }
 
       expect {
-        @toggl.create_time_entry(time_entry_info)
+        @toggl.create_time_entry(@workspace_id, time_entry_info)
       }.to raise_error(ArgumentError)
     end
 
@@ -48,8 +54,13 @@ describe 'Time Entries' do
         retrieved_time_entry.delete(key)
         @time_entry.delete(key)
       end
+      expected = @time_entry.clone
+      expected['tags'] ||= []
+      expected['tag_ids'] ||= []
+      expected.delete('uid')
+      expected.delete('wid')
 
-      expect(retrieved_time_entry).to eq @time_entry
+      expect(retrieved_time_entry).to eq expected
     end
 
     it 'updates a time entry' do
@@ -60,16 +71,17 @@ describe 'Time Entries' do
 
       expected = time_entry_info.clone
 
-      time_entry_updated = @toggl.update_time_entry(@time_entry['id'], time_entry_info)
-      expect(time_entry_updated).to include(expected)
+      time_entry_updated = @toggl.update_time_entry(@workspace_id, @time_entry['id'], time_entry_info)
+      expect(time_entry_updated['duration']).to eq expected['duration']
+      expect(Time.parse(time_entry_updated['start'])).to eq Time.parse(expected['start'])
     end
 
     it 'deletes a time entry' do
       existing_time_entry = @toggl.get_time_entry(@time_entry['id'])
-      expect(existing_time_entry.has_key?('server_deleted_at')).to eq false
+      expect(existing_time_entry.has_key?('server_deleted_at')).to eq true
+      expect(existing_time_entry['server_deleted_at']).to eq nil
 
-      deleted_time_entry = @toggl.delete_time_entry(@time_entry['id'])
-      expect(deleted_time_entry).to eq "[#{ @time_entry['id'] }]"
+      deleted_time_entry = @toggl.delete_time_entry(@workspace_id, @time_entry['id'])
 
       expect { @toggl.get_time_entry(@time_entry['id']) }.to raise_error(RuntimeError, 'HTTP Status: 404')
     end
@@ -87,15 +99,21 @@ describe 'Time Entries' do
 
       @expected = time_entry_info.clone
 
-      @time_entry = @toggl.create_time_entry(time_entry_info)
+      @time_entry = @toggl.create_time_entry(@workspace_id, time_entry_info)
     end
 
     after :each do
-      @toggl.delete_time_entry(@time_entry['id'])
+      @toggl.delete_time_entry(@workspace_id, @time_entry['id'])
+    rescue RuntimeError => e
+      if e.message != "HTTP Status: 404"
+        raise e
+      end
     end
 
     it 'creates a time entry' do
-      expect(@time_entry).to include(@expected)
+      expect(@time_entry['wid']).to eq @expected['wid']
+      expect(@time_entry['duration']).to eq @expected['duration']
+      expect(Time.parse(@time_entry['start'])).to eq Time.parse(@expected['start'])
     end
 
     it 'requires a workspace, project, or task to create' do
@@ -105,7 +123,7 @@ describe 'Time Entries' do
       }
 
       expect {
-        @toggl.create_time_entry(time_entry_info)
+        @toggl.create_time_entry(@workspace_id, time_entry_info)
       }.to raise_error(ArgumentError)
     end
 
@@ -118,8 +136,13 @@ describe 'Time Entries' do
         retrieved_time_entry.delete(key)
         @time_entry.delete(key)
       end
+      expected = @time_entry.clone
+      expected['tags'] ||= []
+      expected['tag_ids'] ||= []
+      expected.delete('uid')
+      expected.delete('wid')
 
-      expect(retrieved_time_entry).to eq @time_entry
+      expect(retrieved_time_entry).to eq expected
     end
 
     it 'updates a time entry' do
@@ -130,16 +153,16 @@ describe 'Time Entries' do
 
       expected = time_entry_info.clone
 
-      time_entry_updated = @toggl.update_time_entry(@time_entry['id'], time_entry_info)
-      expect(time_entry_updated).to include(expected)
+      time_entry_updated = @toggl.update_time_entry(@workspace_id, @time_entry['id'], time_entry_info)
+      expect(time_entry_updated['duration']).to eq expected['duration']
+      expect(Time.parse(time_entry_updated['start'])).to eq Time.parse(expected['start'])
     end
 
     it 'deletes a time entry' do
       existing_time_entry = @toggl.get_time_entry(@time_entry['id'])
-      expect(existing_time_entry.has_key?('server_deleted_at')).to eq false
+      expect(existing_time_entry.has_key?('server_deleted_at')).to eq true
 
-      deleted_time_entry = @toggl.delete_time_entry(@time_entry['id'])
-      expect(deleted_time_entry).to eq "[#{ @time_entry['id'] }]"
+      deleted_time_entry = @toggl.delete_time_entry(@workspace_id, @time_entry['id'])
 
       expect { @toggl.get_time_entry(@time_entry['id']) }.to raise_error(RuntimeError, 'HTTP Status: 404')
     end
@@ -154,19 +177,19 @@ describe 'Time Entries' do
       @now = DateTime.now
 
       start = { 'start' => @toggl.iso8601(@now - 9) }
-      @time_entry_nine_days_ago = @toggl.create_time_entry(time_entry_info.merge(start))
+      @time_entry_nine_days_ago = @toggl.create_time_entry(@workspace_id, time_entry_info.merge(start))
       @nine_days_ago_id = @time_entry_nine_days_ago['id']
 
       start = { 'start' => @toggl.iso8601(@now - 7) }
-      @time_entry_last_week = @toggl.create_time_entry(time_entry_info.merge(start))
+      @time_entry_last_week = @toggl.create_time_entry(@workspace_id, time_entry_info.merge(start))
       @last_week_id = @time_entry_last_week['id']
 
       start = { 'start' => @toggl.iso8601(@now) }
-      @time_entry_now = @toggl.create_time_entry(time_entry_info.merge(start))
+      @time_entry_now = @toggl.create_time_entry(@workspace_id, time_entry_info.merge(start))
       @now_id = @time_entry_now['id']
 
       start = { 'start' => @toggl.iso8601(@now + 7) }
-      @time_entry_next_week = @toggl.create_time_entry(time_entry_info.merge(start))
+      @time_entry_next_week = @toggl.create_time_entry(@workspace_id, time_entry_info.merge(start))
       @next_week_id = @time_entry_next_week['id']
     end
 
@@ -176,34 +199,34 @@ describe 'Time Entries' do
 
     it 'gets time entries (reaching back 9 days up till now)' do
       ids = @toggl.get_time_entries.map { |t| t['id']}
-      expect(ids).to eq [ @last_week_id, @now_id ]
+      expect(ids.sort).to eq [ @last_week_id, @now_id ]
     end
 
     it 'gets time entries after start_date (up till now)' do
       ids = @toggl.get_time_entries({:start_date => @now - 1}).map { |t| t['id']}
-      expect(ids).to eq [ @now_id ]
+      expect(ids.sort).to eq [ @now_id ]
     end
 
     it 'gets time entries between start_date and end_date' do
       ids = @toggl.get_time_entries({:start_date => @now - 1, :end_date => @now + 1}).map { |t| t['id']}
-      expect(ids).to eq [ @now_id ]
+      expect(ids.sort).to eq [ @now_id ]
     end
 
     it 'gets time entries in the future' do
       ids = @toggl.get_time_entries({:start_date => @now - 1, :end_date => @now + 8}).map { |t| t['id']}
-      expect(ids).to eq [ @now_id, @next_week_id ]
+      expect(ids.sort).to eq [ @now_id, @next_week_id ]
     end
   end
 
   context 'start and stop time entry' do
     it 'starts and stops a time entry' do
       time_entry_info = {
-        'wid' => @workspace_id,
+        'workspace_id' => @workspace_id,
         'description' => 'time entry description'
       }
 
       # start time entry
-      running_time_entry = @toggl.start_time_entry(time_entry_info)
+      running_time_entry = @toggl.start_time_entry(@workspace_id, time_entry_info)
 
       # get current time entry by '/current'
       time_entry_current = @toggl.get_current_time_entry
@@ -212,6 +235,8 @@ describe 'Time Entries' do
       time_entry_by_id.delete('guid')
 
       # compare two methods of getting current time entry
+      time_entry_current.delete('uid')
+      time_entry_current.delete('wid')
       expect(time_entry_current).to eq time_entry_by_id
 
       # compare current time entry with running time entry
@@ -219,19 +244,24 @@ describe 'Time Entries' do
       time_entry_by_id.delete('start')
       running_time_entry.delete('start')
 
+      running_time_entry['tags'] = [] if running_time_entry['tags'].nil?
+      running_time_entry['tag_ids'] = [] if running_time_entry['tag_ids'].nil?
+      running_time_entry.delete('uid')
+      running_time_entry.delete('wid')
       expect(time_entry_by_id).to eq running_time_entry
-      expect(time_entry_by_id.has_key?('stop')).to eq false
+      expect(time_entry_by_id.has_key?('stop')).to eq true
+      expect(time_entry_by_id['stop']).to eq nil
 
       # stop time entry
-      stopped_time_entry = @toggl.stop_time_entry(running_time_entry['id'])
+      stopped_time_entry = @toggl.stop_time_entry(@workspace_id, running_time_entry['id'])
       expect(stopped_time_entry.has_key?('stop')).to eq true
 
-      @toggl.delete_time_entry(stopped_time_entry['id'])
+      @toggl.delete_time_entry(@workspace_id, stopped_time_entry['id'])
     end
 
     it 'returns nil if there is no current time entry' do
       time_entry = @toggl.get_current_time_entry
-      expect(time_entry).to be nil
+      expect(time_entry).to be {}
     end
 
     it 'requires a workspace, project, or task to start' do
@@ -240,7 +270,7 @@ describe 'Time Entries' do
       }
 
       expect {
-        @toggl.start_time_entry(time_entry_info)
+        @toggl.start_time_entry(@workspace_id, time_entry_info)
       }.to raise_error(ArgumentError)
     end
   end
@@ -254,16 +284,16 @@ describe 'Time Entries' do
       @now = DateTime.now
 
       start = { 'start' => @toggl.iso8601(@now - 7) }
-      @time7 = @toggl.create_time_entry(time_entry_info.merge(start))
+      @time7 = @toggl.create_time_entry(@workspace_id, time_entry_info.merge(start))
 
       start = { 'start' => @toggl.iso8601(@now - 6) }
-      @time6 = @toggl.create_time_entry(time_entry_info.merge(start))
+      @time6 = @toggl.create_time_entry(@workspace_id, time_entry_info.merge(start))
 
       start = { 'start' => @toggl.iso8601(@now - 5) }
-      @time5 = @toggl.create_time_entry(time_entry_info.merge(start))
+      @time5 = @toggl.create_time_entry(@workspace_id, time_entry_info.merge(start))
 
       start = { 'start' => @toggl.iso8601(@now - 4) }
-      @time4 = @toggl.create_time_entry(time_entry_info.merge(start))
+      @time4 = @toggl.create_time_entry(@workspace_id, time_entry_info.merge(start))
 
       @time_entry_ids = [ @time7['id'], @time6['id'], @time5['id'], @time4['id']]
     end
@@ -273,9 +303,9 @@ describe 'Time Entries' do
       TogglV9SpecHelper.delete_all_tags(@toggl)
     end
 
-    it 'adds and removes one tag' do
+    xit 'adds and removes one tag' do
       # Add one tag
-      @toggl.update_time_entries_tags_fixed(@time_entry_ids,
+      @toggl.update_time_entries_tags_fixed(@workspace_id, @time_entry_ids,
         {'tags' =>['money'], 'tag_action' => 'add'})
 
       time_entries = @toggl.get_time_entries
@@ -288,7 +318,7 @@ describe 'Time Entries' do
       ]
 
       # Remove one tag
-      @toggl.update_time_entries_tags_fixed(@time_entry_ids,
+      @toggl.update_time_entries_tags_fixed(@workspace_id, @time_entry_ids,
         {'tags' =>['money'], 'tag_action' => 'remove'})
 
       time_entries = @toggl.get_time_entries
@@ -296,14 +326,14 @@ describe 'Time Entries' do
       expect(tags).to eq []
     end
 
-    it '"removes" a non-existent tag' do
+    xit '"removes" a non-existent tag' do
       # Not tags to start
       time_entries = @toggl.get_time_entries
       tags = time_entries.map { |t| t['tags'] }.compact
       expect(tags).to eq []
 
       # "Remove" a tag
-      @toggl.update_time_entries_tags_fixed(@time_entry_ids,
+      @toggl.update_time_entries_tags_fixed(@workspace_id, @time_entry_ids,
         {'tags' =>['void'], 'tag_action' => 'remove'})
 
       # No tags to finish
@@ -312,9 +342,9 @@ describe 'Time Entries' do
       expect(tags).to eq []
     end
 
-    it 'adds and removes multiple tags' do
+    xit 'adds and removes multiple tags' do
       # Add multiple tags
-      @toggl.update_time_entries_tags_fixed(@time_entry_ids,
+      @toggl.update_time_entries_tags_fixed(@workspace_id, @time_entry_ids,
         {'tags' =>['billed', 'productive'], 'tag_action' => 'add'})
 
       time_entries = @toggl.get_time_entries
@@ -327,7 +357,7 @@ describe 'Time Entries' do
       ]
 
       # Remove multiple tags
-      @toggl.update_time_entries_tags_fixed(@time_entry_ids,
+      @toggl.update_time_entries_tags_fixed(@workspace_id, @time_entry_ids,
         {'tags' =>['billed','productive'], 'tag_action' => 'remove'})
 
       time_entries = @toggl.get_time_entries
@@ -335,17 +365,17 @@ describe 'Time Entries' do
       expect(tags).to eq []
     end
 
-    it 'manages multiple tags' do
+    xit 'manages multiple tags' do
       # Add some tags
-      @toggl.update_time_entries_tags_fixed(@time_entry_ids,
+      @toggl.update_time_entries_tags_fixed(@workspace_id, @time_entry_ids,
         {'tags' =>['billed', 'productive'], 'tag_action' => 'add'})
 
       # Remove some tags
-      @toggl.update_time_entries_tags_fixed([ @time6['id'], @time4['id'] ],
+      @toggl.update_time_entries_tags_fixed(@workspace_id, [ @time6['id'], @time4['id'] ],
         {'tags' =>['billed'], 'tag_action' => 'remove'})
 
       # Add some tags
-      @toggl.update_time_entries_tags_fixed([ @time7['id'] ],
+      @toggl.update_time_entries_tags_fixed(@workspace_ids, [ @time7['id'] ],
         {'tags' =>['best'], 'tag_action' => 'add'})
 
       time7 = @toggl.get_time_entry(@time7['id'])

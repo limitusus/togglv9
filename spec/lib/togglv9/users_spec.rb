@@ -28,7 +28,7 @@ describe 'Users' do
 
   it 'returns my_projects and my_deleted_projects' do
     # Create project
-    project = @toggl.create_project({ 'name' => 'my project', 'wid' => @workspace_id })
+    project = @toggl.create_project(@workspace_id, { 'name' => 'my project' })
 
     my_project_ids         = @toggl.my_projects.map { |p| p['id'] }
     my_deleted_project_ids = @toggl.my_deleted_projects.map { |p| p['id'] }
@@ -37,13 +37,14 @@ describe 'Users' do
     expect(my_deleted_project_ids).not_to include(project['id'])
 
     # Delete project
-    @toggl.delete_project(project['id'])
+    @toggl.delete_project(@workspace_id, project['id'])
 
     my_project_ids         = @toggl.my_projects.map { |p| p['id'] }
-    my_deleted_project_ids = @toggl.my_deleted_projects.map { |p| p['id'] }
+    # FIXME: in v9 the /me response looks not to contain projects that were already deleted
+    # my_deleted_project_ids = @toggl.my_deleted_projects.map { |p| p['id'] }
 
     expect(my_project_ids).to eq []
-    expect(my_deleted_project_ids).to include(project['id'])
+    # expect(my_deleted_project_ids).to include(project['id'])
   end
 
   it 'returns my_tags' do
@@ -67,15 +68,19 @@ describe 'Users' do
   end
 
   context 'new user' do
-    it 'creates a new user' do
+    # FIXME: user creation API is deprecated https://engineering.toggl.com/changes/2023/11/02/v9-auth-endpoints-deprecation/index.html
+    xit 'creates a new user' do
       now = Time.now.to_i
       user_info = {
         'email' => "test-#{now}+1@mailinator.com",
         'timezone' => 'Etc/UTC'
       }
-      user_password = { 'password' => "password-#{now}+1" }
+      user_additional = {
+        'password' => "password-#{now}+1",
+        'tos_accepted' => 'true'
+      }
 
-      new_user = @toggl.create_user(user_info.merge(user_password))
+      new_user = @toggl.create_user(user_info.merge(user_additional))
       expect(new_user).to include(user_info)
     end
   end

@@ -75,8 +75,7 @@ module TogglV9
       full_resp = _call_api(debug_output: lambda { "POST #{resource} / #{data}" },
                   api_call: lambda { self.conn.post(resource, Oj.dump(data)) } )
       return {} if full_resp == {}
-      resp = Oj.load(full_resp.body)
-      resp['data']
+      Oj.load(full_resp.body)
     end
 
     def put(resource, data='')
@@ -84,8 +83,15 @@ module TogglV9
       full_resp = _call_api(debug_output: lambda { "PUT #{resource} / #{data}" },
                   api_call: lambda { self.conn.put(resource, Oj.dump(data)) } )
       return {} if full_resp == {}
-      resp = Oj.load(full_resp.body)
-      resp['data']
+      Oj.load(full_resp.body)
+    end
+
+    def patch(resource, data='')
+      resource.gsub!('+', '%2B')
+      full_resp = _call_api(debug_output: lambda { "PATCH #{resource} / #{data}" },
+                  api_call: lambda { self.conn.patch(resource, Oj.dump(data)) } )
+      return {} if full_resp == {}
+      Oj.load(full_resp.body)
     end
 
     def delete(resource)

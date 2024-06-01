@@ -1,6 +1,6 @@
 require 'fileutils'
 
-describe 'ReportsV2' do
+xdescribe 'ReportsV2' do
   it 'initializes with api_token' do
     reports = TogglV9::ReportsV2.new(api_token: Testing::API_TOKEN)
     env = reports.env

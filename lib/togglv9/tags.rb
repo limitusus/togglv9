@@ -8,18 +8,18 @@ module TogglV9
     # name : The name of the tag (string, required, unique in workspace)
     # wid  : workspace ID, where the tag will be used (integer, required)
 
-    def create_tag(params)
-      requireParams(params, ['name', 'wid'])
-      post "tags", { 'tag' => params }
+    def create_tag(workspace_id, params)
+      requireParams(params, ['name'])
+      post "workspaces/#{workspace_id}/tags", params
     end
 
     # ex: update_tag(12345, { :name => "same tame game" })
-    def update_tag(tag_id, params)
-      put "tags/#{tag_id}", { 'tag' => params }
+    def update_tag(workspace_id, tag_id, params)
+      put "workspaces/#{workspace_id}/tags/#{tag_id}", params
     end
 
-    def delete_tag(tag_id)
-      delete "tags/#{tag_id}"
+    def delete_tag(workspace_id, tag_id)
+      delete "workspaces/#{workspace_id}/tags/#{tag_id}"
     end
   end
 end
