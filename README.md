@@ -34,7 +34,7 @@ Or install it yourself as:
 
 ### TogglV9::API
 
-TogglV8::API communicates with [Toggl API v9](https://engineering.toggl.com/docs/) and can be initialized in one of three ways.
+TogglV9::API communicates with [Toggl API v9](https://engineering.toggl.com/docs/) and can be initialized in one of three ways.
 
 ```ruby
 TogglV9::API.new                      # reads API token from file ~/.toggl
@@ -46,12 +46,12 @@ TogglV9::API.new(email, password)     # email & password
 
 NOTE: not supported yet. Reports V2 API is already deprecated.
 
-TogglV8::ReportsV2 communicates with [Toggl Reports API v2](https://github.com/toggl/toggl_api_docs/blob/master/reports.md) and can be initialized in one of three ways. Toggl.com requires authentication with an API token for Reports API v2.
+TogglV9::ReportsV2 communicates with [Toggl Reports API v2](https://github.com/toggl/toggl_api_docs/blob/master/reports.md) and can be initialized in one of three ways. Toggl.com requires authentication with an API token for Reports API v2.
 
 ```ruby
-TogglV8::ReportsV2.new                              # reads API token from file ~/.toggl
-TogglV8::ReportsV2.new(toggl_api_file: toggl_file)  # reads API token from toggl_file
-TogglV8::ReportsV2.new(api_token: api_token)        # explicit API token
+TogglV9::ReportsV2.new                              # reads API token from file ~/.toggl
+TogglV9::ReportsV2.new(toggl_api_file: toggl_file)  # reads API token from toggl_file
+TogglV9::ReportsV2.new(api_token: api_token)        # explicit API token
 ```
 
 **Note:** `workspace_id` must be set in order to generate reports.
@@ -83,7 +83,7 @@ time_entry   = toggl_api.create_time_entry(workspace_id, {
 })
 
 begin
-  reports               = TogglV8::ReportsV2.new(api_token: <API_TOKEN>)
+  reports               = TogglV9::ReportsV2.new(api_token: <API_TOKEN>)
   begin
     reports.summary
   rescue Exception => e

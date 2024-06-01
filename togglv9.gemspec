@@ -4,11 +4,11 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'togglv9/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = "togglv9-limitusus"
+  spec.name          = "togglv9"
   spec.version       = TogglV9::VERSION
   spec.authors       = ["Tomoya Kabe"]
   spec.email         = ["limit.usus@gmail.com"]
-  spec.summary       = %q{Toggl v9 API wrapper (See https://github.com/toggl/toggl_api_docs), originally from kanet77/togglv8}
+  spec.summary       = %q{Toggl v9 API wrapper (See https://engineering.toggl.com/docs/), originally from kanet77/togglv8}
   spec.homepage      = "https://github.com/limitusus/togglv9"
   spec.license       = "MIT"
 
