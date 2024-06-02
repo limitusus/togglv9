@@ -21,7 +21,7 @@ describe 'Dashboard' do
 
     it 'gets dashboard data' do
       dashboard = @toggl.dashboard(@workspace_id)
-      expect(dashboard['most_active_user']).to be {}
+      expect(dashboard['most_active_user']).to eq({})
       expect(dashboard['activity']).to_not be nil
       expect(dashboard['activity'].first['user_id']).to eq @toggl.me['id']
       expect(dashboard['activity'].first['project_id']).to be nil

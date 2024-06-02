@@ -261,7 +261,7 @@ describe 'Time Entries' do
 
     it 'returns nil if there is no current time entry' do
       time_entry = @toggl.get_current_time_entry
-      expect(time_entry).to be {}
+      expect(time_entry).to eq({})
     end
 
     it 'requires a workspace, project, or task to start' do
