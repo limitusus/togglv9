@@ -81,13 +81,19 @@ module TogglV9
       get "me/time_entries%s" % [params.empty? ? "" : "?#{params.join('&')}"]
     end
 
-    # FIXME: v9 PATCH
     # Example params: {'tags' =>['billed','productive'], 'tag_action' => 'add'}
     # tag_action can be 'add' or 'remove'
     def update_time_entries_tags(workspace_id, time_entry_ids, params)
       return if time_entry_ids.nil?
       requireParams(params, ['tags', 'tag_action'])
-      patch "workspaces/#{workspace_id}/time_entries/#{time_entry_ids.join(',')}", params
+      patch_params = [
+        {
+          'op' => params['tag_action'],
+          'path' => '/tags',
+          'value' => params['tags']
+        }
+      ]
+      patch "workspaces/#{workspace_id}/time_entries/#{time_entry_ids.join(',')}", patch_params
     end
 
     # TEMPORARY FIXED version of API issue

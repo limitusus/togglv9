@@ -303,7 +303,7 @@ describe 'Time Entries' do
       TogglV9SpecHelper.delete_all_tags(@toggl)
     end
 
-    xit 'adds and removes one tag' do
+    it 'adds and removes one tag' do
       # Add one tag
       @toggl.update_time_entries_tags_fixed(@workspace_id, @time_entry_ids,
         {'tags' =>['money'], 'tag_action' => 'add'})
@@ -322,15 +322,15 @@ describe 'Time Entries' do
         {'tags' =>['money'], 'tag_action' => 'remove'})
 
       time_entries = @toggl.get_time_entries
-      tags = time_entries.map { |t| t['tags'] }.compact
-      expect(tags).to eq []
+      tags = time_entries.map { |t| t['tags'] }
+      expect(tags).to eq [[],[],[],[]]
     end
 
-    xit '"removes" a non-existent tag' do
+    it '"removes" a non-existent tag' do
       # Not tags to start
       time_entries = @toggl.get_time_entries
-      tags = time_entries.map { |t| t['tags'] }.compact
-      expect(tags).to eq []
+      tags = time_entries.map { |t| t['tags'] }
+      expect(tags).to eq [[],[],[],[]]
 
       # "Remove" a tag
       @toggl.update_time_entries_tags_fixed(@workspace_id, @time_entry_ids,
@@ -338,11 +338,11 @@ describe 'Time Entries' do
 
       # No tags to finish
       time_entries = @toggl.get_time_entries
-      tags = time_entries.map { |t| t['tags'] }.compact
-      expect(tags).to eq []
+      tags = time_entries.map { |t| t['tags'] }
+      expect(tags).to eq [[],[],[],[]]
     end
 
-    xit 'adds and removes multiple tags' do
+    it 'adds and removes multiple tags' do
       # Add multiple tags
       @toggl.update_time_entries_tags_fixed(@workspace_id, @time_entry_ids,
         {'tags' =>['billed', 'productive'], 'tag_action' => 'add'})
@@ -361,11 +361,11 @@ describe 'Time Entries' do
         {'tags' =>['billed','productive'], 'tag_action' => 'remove'})
 
       time_entries = @toggl.get_time_entries
-      tags = time_entries.map { |t| t['tags'] }.compact
-      expect(tags).to eq []
+      tags = time_entries.map { |t| t['tags'] }
+      expect(tags).to eq [[],[],[],[]]
     end
 
-    xit 'manages multiple tags' do
+    it 'manages multiple tags' do
       # Add some tags
       @toggl.update_time_entries_tags_fixed(@workspace_id, @time_entry_ids,
         {'tags' =>['billed', 'productive'], 'tag_action' => 'add'})
@@ -375,7 +375,7 @@ describe 'Time Entries' do
         {'tags' =>['billed'], 'tag_action' => 'remove'})
 
       # Add some tags
-      @toggl.update_time_entries_tags_fixed(@workspace_ids, [ @time7['id'] ],
+      @toggl.update_time_entries_tags_fixed(@workspace_id, [ @time7['id'] ],
         {'tags' =>['best'], 'tag_action' => 'add'})
 
       time7 = @toggl.get_time_entry(@time7['id'])
