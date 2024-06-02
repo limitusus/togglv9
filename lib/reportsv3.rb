@@ -1,10 +1,10 @@
 module TogglV9
   TOGGL_REPORTS_URL = 'https://api.track.toggl.com/reports/api/'
 
-  class ReportsV2
+  class ReportsV3
     include TogglV9::Connection
 
-    REPORTS_V2_URL = TOGGL_REPORTS_URL + 'v2/'
+    REPORTS_V3_URL = TOGGL_REPORTS_URL + 'v3/'
 
     attr_reader :conn
 
@@ -30,7 +30,19 @@ module TogglV9
         end
       end
 
-      @conn = TogglV9::Connection.open(username, API_TOKEN, REPORTS_V2_URL, opts)
+      @conn = TogglV9::Connection.open(username, API_TOKEN, REPORTS_V3_URL, opts)
+    end
+
+    ##
+    # ---------
+    # :section: Utils
+
+    # If clients exist:
+    #   [{"id"=>65220674, "name"=>"test1"}, {"id"=>65220675, "name"=>"test2"}]
+    # else
+    #   {}
+    def list_clients
+      post "workspace/#{@workspace_id}/filters/clients", {start: 0}
     end
 
     ##
@@ -74,10 +86,12 @@ module TogglV9
     # extension can be one of ['.pdf', '.csv', '.xls']. Possibly others?
     def report(type, extension, params)
       raise "workspace_id is required" if @workspace_id.nil?
-      get "#{type}#{extension}", {
-        :'user_agent' => @user_agent,
-        :'workspace_id' => @workspace_id,
-      }.merge(params)
+      json = true
+      json = false if extension != ''
+      post "workspace/#{@workspace_id}/#{type}/time_entries#{extension}", {
+             'user_agent' => @user_agent,
+             'start_date' => (Time.now - 6 * 24 * 60 * 60).strftime('%F')
+      }.merge(params), json_response=json
     end
 
     def weekly(extension='', params={})
@@ -85,7 +99,7 @@ module TogglV9
     end
 
     def details(extension='', params={})
-      report('details', extension, params)
+      report('search', extension, params)
     end
 
     def summary(extension='', params={})
@@ -122,23 +136,6 @@ module TogglV9
       end
     end
 
-
-    ##
-    # ---------
-    # :section: Miscellaneous information
-    #
-    def revision
-      get "revision"
-    end
-
-    def index
-      get "index"
-    end
-
-    def env
-      get "env"
-    end
-
     ##
     # ---------
     # :section: Project Dashboard
@@ -163,15 +160,6 @@ module TogglV9
         :'workspace_id' => @workspace_id,
         :'project_id' => project_id,
       }.merge(params)
-    end
-
-    ##
-    # ---------
-    # :section: Error (for testing)
-    #
-    # excludes endpoints 'error500' and 'division_by_zero_error'
-    def error400
-      get "error400"
     end
   end
 end

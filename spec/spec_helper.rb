@@ -70,7 +70,7 @@ end
 def file_is_pdf(filename)
   expect(File.exist?(filename))
   first_line = File.foreach(filename).first
-  expect(first_line).to eq "%PDF-1.3\n"
+  expect(first_line).to eq "%PDF-1.4\n"
 end
 
 def file_is_xls(filename)

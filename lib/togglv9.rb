@@ -3,7 +3,7 @@ require_relative 'togglv9/version'
 require_relative 'togglv9/connection'
 
 require_relative 'togglv9/togglv9'
-require_relative 'reportsv2'
+require_relative 'reportsv3'
 
 # :mode => :compat will convert symbols to strings
 Oj.default_options = { :mode => :compat }
