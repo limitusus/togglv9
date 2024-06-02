@@ -70,12 +70,15 @@ module TogglV9
       end
     end
 
-    def post(resource, data='')
+    def post(resource, data='', json_response=true)
       resource.gsub!('+', '%2B')
       full_resp = _call_api(debug_output: lambda { "POST #{resource} / #{data}" },
                   api_call: lambda { self.conn.post(resource, Oj.dump(data)) } )
       return {} if full_resp == {}
-      Oj.load(full_resp.body)
+      if json_response
+        return Oj.load(full_resp.body)
+      end
+      full_resp.body
     end
 
     def put(resource, data='')
