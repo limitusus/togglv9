@@ -1,4 +1,4 @@
 module TogglV9
   # :section:
-  VERSION = "1.2.2"
+  VERSION = "0.1.0"
 end
