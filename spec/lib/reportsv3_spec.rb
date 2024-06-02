@@ -1,15 +1,15 @@
 require 'fileutils'
 
-xdescribe 'ReportsV2' do
+describe 'ReportsV3' do
   it 'initializes with api_token' do
-    reports = TogglV9::ReportsV2.new(api_token: Testing::API_TOKEN)
+    reports = TogglV9::ReportsV3.new(api_token: Testing::API_TOKEN)
     env = reports.env
     expect(env).to_not be nil
     expect(env['user']['api_token']).to eq Testing::API_TOKEN
   end
 
   it 'does not initialize with bogus api_token' do
-    reports = TogglV9::ReportsV2.new(api_token: '4880nqor1orr9n241sn08070q33oq49s')
+    reports = TogglV9::ReportsV3.new(api_token: '4880nqor1orr9n241sn08070q33oq49s')
     expect { reports.env }.to raise_error(RuntimeError, "HTTP Status: 401")
   end
 
@@ -29,7 +29,7 @@ xdescribe 'ReportsV2' do
       toggl_file = File.join(@tmp_home, '.toggl')
       File.open(toggl_file, 'w') { |file| file.write(Testing::API_TOKEN) }
 
-      reports = TogglV9::ReportsV2.new
+      reports = TogglV9::ReportsV3.new
       env = reports.env
       expect(env).to_not be nil
       expect(env['user']['api_token']).to eq Testing::API_TOKEN
@@ -39,20 +39,20 @@ xdescribe 'ReportsV2' do
       toggl_file = File.join(@tmp_home, 'my_toggl')
       File.open(toggl_file, 'w') { |file| file.write(Testing::API_TOKEN) }
 
-      reports = TogglV9::ReportsV2.new(toggl_api_file: toggl_file)
+      reports = TogglV9::ReportsV3.new(toggl_api_file: toggl_file)
       env = reports.env
       expect(env).to_not be nil
       expect(env['user']['api_token']).to eq Testing::API_TOKEN
     end
 
     it 'raises error if .toggl file is missing' do
-      expect{ reports = TogglV9::ReportsV2.new }.to raise_error(RuntimeError)
+      expect{ reports = TogglV9::ReportsV3.new }.to raise_error(RuntimeError)
     end
   end
 
   context 'handles errors' do
     before :all do
-      @reports = TogglV9::ReportsV2.new(api_token: Testing::API_TOKEN)
+      @reports = TogglV9::ReportsV3.new(api_token: Testing::API_TOKEN)
       @reports.workspace_id = @workspace_id
     end
 
@@ -78,7 +78,7 @@ xdescribe 'ReportsV2' do
 
   context 'miscellaneous' do
     it 'env returns environment' do
-      reports = TogglV9::ReportsV2.new(api_token: Testing::API_TOKEN)
+      reports = TogglV9::ReportsV3.new(api_token: Testing::API_TOKEN)
       reports.workspace_id = @workspace_id
       env = reports.env
       expect(env['workspace']).to_not be nil
@@ -87,14 +87,14 @@ xdescribe 'ReportsV2' do
     end
 
     it 'index returns endpoints' do
-      reports = TogglV9::ReportsV2.new(api_token: Testing::API_TOKEN)
+      reports = TogglV9::ReportsV3.new(api_token: Testing::API_TOKEN)
       reports.workspace_id = @workspace_id
       index = reports.index
       expect(index['Welcome to reports api V2. VALID requests are:']).to_not be nil
     end
 
     it 'revision has not changed' do
-      reports = TogglV9::ReportsV2.new(api_token: Testing::API_TOKEN)
+      reports = TogglV9::ReportsV3.new(api_token: Testing::API_TOKEN)
       reports.workspace_id = @workspace_id
       expect(reports.revision).to start_with "0.0.38\n"
     end
@@ -115,7 +115,7 @@ xdescribe 'ReportsV2' do
     end
 
     it 'dashboard' do
-      reports = TogglV9::ReportsV2.new(api_token: Testing::API_TOKEN)
+      reports = TogglV9::ReportsV3.new(api_token: Testing::API_TOKEN)
       reports.workspace_id = @toggl.workspaces.first['id']
       project_dashboard = reports.project(@project['id'])
 
@@ -128,7 +128,7 @@ xdescribe 'ReportsV2' do
       @toggl = TogglV9::API.new(Testing::API_TOKEN)
       @workspaces = @toggl.workspaces
       @workspace_id = @workspaces.first['id']
-      @reports = TogglV9::ReportsV2.new(api_token: Testing::API_TOKEN)
+      @reports = TogglV9::ReportsV3.new(api_token: Testing::API_TOKEN)
       @reports.workspace_id = @workspace_id
     end
 
@@ -158,7 +158,7 @@ xdescribe 'ReportsV2' do
 
       @time_entry = @toggl.create_time_entry(time_entry_info)
 
-      @reports = TogglV9::ReportsV2.new(api_token: Testing::API_TOKEN)
+      @reports = TogglV9::ReportsV3.new(api_token: Testing::API_TOKEN)
       @reports.workspace_id = @workspace_id
 
       @tmp_home = mktemp_dir

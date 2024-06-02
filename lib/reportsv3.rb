@@ -1,10 +1,10 @@
 module TogglV9
   TOGGL_REPORTS_URL = 'https://api.track.toggl.com/reports/api/'
 
-  class ReportsV2
+  class ReportsV3
     include TogglV9::Connection
 
-    REPORTS_V2_URL = TOGGL_REPORTS_URL + 'v2/'
+    REPORTS_V3_URL = TOGGL_REPORTS_URL + 'v3/'
 
     attr_reader :conn
 
@@ -30,7 +30,7 @@ module TogglV9
         end
       end
 
-      @conn = TogglV9::Connection.open(username, API_TOKEN, REPORTS_V2_URL, opts)
+      @conn = TogglV9::Connection.open(username, API_TOKEN, REPORTS_V3_URL, opts)
     end
 
     ##
