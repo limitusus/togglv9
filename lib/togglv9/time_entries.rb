@@ -76,7 +76,7 @@ module TogglV9
       start_date = dates[:start_date]
       end_date = dates[:end_date]
       params = []
-      start_date = Time.now - 9 * 24 * 60 * 60 if start_date.nil?
+      start_date = Time.now - (9 * 24 * 60 * 60) if start_date.nil?
       end_date = Time.now if end_date.nil?
       params.push("start_date=#{iso8601(start_date)}")
       params.push("end_date=#{iso8601(end_date)}")

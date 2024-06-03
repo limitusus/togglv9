@@ -101,7 +101,7 @@ module TogglV9
 
     # [Get project tasks](https://github.com/toggl/toggl_api_docs/blob/master/chapters/projects.md#get-project-tasks)
     def get_project_tasks(workspace_id, project_id)
-      get "workspaces/#{workspace_id}/tasks", { 'pid': project_id }
+      get "workspaces/#{workspace_id}/tasks", { pid: project_id }
     end
 
     # [Delete multiple projects](https://github.com/toggl/toggl_api_docs/blob/master/chapters/projects.md#delete-multiple-projects)

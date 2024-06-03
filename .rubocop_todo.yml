@@ -14,22 +14,6 @@ Gemspec/DevelopmentDependencies:
   Exclude:
     - 'togglv9.gemspec'
 
-# Offense count: 2
-# This cop supports safe autocorrection (--autocorrect).
-Lint/AmbiguousOperatorPrecedence:
-  Exclude:
-    - 'lib/reportsv3.rb'
-    - 'lib/togglv9/time_entries.rb'
-
-# Offense count: 4
-# This cop supports safe autocorrection (--autocorrect).
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: strict, consistent
-Lint/SymbolConversion:
-  Exclude:
-    - 'lib/reportsv3.rb'
-    - 'lib/togglv9/projects.rb'
-
 # Offense count: 4
 # Configuration parameters: AllowedMethods, AllowedPatterns, CountRepeatedAttributes.
 Metrics/AbcSize:
