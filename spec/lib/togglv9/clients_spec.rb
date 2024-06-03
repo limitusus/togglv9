@@ -44,29 +44,29 @@ describe 'Clients' do
 
       it 'gets clients' do
         client_ids = @toggl.clients(@workspace_id).map { |c| c['id'] }
-        expect(client_ids).to match_array [@client['id'], @client2['id']]
+        expect(client_ids).to contain_exactly(@client['id'], @client2['id'])
       end
 
       it 'gets workspace clients' do
         client_ids = @toggl.clients(@workspace_id).map { |c| c['id'] }
-        expect(client_ids).to match_array [@client['id'], @client2['id']]
+        expect(client_ids).to contain_exactly(@client['id'], @client2['id'])
       end
     end
 
     it 'creates a client' do
-      expect(@client).to_not be nil
+      expect(@client).not_to be_nil
       expect(@client['name']).to eq 'new client +1'
-      expect(@client['notes']).to eq nil
+      expect(@client['notes']).to be_nil
       expect(@client['wid']).to eq @workspace_id
     end
 
     it 'gets client data' do
       client = @toggl.get_client(@workspace_id, @client['id'])
-      expect(client).to_not be nil
+      expect(client).not_to be_nil
       expect(client['name']).to eq @client['name']
       expect(client['wid']).to eq @client['wid']
       expect(client['notes']).to eq @client['notes']
-      expect(client['at']).to_not be nil
+      expect(client['at']).not_to be_nil
     end
 
     context 'client projects' do
@@ -95,7 +95,7 @@ describe 'Clients' do
 
           projects = @toggl.get_client_projects(@workspace_id, @client['id'])
           project_ids = projects.map { |p| p['id'] }
-          expect(project_ids).to match_array [@project['id'], project2['id']]
+          expect(project_ids).to contain_exactly(@project['id'], project2['id'])
 
           @toggl.delete_project(@workspace_id, project2['id'])
         end

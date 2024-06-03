@@ -4,7 +4,7 @@ describe 'TogglV9' do
   it 'initializes with api_token' do
     toggl = TogglV9::API.new(Testing::API_TOKEN)
     me = toggl.me
-    expect(me).to_not be nil
+    expect(me).not_to be_nil
     expect(me['api_token']).to eq Testing::API_TOKEN
     expect(me['email']).to eq Testing::EMAIL
   end
@@ -12,7 +12,7 @@ describe 'TogglV9' do
   it 'initializes with username and password' do
     toggl = TogglV9::API.new(Testing::EMAIL, Testing::PASSWORD)
     me = toggl.me
-    expect(me).to_not be nil
+    expect(me).not_to be_nil
     expect(me['api_token']).to eq Testing::API_TOKEN
     expect(me['email']).to eq Testing::EMAIL
   end
@@ -40,7 +40,7 @@ describe 'TogglV9' do
 
       toggl = TogglV9::API.new
       me = toggl.me
-      expect(me).to_not be nil
+      expect(me).not_to be_nil
       expect(me['api_token']).to eq Testing::API_TOKEN
       expect(me['email']).to eq Testing::EMAIL
     end
@@ -51,7 +51,7 @@ describe 'TogglV9' do
 
       toggl = TogglV9::API.new
       me = toggl.me
-      expect(me).to_not be nil
+      expect(me).not_to be_nil
       expect(me['api_token']).to eq Testing::API_TOKEN
       expect(me['email']).to eq Testing::EMAIL
     end

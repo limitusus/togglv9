@@ -58,29 +58,6 @@ Naming/MethodName:
     - 'lib/togglv9/connection.rb'
     - 'spec/togglv9_spec_helper.rb'
 
-# Offense count: 15
-# This cop supports unsafe autocorrection (--autocorrect-all).
-RSpec/BeEq:
-  Exclude:
-    - 'spec/lib/togglv9/clients_spec.rb'
-    - 'spec/lib/togglv9/projects_spec.rb'
-    - 'spec/lib/togglv9/tags_spec.rb'
-    - 'spec/lib/togglv9/tasks_spec.rb'
-    - 'spec/lib/togglv9/time_entries_spec.rb'
-
-# Offense count: 14
-# This cop supports safe autocorrection (--autocorrect).
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: be, be_nil
-RSpec/BeNil:
-  Exclude:
-    - 'spec/lib/togglv9/clients_spec.rb'
-    - 'spec/lib/togglv9/dashboard_spec.rb'
-    - 'spec/lib/togglv9/projects_spec.rb'
-    - 'spec/lib/togglv9/tags_spec.rb'
-    - 'spec/lib/togglv9/tasks_spec.rb'
-    - 'spec/lib/togglv9_spec.rb'
-
 # Offense count: 37
 RSpec/BeforeAfterAll:
   Exclude:
@@ -167,13 +144,6 @@ RSpec/InstanceVariable:
     - 'spec/lib/togglv9/workspaces_spec.rb'
     - 'spec/lib/togglv9_spec.rb'
 
-# Offense count: 4
-# This cop supports safe autocorrection (--autocorrect).
-RSpec/MatchArray:
-  Exclude:
-    - 'spec/lib/togglv9/clients_spec.rb'
-    - 'spec/lib/togglv9/tasks_spec.rb'
-
 # Offense count: 5
 # Configuration parameters: .
 # SupportedStyles: have_received, receive
@@ -195,20 +165,6 @@ RSpec/NestedGroups:
 RSpec/NoExpectationExample:
   Exclude:
     - 'spec/lib/reportsv3_spec.rb'
-
-# Offense count: 14
-# This cop supports safe autocorrection (--autocorrect).
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: not_to, to_not
-RSpec/NotToNot:
-  Exclude:
-    - 'spec/lib/togglv9/clients_spec.rb'
-    - 'spec/lib/togglv9/dashboard_spec.rb'
-    - 'spec/lib/togglv9/projects_spec.rb'
-    - 'spec/lib/togglv9/tags_spec.rb'
-    - 'spec/lib/togglv9/tasks_spec.rb'
-    - 'spec/lib/togglv9/users_spec.rb'
-    - 'spec/lib/togglv9_spec.rb'
 
 # Offense count: 2
 RSpec/PendingWithoutReason:

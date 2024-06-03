@@ -24,19 +24,19 @@ describe 'Projects' do
     end
 
     it 'creates a project' do
-      expect(@project).to_not be nil
+      expect(@project).not_to be_nil
       expect(@project['name']).to eq 'new project +1'
-      expect(@project['billable']).to eq nil
-      expect(@project['is_private']).to eq true
-      expect(@project['active']).to eq true
-      expect(@project['template']).to eq nil
-      expect(@project['auto_estimates']).to eq nil
+      expect(@project['billable']).to be_nil
+      expect(@project['is_private']).to be true
+      expect(@project['active']).to be true
+      expect(@project['template']).to be_nil
+      expect(@project['auto_estimates']).to be_nil
       expect(@project['wid']).to eq @workspace_id
     end
 
     it 'gets project data' do
       project = @toggl.get_project(@workspace_id, @project['id'])
-      expect(project).to_not be nil
+      expect(project).not_to be_nil
       expect(project['wid']).to eq @project['wid']
       expect(project['name']).to eq @project['name']
       expect(project['billable']).to eq @project['billable']
@@ -44,14 +44,14 @@ describe 'Projects' do
       expect(project['active']).to eq @project['active']
       expect(project['template']).to eq @project['template']
       expect(project['auto_estimates']).to eq @project['auto_estimates']
-      expect(project['at']).to_not be nil
+      expect(project['at']).not_to be_nil
     end
 
     it 'gets project users' do
       users = @toggl.get_project_users(@workspace_id, @project['id'])
       expect(users.length).to eq 1
       expect(users.first['user_id']).to eq Testing::USER_ID
-      expect(users.first['manager']).to eq true
+      expect(users.first['manager']).to be true
     end
   end
 

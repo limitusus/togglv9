@@ -24,11 +24,11 @@ describe 'Tasks', :pro_account do
     end
 
     it 'creates a task' do
-      expect(@task).to_not be nil
+      expect(@task).not_to be_nil
       expect(@task['name']).to eq 'new task +1'
       expect(@task['pid']).to eq @project['id']
       expect(@task['wid']).to eq @workspace_id
-      expect(@task['active']).to eq true
+      expect(@task['active']).to be true
     end
 
     it 'gets a task' do
@@ -75,7 +75,7 @@ describe 'Tasks', :pro_account do
       # start with 3 active tasks
       tasks = @toggl.get_project_tasks(@project['id'])
       active_flags = tasks.map { |t| t['active'] }
-      expect(active_flags).to match_array([true, true, true])
+      expect(active_flags).to contain_exactly(true, true, true)
 
       t_ids = [@task1, @task2, @task3].map { |t| t['id'] }
       params = { 'active' => false }

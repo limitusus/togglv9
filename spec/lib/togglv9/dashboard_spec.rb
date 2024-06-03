@@ -22,9 +22,9 @@ describe 'Dashboard' do
     it 'gets dashboard data' do
       dashboard = @toggl.dashboard(@workspace_id)
       expect(dashboard['most_active_user']).to eq({})
-      expect(dashboard['activity']).to_not be nil
+      expect(dashboard['activity']).not_to be_nil
       expect(dashboard['activity'].first['user_id']).to eq @toggl.me['id']
-      expect(dashboard['activity'].first['project_id']).to be nil
+      expect(dashboard['activity'].first['project_id']).to be_nil
       expect(dashboard['activity'].first['description']).to eq 'new time entry +1'
     end
   end

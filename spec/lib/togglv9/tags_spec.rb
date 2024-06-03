@@ -19,9 +19,9 @@ describe 'Tags' do
     end
 
     it 'creates a tag' do
-      expect(@tag).to_not be nil
+      expect(@tag).not_to be_nil
       expect(@tag['name']).to eq 'new tag +1'
-      expect(@tag['notes']).to eq nil
+      expect(@tag['notes']).to be_nil
       expect(@tag['workspace_id']).to eq @workspace_id
     end
 

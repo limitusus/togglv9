@@ -7,7 +7,7 @@ describe 'Users' do
   end
 
   it 'returns /me' do
-    expect(@user).to_not be_nil
+    expect(@user).not_to be_nil
     expect(@user['id']).to eq Testing::USER_ID
     expect(@user['fullname']).to eq Testing::USERNAME
     # expect(@user['image_url']).to eq 'https://assets.toggl.com/avatars/a5d106126b6bed8df283e708af0828ee.png'
