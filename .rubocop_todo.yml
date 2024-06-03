@@ -520,15 +520,6 @@ Style/RedundantSelf:
   Exclude:
     - 'lib/togglv9/connection.rb'
 
-# Offense count: 5
-# This cop supports unsafe autocorrection (--autocorrect-all).
-# Configuration parameters: Mode.
-Style/StringConcatenation:
-  Exclude:
-    - 'lib/reportsv3.rb'
-    - 'lib/togglv9/togglv9.rb'
-    - 'spec/lib/togglv9_spec.rb'
-
 # Offense count: 1
 # This cop supports safe autocorrection (--autocorrect).
 # Configuration parameters: ExactNameMatch, AllowPredicates, AllowDSLWriters, IgnoreClassMethods, AllowedMethods.

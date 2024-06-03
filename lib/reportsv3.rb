@@ -4,7 +4,7 @@ module TogglV9
   class ReportsV3
     include TogglV9::Connection
 
-    REPORTS_V3_URL = TOGGL_REPORTS_URL + 'v3/'
+    REPORTS_V3_URL = "#{TOGGL_REPORTS_URL}v3/"
 
     attr_reader :conn
 
@@ -18,16 +18,16 @@ module TogglV9
       username = opts[:api_token]
       if username.nil?
         toggl_api_file = opts[:toggl_api_file] || File.join(Dir.home, TOGGL_FILE)
-        if File.exist?(toggl_api_file) then
-          username = IO.read(toggl_api_file)
-        else
-          raise "Expecting one of:\n" +
-            " 1) api_token in file #{toggl_api_file}, or\n" +
-            " 2) parameter: (toggl_api_file), or\n" +
-            " 3) parameter: (api_token), or\n" +
-            "\n\tSee https://github.com/limitusus/togglv9#togglv9reportsv2" +
-            "\n\tand https://github.com/toggl/toggl_api_docs/blob/master/reports.md#authentication"
-        end
+        raise <<~EOMSG unless File.exist?(toggl_api_file)
+          Expecting one of:
+           1) api_token in file #{toggl_api_file}, or
+           2) parameter: (toggl_api_file), or
+           3) parameter: (api_token), or
+          \tSee https://github.com/limitusus/togglv9#togglv9reportsv2
+          \tand https://github.com/toggl/toggl_api_docs/blob/master/reports.md#authentication
+        EOMSG
+
+        username = IO.read(toggl_api_file)
       end
 
       @conn = TogglV9::Connection.open(username, API_TOKEN, REPORTS_V3_URL, opts)

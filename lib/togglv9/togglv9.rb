@@ -15,7 +15,7 @@ module TogglV9
   class API
     include TogglV9::Connection
 
-    TOGGL_API_V9_URL = TOGGL_API_URL + 'v9/'
+    TOGGL_API_V9_URL = "#{TOGGL_API_URL}v9/"
 
     attr_reader :conn
 
@@ -24,16 +24,17 @@ module TogglV9
       if username.nil? && password == API_TOKEN
         toggl_api_file = File.join(Dir.home, TOGGL_FILE)
         # logger.debug("toggl_api_file = #{toggl_api_file}")
-        if File.exist?(toggl_api_file) then
-          username = IO.read(toggl_api_file).strip
-        else
-          raise "Expecting one of:\n" +
-            " 1) api_token in file #{toggl_api_file}, or\n" +
-            " 2) parameter: (api_token), or\n" +
-            " 3) parameters: (username, password).\n" +
-            "\n\tSee https://github.com/kanet77/togglv9#togglv9api" +
-            "\n\tand https://github.com/toggl/toggl_api_docs/blob/master/chapters/authentication.md"
-        end
+        raise <<~EOMSG unless File.exist?(toggl_api_file)
+
+          Expecting one of:
+           1) api_token in file #{toggl_api_file}, or
+           2) parameter: (api_token), or
+           3) parameters: (username, password).
+          \tSee https://github.com/kanet77/togglv9#togglv9api
+          \tand https://github.com/toggl/toggl_api_docs/blob/master/chapters/authentication.md
+        EOMSG
+
+        username = IO.read(toggl_api_file).strip
       end
 
       @conn = TogglV9::Connection.open(username, password,

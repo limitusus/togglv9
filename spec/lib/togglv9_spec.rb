@@ -47,7 +47,7 @@ describe 'TogglV9' do
 
     it 'initializes with .toggl file ending with a newline' do
       toggl_file = File.join(@tmp_home, '.toggl')
-      File.open(toggl_file, 'w') { |file| file.write(Testing::API_TOKEN + "\n") }
+      File.open(toggl_file, 'w') { |file| file.write("#{Testing::API_TOKEN}\n") }
 
       toggl = TogglV9::API.new
       me = toggl.me
