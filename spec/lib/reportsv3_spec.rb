@@ -21,7 +21,7 @@ describe 'ReportsV3' do
     expect { reports.list_clients }.to raise_error(RuntimeError, 'HTTP Status: 403')
   end
 
-  context '.toggl file' do
+  describe '.toggl file' do
     before do
       @tmp_home = mktemp_dir
       @original_home = Dir.home

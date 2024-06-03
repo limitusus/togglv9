@@ -59,13 +59,6 @@ RSpec/BeforeAfterAll:
     - 'spec/lib/togglv9/workspaces_spec.rb'
     - 'spec/lib/togglv9_spec.rb'
 
-# Offense count: 2
-# This cop supports safe autocorrection (--autocorrect).
-RSpec/ContextMethod:
-  Exclude:
-    - 'spec/lib/reportsv3_spec.rb'
-    - 'spec/lib/togglv9_spec.rb'
-
 # Offense count: 33
 # Configuration parameters: Prefixes, AllowedPatterns.
 # Prefixes: when, with, without
