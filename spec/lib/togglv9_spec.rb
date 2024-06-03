@@ -57,7 +57,7 @@ describe 'TogglV9' do
     end
 
     it 'raises error if .toggl file is missing' do
-      expect { toggl = TogglV9::API.new }.to raise_error(RuntimeError)
+      expect { TogglV9::API.new }.to raise_error(RuntimeError)
     end
   end
 

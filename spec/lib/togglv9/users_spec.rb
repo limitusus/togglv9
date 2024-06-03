@@ -1,7 +1,7 @@
 describe 'Users' do
   before :all do
     @toggl = TogglV9::API.new(Testing::API_TOKEN)
-    @user = @toggl.me(all = true)
+    @user = @toggl.me(true)
     @workspaces = @toggl.workspaces
     @workspace_id = @workspaces.first['id']
   end

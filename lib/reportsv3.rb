@@ -92,7 +92,7 @@ module TogglV9
       post "workspace/#{@workspace_id}/#{type}/time_entries#{extension}", {
         'user_agent' => @user_agent,
         'start_date' => (Time.now - 6 * 24 * 60 * 60).strftime('%F'),
-      }.merge(params), json_response = json
+      }.merge(params), json
     end
 
     def weekly(extension = '', params = {})

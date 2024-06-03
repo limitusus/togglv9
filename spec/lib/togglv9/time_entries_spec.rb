@@ -81,7 +81,7 @@ describe 'Time Entries' do
       expect(existing_time_entry.key?('server_deleted_at')).to eq true
       expect(existing_time_entry['server_deleted_at']).to eq nil
 
-      deleted_time_entry = @toggl.delete_time_entry(@workspace_id, @time_entry['id'])
+      @toggl.delete_time_entry(@workspace_id, @time_entry['id'])
 
       expect { @toggl.get_time_entry(@time_entry['id']) }.to raise_error(RuntimeError, 'HTTP Status: 404')
     end
@@ -162,7 +162,7 @@ describe 'Time Entries' do
       existing_time_entry = @toggl.get_time_entry(@time_entry['id'])
       expect(existing_time_entry.key?('server_deleted_at')).to eq true
 
-      deleted_time_entry = @toggl.delete_time_entry(@workspace_id, @time_entry['id'])
+      @toggl.delete_time_entry(@workspace_id, @time_entry['id'])
 
       expect { @toggl.get_time_entry(@time_entry['id']) }.to raise_error(RuntimeError, 'HTTP Status: 404')
     end
@@ -404,12 +404,12 @@ describe 'Time Entries' do
     end
 
     it 'formats a Date' do
-      ts = @ts.to_date
+      @ts.to_date
       expect(@toggl.iso8601(@ts)).to eq @expected
     end
 
     it 'formats a Time' do
-      ts = @ts.to_time
+      @ts.to_time
       expect(@toggl.iso8601(@ts)).to eq @expected
     end
 

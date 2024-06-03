@@ -10,7 +10,7 @@ describe 'ReportsV3' do
   it 'initializes with api_token' do
     reports = TogglV9::ReportsV3.new(api_token: Testing::API_TOKEN)
     reports.workspace_id = @workspace_id
-    clients = reports.list_clients
+    reports.list_clients
   end
 
   it 'does not initialize with bogus api_token' do
@@ -52,7 +52,7 @@ describe 'ReportsV3' do
     end
 
     it 'raises error if .toggl file is missing' do
-      expect { reports = TogglV9::ReportsV3.new }.to raise_error(RuntimeError)
+      expect { TogglV9::ReportsV3.new }.to raise_error(RuntimeError)
     end
   end
 
@@ -172,19 +172,19 @@ describe 'ReportsV3' do
     context 'CSV reports' do
       it 'summary' do
         filename = File.join(@tmp_home, 'summary.csv')
-        summary = @reports.write_summary(filename)
+        @reports.write_summary(filename)
         expect(file_contains(filename, /00:01:17/))
       end
 
       it 'weekly' do
         filename = File.join(@tmp_home, 'weekly.csv')
-        weekly = @reports.write_weekly(filename)
+        @reports.write_weekly(filename)
         expect(file_contains(filename, /00:01:17/))
       end
 
       it 'details' do
         filename = File.join(@tmp_home, 'details.csv')
-        details = @reports.write_details(filename)
+        @reports.write_details(filename)
         expect(file_contains(filename, /00:01:17/))
       end
     end
@@ -192,19 +192,19 @@ describe 'ReportsV3' do
     context 'PDF reports' do
       it 'summary' do
         filename = File.join(@tmp_home, 'summary.pdf')
-        summary = @reports.write_summary(filename)
+        @reports.write_summary(filename)
         expect(file_is_pdf(filename))
       end
 
       it 'weekly' do
         filename = File.join(@tmp_home, 'weekly.pdf')
-        weekly = @reports.write_weekly(filename)
+        @reports.write_weekly(filename)
         expect(file_is_pdf(filename))
       end
 
       it 'details' do
         filename = File.join(@tmp_home, 'details.pdf')
-        details = @reports.write_details(filename)
+        @reports.write_details(filename)
         expect(file_is_pdf(filename))
       end
     end
@@ -212,13 +212,13 @@ describe 'ReportsV3' do
     context 'XLS reports', :pro_account do
       it 'summary' do
         filename = File.join(@tmp_home, 'summary.xls')
-        summary = @reports.write_summary(filename)
+        @reports.write_summary(filename)
         expect(file_is_xls(filename))
       end
 
       it 'details' do
         filename = File.join(@tmp_home, 'details.xls')
-        details = @reports.write_details(filename)
+        @reports.write_details(filename)
         expect(file_is_xls(filename))
       end
     end

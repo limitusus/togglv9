@@ -26,12 +26,12 @@ module TogglV9
     end
 
     def my_clients(user = nil)
-      user = me(all = true) if user.nil?
+      user = me(true) if user.nil?
       user['clients'] || {}
     end
 
     def my_projects(user = nil)
-      user = me(all = true) if user.nil?
+      user = me(true) if user.nil?
       return {} unless user['projects']
 
       projects = user['projects']
@@ -39,7 +39,7 @@ module TogglV9
     end
 
     def my_deleted_projects(user = nil)
-      user = me(all = true) if user.nil?
+      user = me(true) if user.nil?
       return {} unless user['projects']
 
       projects = user['projects']
@@ -47,22 +47,22 @@ module TogglV9
     end
 
     def my_tags(user = nil)
-      user = me(all = true) if user.nil?
+      user = me(true) if user.nil?
       user['tags'] || {}
     end
 
     def my_tasks(user = nil)
-      user = me(all = true) if user.nil?
+      user = me(true) if user.nil?
       user['tasks'] || {}
     end
 
     def my_time_entries(user = nil)
-      user = me(all = true) if user.nil?
+      user = me(true) if user.nil?
       user['time_entries'] || {}
     end
 
     def my_workspaces(user = nil)
-      user = me(all = true) if user.nil?
+      user = me(true) if user.nil?
       user['workspaces'] || {}
     end
 

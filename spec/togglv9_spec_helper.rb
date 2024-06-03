@@ -5,7 +5,7 @@ class TogglV9SpecHelper
   include Logging
 
   def self.setUp(toggl)
-    user = toggl.me(all = true)
+    user = toggl.me(true)
     @default_workspace_id = user['default_workspace_id']
 
     delete_all_projects(toggl)
@@ -62,7 +62,7 @@ class TogglV9SpecHelper
   end
 
   def self.delete_all_workspaces(toggl)
-    user = toggl.me(all = true)
+    user = toggl.me(true)
     workspaces = toggl.my_workspaces(user)
     unless workspaces.nil?
       workspace_ids ||= workspaces.map { |w| w['id'] }
