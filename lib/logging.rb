@@ -9,9 +9,7 @@ module Logging
       @logger ||= Logger.new($stdout)
     end
 
-    def logger=(logger)
-      @logger = logger
-    end
+    attr_writer :logger
   end
 
   # Addition

@@ -32,7 +32,7 @@ class TogglV9SpecHelper
 
     project_ids ||= projects.map { |p| p['id'] }
     # logger.debug("Deleting #{project_ids.length} projects")
-    return unless project_ids.length > 0
+    return if project_ids.empty?
 
     toggl.delete_projects(@default_workspace_id, project_ids)
   end
