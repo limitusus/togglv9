@@ -31,7 +31,7 @@ module TogglV9
 
       errors = []
       for f in fields
-      errors.push("params[#{f}] is required") unless params.has_key?(f)
+      errors.push("params[#{f}] is required") unless params.key?(f)
       end
       raise ArgumentError, errors.join(', ') if !errors.empty?
     end
@@ -66,7 +66,7 @@ module TogglV9
 
       begin
         resp = Oj.load(full_resp.body)
-        return resp['data'] if resp.respond_to?(:has_key?) && resp.has_key?('data')
+        return resp['data'] if resp.respond_to?(:has_key?) && resp.key?('data')
 
         return resp
       rescue Oj::ParseError

@@ -30,7 +30,7 @@ module TogglV9
 
     def get_client_projects(workspace_id, client_id, params = {})
       qs = "?clients=#{client_id}"
-      active = params.has_key?('active') ? "&active=#{params['active']}" : ''
+      active = params.key?('active') ? "&active=#{params['active']}" : ''
       get "workspaces/#{workspace_id}/projects#{qs}#{active}"
     end
   end

@@ -78,7 +78,7 @@ describe 'Time Entries' do
 
     it 'deletes a time entry' do
       existing_time_entry = @toggl.get_time_entry(@time_entry['id'])
-      expect(existing_time_entry.has_key?('server_deleted_at')).to eq true
+      expect(existing_time_entry.key?('server_deleted_at')).to eq true
       expect(existing_time_entry['server_deleted_at']).to eq nil
 
       deleted_time_entry = @toggl.delete_time_entry(@workspace_id, @time_entry['id'])
@@ -160,7 +160,7 @@ describe 'Time Entries' do
 
     it 'deletes a time entry' do
       existing_time_entry = @toggl.get_time_entry(@time_entry['id'])
-      expect(existing_time_entry.has_key?('server_deleted_at')).to eq true
+      expect(existing_time_entry.key?('server_deleted_at')).to eq true
 
       deleted_time_entry = @toggl.delete_time_entry(@workspace_id, @time_entry['id'])
 
@@ -249,12 +249,12 @@ describe 'Time Entries' do
       running_time_entry.delete('uid')
       running_time_entry.delete('wid')
       expect(time_entry_by_id).to eq running_time_entry
-      expect(time_entry_by_id.has_key?('stop')).to eq true
+      expect(time_entry_by_id.key?('stop')).to eq true
       expect(time_entry_by_id['stop']).to eq nil
 
       # stop time entry
       stopped_time_entry = @toggl.stop_time_entry(@workspace_id, running_time_entry['id'])
-      expect(stopped_time_entry.has_key?('stop')).to eq true
+      expect(stopped_time_entry.key?('stop')).to eq true
 
       @toggl.delete_time_entry(@workspace_id, stopped_time_entry['id'])
     end

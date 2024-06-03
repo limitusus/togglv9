@@ -24,13 +24,13 @@ module TogglV9
     # at           : timestamp that is sent in the response, indicates the time item was last updated
 
     def create_time_entry(workspace_id, params)
-      params['created_with'] = TogglV9::NAME unless params.has_key?('created_with')
+      params['created_with'] = TogglV9::NAME unless params.key?('created_with')
       requireParams(params, ['wid', 'start', 'duration', 'created_with'])
       post "workspaces/#{workspace_id}/time_entries", params
     end
 
     def start_time_entry(workspace_id, params)
-      params['created_with'] = TogglV9::NAME unless params.has_key?('created_with')
+      params['created_with'] = TogglV9::NAME unless params.key?('created_with')
       requireParams(params, ['workspace_id'])
       params['start'] = iso8601(Time.now)
       params['duration'] = -1

@@ -500,19 +500,6 @@ Style/OptionalBooleanParameter:
     - 'lib/logging.rb'
     - 'lib/togglv9/connection.rb'
 
-# Offense count: 12
-# This cop supports unsafe autocorrection (--autocorrect-all).
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: short, verbose
-Style/PreferredHashMethods:
-  Exclude:
-    - 'lib/togglv9/clients.rb'
-    - 'lib/togglv9/connection.rb'
-    - 'lib/togglv9/time_entries.rb'
-    - 'lib/togglv9/users.rb'
-    - 'lib/togglv9/workspaces.rb'
-    - 'spec/lib/togglv9/time_entries_spec.rb'
-
 # Offense count: 1
 # This cop supports safe autocorrection (--autocorrect).
 Style/RedundantPercentQ:

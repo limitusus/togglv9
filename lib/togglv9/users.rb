@@ -67,7 +67,7 @@ module TogglV9
     end
 
     def create_user(params)
-      params['created_with'] = TogglV9::NAME unless params.has_key?('created_with')
+      params['created_with'] = TogglV9::NAME unless params.key?('created_with')
       requireParams(params, ['email', 'password', 'timezone', 'created_with'])
       post 'signup', params
     end

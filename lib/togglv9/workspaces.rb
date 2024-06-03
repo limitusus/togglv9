@@ -18,7 +18,7 @@ module TogglV9
     end
 
     def projects(workspace_id, params = {})
-      active = params.has_key?(:active) ? "?active=#{params[:active]}" : ''
+      active = params.key?(:active) ? "?active=#{params[:active]}" : ''
       get "workspaces/#{workspace_id}/projects#{active}"
     end
 
@@ -27,7 +27,7 @@ module TogglV9
     end
 
     def tasks(workspace_id, params = {})
-      active = params.has_key?(:active) ? "?active=#{params[:active]}" : ''
+      active = params.key?(:active) ? "?active=#{params[:active]}" : ''
       get "workspaces/#{workspace_id}/tasks#{active}"
     end
 
