@@ -13,3 +13,6 @@ Style/TrailingCommaInHashLiteral:
 
 Gemspec/RequireMFA:
   Enabled: false
+
+RSpec/BeforeAfterAll:
+  Enabled: false

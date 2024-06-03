@@ -42,23 +42,6 @@ Naming/MethodName:
     - 'lib/togglv9/connection.rb'
     - 'spec/togglv9_spec_helper.rb'
 
-# Offense count: 37
-RSpec/BeforeAfterAll:
-  Exclude:
-    - '**/spec/spec_helper.rb'
-    - '**/spec/rails_helper.rb'
-    - '**/spec/support/**/*.rb'
-    - 'spec/lib/reportsv3_spec.rb'
-    - 'spec/lib/togglv9/clients_spec.rb'
-    - 'spec/lib/togglv9/dashboard_spec.rb'
-    - 'spec/lib/togglv9/projects_spec.rb'
-    - 'spec/lib/togglv9/tags_spec.rb'
-    - 'spec/lib/togglv9/tasks_spec.rb'
-    - 'spec/lib/togglv9/time_entries_spec.rb'
-    - 'spec/lib/togglv9/users_spec.rb'
-    - 'spec/lib/togglv9/workspaces_spec.rb'
-    - 'spec/lib/togglv9_spec.rb'
-
 # Offense count: 33
 # Configuration parameters: Prefixes, AllowedPatterns.
 # Prefixes: when, with, without
