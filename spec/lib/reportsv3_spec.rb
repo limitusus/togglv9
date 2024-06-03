@@ -16,7 +16,7 @@ describe 'ReportsV3' do
   it 'does not initialize with bogus api_token' do
     reports = TogglV9::ReportsV3.new(api_token: '4880nqor1orr9n241sn08070q33oq49s')
     reports.workspace_id = @workspace_id
-    expect { reports.list_clients}.to raise_error(RuntimeError, "HTTP Status: 403")
+    expect { reports.list_clients }.to raise_error(RuntimeError, "HTTP Status: 403")
   end
 
   context '.toggl file' do
@@ -52,7 +52,7 @@ describe 'ReportsV3' do
     end
 
     it 'raises error if .toggl file is missing' do
-      expect{ reports = TogglV9::ReportsV3.new }.to raise_error(RuntimeError)
+      expect { reports = TogglV9::ReportsV3.new }.to raise_error(RuntimeError)
     end
   end
 
@@ -72,7 +72,7 @@ describe 'ReportsV3' do
       expect(@reports.conn).to receive(:post).twice.and_return(
         MockResponse.new(429, {}, 'body'),
         MockResponse.new(200, {}, '[{"id":65220674, "name":"test1"}, {"id":65220675, "name":"test2"}]'))
-      expect(@reports.list_clients).to eq([{"id"=>65220674, "name"=>"test1"}, {"id"=>65220675, "name"=>"test2"}])
+      expect(@reports.list_clients).to eq([{ "id" => 65220674, "name" => "test1" }, { "id" => 65220675, "name" => "test2" }])
     end
   end
 
@@ -103,7 +103,7 @@ describe 'ReportsV3' do
     end
 
     it 'summary' do
-      expect(@reports.summary).to eq({'groups' => []})
+      expect(@reports.summary).to eq({ 'groups' => [] })
     end
 
     it 'weekly' do

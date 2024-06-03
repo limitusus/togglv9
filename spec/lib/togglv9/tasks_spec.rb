@@ -14,7 +14,7 @@ describe 'Tasks', :pro_account do
     before :all do
       @task = @toggl.create_task({ 'name' => 'new task +1', 'pid' => @project['id'] })
       @task_ids = @toggl.get_project_tasks(@project['id']).map { |t| t['id'] }
-      expect(@task_ids).to eq [ @task['id'] ]
+      expect(@task_ids).to eq [@task['id']]
     end
 
     after :all do
@@ -64,7 +64,7 @@ describe 'Tasks', :pro_account do
       @task1 = @toggl.create_task({ 'name' => "task1-#{timestamp}", 'pid' => @project['id'] })
       @task2 = @toggl.create_task({ 'name' => "task2-#{timestamp}", 'pid' => @project['id'] })
       @task3 = @toggl.create_task({ 'name' => "task3-#{timestamp}", 'pid' => @project['id'] })
-      @task_ids = [ @task1['id'], @task2['id'], @task3['id'] ]
+      @task_ids = [@task1['id'], @task2['id'], @task3['id']]
     end
 
     after :all do

@@ -198,23 +198,23 @@ describe 'Time Entries' do
     end
 
     it 'gets time entries (reaching back 9 days up till now)' do
-      ids = @toggl.get_time_entries.map { |t| t['id']}
-      expect(ids.sort).to eq [ @last_week_id, @now_id ]
+      ids = @toggl.get_time_entries.map { |t| t['id'] }
+      expect(ids.sort).to eq [@last_week_id, @now_id]
     end
 
     it 'gets time entries after start_date (up till now)' do
-      ids = @toggl.get_time_entries({start_date: @now - 1}).map { |t| t['id']}
-      expect(ids.sort).to eq [ @now_id ]
+      ids = @toggl.get_time_entries({ start_date: @now - 1 }).map { |t| t['id'] }
+      expect(ids.sort).to eq [@now_id]
     end
 
     it 'gets time entries between start_date and end_date' do
-      ids = @toggl.get_time_entries({start_date: @now - 1, end_date: @now + 1}).map { |t| t['id']}
-      expect(ids.sort).to eq [ @now_id ]
+      ids = @toggl.get_time_entries({ start_date: @now - 1, end_date: @now + 1 }).map { |t| t['id'] }
+      expect(ids.sort).to eq [@now_id]
     end
 
     it 'gets time entries in the future' do
-      ids = @toggl.get_time_entries({start_date: @now - 1, end_date: @now + 8}).map { |t| t['id']}
-      expect(ids.sort).to eq [ @now_id, @next_week_id ]
+      ids = @toggl.get_time_entries({ start_date: @now - 1, end_date: @now + 8 }).map { |t| t['id'] }
+      expect(ids.sort).to eq [@now_id, @next_week_id]
     end
   end
 
@@ -295,7 +295,7 @@ describe 'Time Entries' do
       start = { 'start' => @toggl.iso8601(@now - 4) }
       @time4 = @toggl.create_time_entry(@workspace_id, time_entry_info.merge(start))
 
-      @time_entry_ids = [ @time7['id'], @time6['id'], @time5['id'], @time4['id']]
+      @time_entry_ids = [@time7['id'], @time6['id'], @time5['id'], @time4['id']]
     end
 
     after :each do
@@ -306,7 +306,7 @@ describe 'Time Entries' do
     it 'adds and removes one tag' do
       # Add one tag
       @toggl.update_time_entries_tags_fixed(@workspace_id, @time_entry_ids,
-        {'tags' =>['money'], 'tag_action' => 'add'})
+        { 'tags' => ['money'], 'tag_action' => 'add' })
 
       time_entries = @toggl.get_time_entries
       tags = time_entries.map { |t| t['tags'] }
@@ -319,33 +319,33 @@ describe 'Time Entries' do
 
       # Remove one tag
       @toggl.update_time_entries_tags_fixed(@workspace_id, @time_entry_ids,
-        {'tags' =>['money'], 'tag_action' => 'remove'})
+        { 'tags' => ['money'], 'tag_action' => 'remove' })
 
       time_entries = @toggl.get_time_entries
       tags = time_entries.map { |t| t['tags'] }
-      expect(tags).to eq [[],[],[],[]]
+      expect(tags).to eq [[], [], [], []]
     end
 
     it '"removes" a non-existent tag' do
       # Not tags to start
       time_entries = @toggl.get_time_entries
       tags = time_entries.map { |t| t['tags'] }
-      expect(tags).to eq [[],[],[],[]]
+      expect(tags).to eq [[], [], [], []]
 
       # "Remove" a tag
       @toggl.update_time_entries_tags_fixed(@workspace_id, @time_entry_ids,
-        {'tags' =>['void'], 'tag_action' => 'remove'})
+        { 'tags' => ['void'], 'tag_action' => 'remove' })
 
       # No tags to finish
       time_entries = @toggl.get_time_entries
       tags = time_entries.map { |t| t['tags'] }
-      expect(tags).to eq [[],[],[],[]]
+      expect(tags).to eq [[], [], [], []]
     end
 
     it 'adds and removes multiple tags' do
       # Add multiple tags
       @toggl.update_time_entries_tags_fixed(@workspace_id, @time_entry_ids,
-        {'tags' =>['billed', 'productive'], 'tag_action' => 'add'})
+        { 'tags' => ['billed', 'productive'], 'tag_action' => 'add' })
 
       time_entries = @toggl.get_time_entries
       tags = time_entries.map { |t| t['tags'] }
@@ -358,44 +358,44 @@ describe 'Time Entries' do
 
       # Remove multiple tags
       @toggl.update_time_entries_tags_fixed(@workspace_id, @time_entry_ids,
-        {'tags' =>['billed','productive'], 'tag_action' => 'remove'})
+        { 'tags' => ['billed', 'productive'], 'tag_action' => 'remove' })
 
       time_entries = @toggl.get_time_entries
       tags = time_entries.map { |t| t['tags'] }
-      expect(tags).to eq [[],[],[],[]]
+      expect(tags).to eq [[], [], [], []]
     end
 
     it 'manages multiple tags' do
       # Add some tags
       @toggl.update_time_entries_tags_fixed(@workspace_id, @time_entry_ids,
-        {'tags' =>['billed', 'productive'], 'tag_action' => 'add'})
+        { 'tags' => ['billed', 'productive'], 'tag_action' => 'add' })
 
       # Remove some tags
-      @toggl.update_time_entries_tags_fixed(@workspace_id, [ @time6['id'], @time4['id'] ],
-        {'tags' =>['billed'], 'tag_action' => 'remove'})
+      @toggl.update_time_entries_tags_fixed(@workspace_id, [@time6['id'], @time4['id']],
+        { 'tags' => ['billed'], 'tag_action' => 'remove' })
 
       # Add some tags
-      @toggl.update_time_entries_tags_fixed(@workspace_id, [ @time7['id'] ],
-        {'tags' =>['best'], 'tag_action' => 'add'})
+      @toggl.update_time_entries_tags_fixed(@workspace_id, [@time7['id']],
+        { 'tags' => ['best'], 'tag_action' => 'add' })
 
       time7 = @toggl.get_time_entry(@time7['id'])
       time6 = @toggl.get_time_entry(@time6['id'])
       time5 = @toggl.get_time_entry(@time5['id'])
       time4 = @toggl.get_time_entry(@time4['id'])
 
-      tags = [ time7['tags'], time6['tags'], time5['tags'], time4['tags'] ]
+      tags = [time7['tags'], time6['tags'], time5['tags'], time4['tags']]
       expect(tags).to eq [
         ['best', 'billed', 'productive'],
-        [                  'productive'],
-        [        'billed', 'productive'],
-        [                  'productive']
+        ['productive'],
+        ['billed', 'productive'],
+        ['productive']
       ]
     end
   end
 
   context 'iso8601' do
     before :all do
-      @ts = DateTime.new(2008,6,21, 13,30,2, "+09:00")
+      @ts = DateTime.new(2008, 6, 21, 13, 30, 2, "+09:00")
       @expected = '2008-06-21T13:30:02+09:00'
     end
 
@@ -414,11 +414,11 @@ describe 'Time Entries' do
     end
 
     it 'cannot format a FixNum' do
-      expect{ @toggl.iso8601(1234567890) }.to raise_error(ArgumentError)
+      expect { @toggl.iso8601(1234567890) }.to raise_error(ArgumentError)
     end
 
     it 'cannot format a malformed timestamp' do
-      expect{ @toggl.iso8601('X') }.to raise_error(ArgumentError)
+      expect { @toggl.iso8601('X') }.to raise_error(ArgumentError)
     end
 
     context 'String' do

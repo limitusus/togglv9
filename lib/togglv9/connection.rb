@@ -13,10 +13,10 @@ module TogglV9
     API_TOKEN = 'api_token'
     TOGGL_FILE = '.toggl'
 
-    def self.open(username=nil, password=API_TOKEN, url=nil, opts={})
+    def self.open(username = nil, password = API_TOKEN, url = nil, opts = {})
       raise 'Missing URL' if url.nil?
 
-      Faraday.new(url: url, ssl: {verify: true}) do |faraday|
+      Faraday.new(url: url, ssl: { verify: true }) do |faraday|
         faraday.request :url_encoded
         faraday.response :logger, Logger.new('faraday.log') if opts[:log]
         faraday.adapter Faraday.default_adapter
@@ -25,9 +25,10 @@ module TogglV9
       end
     end
 
-    def requireParams(params, fields=[])
+    def requireParams(params, fields = [])
       raise ArgumentError, 'params is not a Hash' unless params.is_a? Hash
       return if fields.empty?
+
       errors = []
       for f in fields
       errors.push("params[#{f}] is required") unless params.has_key?(f)
@@ -44,6 +45,7 @@ module TogglV9
         full_resp = procs[:api_call].call
         # logger.ap(full_resp.env, :debug)
         break if full_resp.status != 429 || i >= MAX_RETRIES
+
         sleep(DELAY_SEC)
       end
 
@@ -54,54 +56,60 @@ module TogglV9
       full_resp
     end
 
-    def get(resource, params={})
-      query_params = params.map { |k,v| "#{k}=#{v}" }.join('&')
+    def get(resource, params = {})
+      query_params = params.map { |k, v| "#{k}=#{v}" }.join('&')
       resource += "?#{query_params}" unless query_params.empty?
       resource.gsub!('+', '%2B')
       full_resp = _call_api(debug_output: lambda { "GET #{resource}" },
-                  api_call: lambda { self.conn.get(resource) } )
+                  api_call: lambda { self.conn.get(resource) })
       return {} if full_resp == {}
+
       begin
         resp = Oj.load(full_resp.body)
         return resp['data'] if resp.respond_to?(:has_key?) && resp.has_key?('data')
+
         return resp
       rescue Oj::ParseError
         return full_resp.body
       end
     end
 
-    def post(resource, data='', json_response=true)
+    def post(resource, data = '', json_response = true)
       resource.gsub!('+', '%2B')
       full_resp = _call_api(debug_output: lambda { "POST #{resource} / #{data}" },
-                  api_call: lambda { self.conn.post(resource, Oj.dump(data)) } )
+                  api_call: lambda { self.conn.post(resource, Oj.dump(data)) })
       return {} if full_resp == {}
       if json_response
         return Oj.load(full_resp.body)
       end
+
       full_resp.body
     end
 
-    def put(resource, data='')
+    def put(resource, data = '')
       resource.gsub!('+', '%2B')
       full_resp = _call_api(debug_output: lambda { "PUT #{resource} / #{data}" },
-                  api_call: lambda { self.conn.put(resource, Oj.dump(data)) } )
+                  api_call: lambda { self.conn.put(resource, Oj.dump(data)) })
       return {} if full_resp == {}
+
       Oj.load(full_resp.body)
     end
 
-    def patch(resource, data='')
+    def patch(resource, data = '')
       resource.gsub!('+', '%2B')
       full_resp = _call_api(debug_output: lambda { "PATCH #{resource} / #{data}" },
-                  api_call: lambda { self.conn.patch(resource, Oj.dump(data)) } )
+                  api_call: lambda { self.conn.patch(resource, Oj.dump(data)) })
       return {} if full_resp == {}
+
       Oj.load(full_resp.body)
     end
 
     def delete(resource)
       resource.gsub!('+', '%2B')
       full_resp = _call_api(debug_output: lambda { "DELETE #{resource}" },
-                  api_call: lambda { self.conn.delete(resource) } )
+                  api_call: lambda { self.conn.delete(resource) })
       return {} if full_resp == {}
+
       full_resp.body
     end
   end

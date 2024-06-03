@@ -57,7 +57,7 @@ describe 'TogglV9' do
     end
 
     it 'raises error if .toggl file is missing' do
-      expect{ toggl = TogglV9::API.new }.to raise_error(RuntimeError)
+      expect { toggl = TogglV9::API.new }.to raise_error(RuntimeError)
     end
   end
 
@@ -82,7 +82,7 @@ describe 'TogglV9' do
       expect(@toggl.conn).to receive(:get).twice.and_return(
         MockResponse.new(429, {}, 'body'),
         MockResponse.new(200, {}, nil))
-      expect(@toggl.me).to eq({})   # response is {} in this case because body is nil
+      expect(@toggl.me).to eq({}) # response is {} in this case because body is nil
     end
   end
 end

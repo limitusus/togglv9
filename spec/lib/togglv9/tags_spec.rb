@@ -9,7 +9,7 @@ describe 'Tags' do
     before :all do
       @tag = @toggl.create_tag(@workspace_id, { 'name' => 'new tag +1' })
       tag_ids = @toggl.my_tags.map { |t| t['id'] }
-      expect(tag_ids).to eq [ @tag['id'] ]
+      expect(tag_ids).to eq [@tag['id']]
     end
 
     after :all do

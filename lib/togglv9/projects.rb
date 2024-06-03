@@ -1,6 +1,5 @@
 module TogglV9
   class API
-
     ##
     # ---------
     # :section: Projects
@@ -106,6 +105,7 @@ module TogglV9
     # [Delete multiple projects](https://github.com/toggl/toggl_api_docs/blob/master/chapters/projects.md#delete-multiple-projects)
     def delete_projects(workspace_id, project_ids)
       return if project_ids.nil?
+
       project_ids.each do |project_id|
         delete_project(workspace_id, project_id)
       end

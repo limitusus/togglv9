@@ -14,7 +14,7 @@ describe 'Projects' do
     before :all do
       @project = @toggl.create_project(@workspace_id, { 'name' => 'new project +1' })
       project_ids = @toggl.my_projects.map { |p| p['id'] }
-      expect(project_ids).to eq [ @project['id'] ]
+      expect(project_ids).to eq [@project['id']]
     end
 
     after :all do

@@ -1,6 +1,5 @@
 module TogglV9
   class API
-
     ##
     # ---------
     # :section: Dashboard
@@ -9,7 +8,7 @@ module TogglV9
 
     def dashboard(workspace_id)
       dashboard = {}
-      dashboard['all_activity']  = all_activity(workspace_id)
+      dashboard['all_activity'] = all_activity(workspace_id)
       dashboard['most_active_user'] = most_active_user(workspace_id)
       dashboard['activity'] = top_activity(workspace_id)
       dashboard

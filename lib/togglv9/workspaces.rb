@@ -1,6 +1,5 @@
 module TogglV9
   class API
-
     ##
     # ---------
     # :section: Workspaces
@@ -18,7 +17,7 @@ module TogglV9
       get "workspaces/#{workspace_id}/clients"
     end
 
-    def projects(workspace_id, params={})
+    def projects(workspace_id, params = {})
       active = params.has_key?(:active) ? "?active=#{params[:active]}" : ""
       get "workspaces/#{workspace_id}/projects#{active}"
     end
@@ -27,7 +26,7 @@ module TogglV9
       get "organizations/#{organization_id}/workspaces/#{workspace_id}/workspace_users"
     end
 
-    def tasks(workspace_id, params={})
+    def tasks(workspace_id, params = {})
       active = params.has_key?(:active) ? "?active=#{params[:active]}" : ""
       get "workspaces/#{workspace_id}/tasks#{active}"
     end

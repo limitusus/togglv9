@@ -1,6 +1,5 @@
 module TogglV9
   class API
-
     ##
     # ---------
     # :section: Users
@@ -20,48 +19,50 @@ module TogglV9
     # at                        : timestamp of last changes
     # new_blog_post             : an object with toggl blog post title and link
 
-    def me(all=nil)
+    def me(all = nil)
       # NOTE: response['since'] is discarded because it is outside response['data']
       #       (See TogglV9::API#get in lib/togglv9.rb)
       get "me%s" % [all.nil? ? "" : "?with_related_data=#{all}"]
     end
 
-    def my_clients(user=nil)
-      user = me(all=true) if user.nil?
+    def my_clients(user = nil)
+      user = me(all = true) if user.nil?
       user['clients'] || {}
     end
 
-    def my_projects(user=nil)
-      user = me(all=true) if user.nil?
+    def my_projects(user = nil)
+      user = me(all = true) if user.nil?
       return {} unless user['projects']
+
       projects = user['projects']
       projects.delete_if { |p| p['server_deleted_at'] }
     end
 
-    def my_deleted_projects(user=nil)
-      user = me(all=true) if user.nil?
+    def my_deleted_projects(user = nil)
+      user = me(all = true) if user.nil?
       return {} unless user['projects']
+
       projects = user['projects']
       projects.keep_if { |p| p['server_deleted_at'] }
     end
 
-    def my_tags(user=nil)
-      user = me(all=true) if user.nil?
+    def my_tags(user = nil)
+      user = me(all = true) if user.nil?
       user['tags'] || {}
     end
 
-    def my_tasks(user=nil)
-      user = me(all=true) if user.nil?
+    def my_tasks(user = nil)
+      user = me(all = true) if user.nil?
       user['tasks'] || {}
     end
 
-    def my_time_entries(user=nil)
-      user = me(all=true) if user.nil?
+    def my_time_entries(user = nil)
+      user = me(all = true) if user.nil?
       user['time_entries'] || {}
     end
 
-    def my_workspaces(user=nil)
-      user = me(all=true) if user.nil?
+    def my_workspaces(user = nil)
+      user = me(all = true) if user.nil?
       user['workspaces'] || {}
     end
 

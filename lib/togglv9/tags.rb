@@ -1,6 +1,5 @@
 module TogglV9
   class API
-
     ##
     # ---------
     # :section: Tags

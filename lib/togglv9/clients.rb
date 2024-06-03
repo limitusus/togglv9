@@ -1,6 +1,5 @@
 module TogglV9
   class API
-
     ##
     # ---------
     # :section: Clients
@@ -29,7 +28,7 @@ module TogglV9
       delete "workspaces/#{workspace_id}/clients/#{client_id}"
     end
 
-    def get_client_projects(workspace_id, client_id, params={})
+    def get_client_projects(workspace_id, client_id, params = {})
       qs = "?clients=#{client_id}"
       active = params.has_key?('active') ? "&active=#{params['active']}" : ""
       get "workspaces/#{workspace_id}/projects#{qs}#{active}"

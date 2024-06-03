@@ -1,7 +1,7 @@
 describe 'Workspaces' do
   before :all do
     @toggl = TogglV9::API.new(Testing::API_TOKEN)
-    @user = @toggl.me(all=true)
+    @user = @toggl.me(all = true)
     @workspaces = @toggl.my_workspaces
     @workspace_id = @workspaces.first['id']
     @organization_id = @user['workspaces'].find { |w| w['id'] == @workspace_id }['organization_id']

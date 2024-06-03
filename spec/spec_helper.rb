@@ -35,7 +35,7 @@ RSpec.configure do |config|
 
   config.before(:suite) do
     toggl = TogglV9::API.new(Testing::API_TOKEN)
-    TogglV9SpecHelper.setUp(toggl)  # start tests from known state
+    TogglV9SpecHelper.setUp(toggl) # start tests from known state
   end
 end
 
@@ -61,7 +61,7 @@ def mktemp_dir
   dir
 end
 
-def file_contains(filename, pattern, maxlen=1000)
+def file_contains(filename, pattern, maxlen = 1000)
   expect(File.exist?(filename))
   contents = File.new(filename).sysread(maxlen)
   expect(contents).to match pattern

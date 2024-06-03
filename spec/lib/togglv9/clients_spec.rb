@@ -14,7 +14,7 @@ describe 'Clients' do
     before :all do
       @client = @toggl.create_client(@workspace_id, { 'name' => 'new client +1', 'wid' => @workspace_id })
       client_ids = @toggl.my_clients.map { |c| c['id'] }
-      expect(client_ids).to eq [ @client['id'] ]
+      expect(client_ids).to eq [@client['id']]
     end
 
     after :all do
@@ -25,12 +25,12 @@ describe 'Clients' do
 
     it 'gets a client' do
       client_ids = @toggl.clients(@workspace_id).map { |c| c['id'] }
-      expect(client_ids).to eq [ @client['id'] ]
+      expect(client_ids).to eq [@client['id']]
     end
 
     it 'gets a workspace client' do
       client_ids = @toggl.clients(@workspace_id).map { |c| c['id'] }
-      expect(client_ids).to eq [ @client['id'] ]
+      expect(client_ids).to eq [@client['id']]
     end
 
     context 'multiple clients' do
@@ -44,12 +44,12 @@ describe 'Clients' do
 
       it 'gets clients' do
         client_ids = @toggl.clients(@workspace_id).map { |c| c['id'] }
-        expect(client_ids).to match_array [ @client['id'], @client2['id'] ]
+        expect(client_ids).to match_array [@client['id'], @client2['id']]
       end
 
       it 'gets workspace clients' do
         client_ids = @toggl.clients(@workspace_id).map { |c| c['id'] }
-        expect(client_ids).to match_array [ @client['id'], @client2['id'] ]
+        expect(client_ids).to match_array [@client['id'], @client2['id']]
       end
     end
 
@@ -87,7 +87,7 @@ describe 'Clients' do
         it 'gets a client project' do
           projects = @toggl.get_client_projects(@workspace_id, @client['id'])
           project_ids = projects.map { |p| p['id'] }
-          expect(project_ids).to eq [ @project['id'] ]
+          expect(project_ids).to eq [@project['id']]
         end
 
         it 'gets multiple client projects' do
@@ -95,7 +95,7 @@ describe 'Clients' do
 
           projects = @toggl.get_client_projects(@workspace_id, @client['id'])
           project_ids = projects.map { |p| p['id'] }
-          expect(project_ids).to match_array [ @project['id'], project2['id'] ]
+          expect(project_ids).to match_array [@project['id'], project2['id']]
 
           @toggl.delete_project(@workspace_id, project2['id'])
         end

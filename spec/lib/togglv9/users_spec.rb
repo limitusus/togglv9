@@ -1,7 +1,7 @@
 describe 'Users' do
   before :all do
     @toggl = TogglV9::API.new(Testing::API_TOKEN)
-    @user = @toggl.me(all=true)
+    @user = @toggl.me(all = true)
     @workspaces = @toggl.workspaces
     @workspace_id = @workspaces.first['id']
   end
@@ -33,13 +33,13 @@ describe 'Users' do
     my_project_ids         = @toggl.my_projects.map { |p| p['id'] }
     my_deleted_project_ids = @toggl.my_deleted_projects.map { |p| p['id'] }
 
-    expect(my_project_ids).to eq [ project['id'] ]
+    expect(my_project_ids).to eq [project['id']]
     expect(my_deleted_project_ids).not_to include(project['id'])
 
     # Delete project
     @toggl.delete_project(@workspace_id, project['id'])
 
-    my_project_ids         = @toggl.my_projects.map { |p| p['id'] }
+    my_project_ids = @toggl.my_projects.map { |p| p['id'] }
     # FIXME: in v9 the /me response looks not to contain projects that were already deleted
     # my_deleted_project_ids = @toggl.my_deleted_projects.map { |p| p['id'] }
 

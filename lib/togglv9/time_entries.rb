@@ -1,6 +1,5 @@
 module TogglV9
   class API
-
     ##
     # ---------
     # :section: Time Entries
@@ -60,6 +59,7 @@ module TogglV9
 
     def iso8601(timestamp)
       return nil if timestamp.nil?
+
       if timestamp.is_a?(DateTime) or timestamp.is_a?(Date) or timestamp.is_a?(Time)
         formatted_ts = timestamp.iso8601
       elsif timestamp.is_a?(String)
@@ -85,6 +85,7 @@ module TogglV9
     # tag_action can be 'add' or 'remove'
     def update_time_entries_tags(workspace_id, time_entry_ids, params)
       return if time_entry_ids.nil?
+
       requireParams(params, ['tags', 'tag_action'])
       patch_params = [
         {
@@ -111,7 +112,7 @@ module TogglV9
         time_entry
       end
 
-      remove_params = {'tags' => []}
+      remove_params = { 'tags' => [] }
       put "time_entries/#{time_entries_for_removing_all_tags_ids.join(',')}", { 'time_entry' => remove_params } unless time_entries_for_removing_all_tags_ids.empty?
 
       time_entries

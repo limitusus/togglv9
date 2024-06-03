@@ -10,7 +10,7 @@ module TogglV9
 
     attr_accessor :workspace_id
 
-    def initialize(opts={})
+    def initialize(opts = {})
       debug(false)
 
       @user_agent = TogglV9::NAME
@@ -42,7 +42,7 @@ module TogglV9
     # else
     #   {}
     def list_clients
-      post "workspace/#{@workspace_id}/filters/clients", {start: 0}
+      post "workspace/#{@workspace_id}/filters/clients", { start: 0 }
     end
 
     ##
@@ -86,23 +86,24 @@ module TogglV9
     # extension can be one of ['.pdf', '.csv', '.xls']. Possibly others?
     def report(type, extension, params)
       raise "workspace_id is required" if @workspace_id.nil?
+
       json = true
       json = false if extension != ''
       post "workspace/#{@workspace_id}/#{type}/time_entries#{extension}", {
              'user_agent' => @user_agent,
              'start_date' => (Time.now - 6 * 24 * 60 * 60).strftime('%F'),
-      }.merge(params), json_response=json
+      }.merge(params), json_response = json
     end
 
-    def weekly(extension='', params={})
+    def weekly(extension = '', params = {})
       report('weekly', extension, params)
     end
 
-    def details(extension='', params={})
+    def details(extension = '', params = {})
       report('search', extension, params)
     end
 
-    def summary(extension='', params={})
+    def summary(extension = '', params = {})
       report('summary', extension, params)
     end
 
@@ -118,19 +119,19 @@ module TogglV9
       end
     end
 
-    def write_weekly(filename, params={})
+    def write_weekly(filename, params = {})
       write_report(filename) do |extension|
         weekly(extension, params)
       end
     end
 
-    def write_details(filename, params={})
+    def write_details(filename, params = {})
       write_report(filename) do |extension|
         details(extension, params)
       end
     end
 
-    def write_summary(filename, params={})
+    def write_summary(filename, params = {})
       write_report(filename) do |extension|
         summary(extension, params)
       end
@@ -153,8 +154,9 @@ module TogglV9
     #                       (integer, optional)
     # order_field string  : name/assignee/duration/billable_amount/estimated_seconds
     # order_desc string   : on/off, on for descending and off for ascending order
-    def project(project_id, params={})
+    def project(project_id, params = {})
       raise "workspace_id is required" if @workspace_id.nil?
+
       get "project", {
         user_agent: @user_agent,
         workspace_id: @workspace_id,

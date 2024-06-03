@@ -5,7 +5,7 @@ class TogglV9SpecHelper
   include Logging
 
   def self.setUp(toggl)
-    user = toggl.me(all=true)
+    user = toggl.me(all = true)
     @default_workspace_id = user['default_workspace_id']
 
     delete_all_projects(toggl)
@@ -32,6 +32,7 @@ class TogglV9SpecHelper
       project_ids ||= projects.map { |p| p['id'] }
       # logger.debug("Deleting #{project_ids.length} projects")
       return unless project_ids.length > 0
+
       toggl.delete_projects(@default_workspace_id, project_ids)
     end
   end
@@ -49,7 +50,7 @@ class TogglV9SpecHelper
 
   def self.delete_all_time_entries(toggl)
     time_entries = toggl.get_time_entries(
-      { start_date: DateTime.now - 30, end_date: DateTime.now + 30 } )
+      { start_date: DateTime.now - 30, end_date: DateTime.now + 30 })
     unless time_entries.nil?
       time_entry_ids ||= time_entries.map { |t| t['id'] }
       # logger.debug("Deleting #{time_entry_ids.length} time_entries")
@@ -60,7 +61,7 @@ class TogglV9SpecHelper
   end
 
   def self.delete_all_workspaces(toggl)
-    user = toggl.me(all=true)
+    user = toggl.me(all = true)
     workspaces = toggl.my_workspaces(user)
     unless workspaces.nil?
       workspace_ids ||= workspaces.map { |w| w['id'] }
