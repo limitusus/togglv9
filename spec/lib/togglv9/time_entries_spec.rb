@@ -306,7 +306,7 @@ describe 'Time Entries' do
     it 'adds and removes one tag' do
       # Add one tag
       @toggl.update_time_entries_tags_fixed(@workspace_id, @time_entry_ids,
-        { 'tags' => ['money'], 'tag_action' => 'add' })
+                                            { 'tags' => ['money'], 'tag_action' => 'add' })
 
       time_entries = @toggl.get_time_entries
       tags = time_entries.map { |t| t['tags'] }
@@ -319,7 +319,7 @@ describe 'Time Entries' do
 
       # Remove one tag
       @toggl.update_time_entries_tags_fixed(@workspace_id, @time_entry_ids,
-        { 'tags' => ['money'], 'tag_action' => 'remove' })
+                                            { 'tags' => ['money'], 'tag_action' => 'remove' })
 
       time_entries = @toggl.get_time_entries
       tags = time_entries.map { |t| t['tags'] }
@@ -334,7 +334,7 @@ describe 'Time Entries' do
 
       # "Remove" a tag
       @toggl.update_time_entries_tags_fixed(@workspace_id, @time_entry_ids,
-        { 'tags' => ['void'], 'tag_action' => 'remove' })
+                                            { 'tags' => ['void'], 'tag_action' => 'remove' })
 
       # No tags to finish
       time_entries = @toggl.get_time_entries
@@ -345,7 +345,7 @@ describe 'Time Entries' do
     it 'adds and removes multiple tags' do
       # Add multiple tags
       @toggl.update_time_entries_tags_fixed(@workspace_id, @time_entry_ids,
-        { 'tags' => ['billed', 'productive'], 'tag_action' => 'add' })
+                                            { 'tags' => ['billed', 'productive'], 'tag_action' => 'add' })
 
       time_entries = @toggl.get_time_entries
       tags = time_entries.map { |t| t['tags'] }
@@ -358,7 +358,7 @@ describe 'Time Entries' do
 
       # Remove multiple tags
       @toggl.update_time_entries_tags_fixed(@workspace_id, @time_entry_ids,
-        { 'tags' => ['billed', 'productive'], 'tag_action' => 'remove' })
+                                            { 'tags' => ['billed', 'productive'], 'tag_action' => 'remove' })
 
       time_entries = @toggl.get_time_entries
       tags = time_entries.map { |t| t['tags'] }
@@ -368,15 +368,15 @@ describe 'Time Entries' do
     it 'manages multiple tags' do
       # Add some tags
       @toggl.update_time_entries_tags_fixed(@workspace_id, @time_entry_ids,
-        { 'tags' => ['billed', 'productive'], 'tag_action' => 'add' })
+                                            { 'tags' => ['billed', 'productive'], 'tag_action' => 'add' })
 
       # Remove some tags
       @toggl.update_time_entries_tags_fixed(@workspace_id, [@time6['id'], @time4['id']],
-        { 'tags' => ['billed'], 'tag_action' => 'remove' })
+                                            { 'tags' => ['billed'], 'tag_action' => 'remove' })
 
       # Add some tags
       @toggl.update_time_entries_tags_fixed(@workspace_id, [@time7['id']],
-        { 'tags' => ['best'], 'tag_action' => 'add' })
+                                            { 'tags' => ['best'], 'tag_action' => 'add' })
 
       time7 = @toggl.get_time_entry(@time7['id'])
       time6 = @toggl.get_time_entry(@time6['id'])

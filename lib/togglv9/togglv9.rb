@@ -38,7 +38,7 @@ module TogglV9
       end
 
       @conn = TogglV9::Connection.open(username, password,
-                TOGGL_API_V9_URL, opts)
+                                       TOGGL_API_V9_URL, opts)
     end
   end
 end

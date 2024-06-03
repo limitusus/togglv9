@@ -61,7 +61,7 @@ module TogglV9
       resource += "?#{query_params}" unless query_params.empty?
       resource.gsub!('+', '%2B')
       full_resp = _call_api(debug_output: lambda { "GET #{resource}" },
-                  api_call: lambda { self.conn.get(resource) })
+                            api_call: lambda { self.conn.get(resource) })
       return {} if full_resp == {}
 
       begin
@@ -77,7 +77,7 @@ module TogglV9
     def post(resource, data = '', json_response = true)
       resource.gsub!('+', '%2B')
       full_resp = _call_api(debug_output: lambda { "POST #{resource} / #{data}" },
-                  api_call: lambda { self.conn.post(resource, Oj.dump(data)) })
+                            api_call: lambda { self.conn.post(resource, Oj.dump(data)) })
       return {} if full_resp == {}
       if json_response
         return Oj.load(full_resp.body)
@@ -89,7 +89,7 @@ module TogglV9
     def put(resource, data = '')
       resource.gsub!('+', '%2B')
       full_resp = _call_api(debug_output: lambda { "PUT #{resource} / #{data}" },
-                  api_call: lambda { self.conn.put(resource, Oj.dump(data)) })
+                            api_call: lambda { self.conn.put(resource, Oj.dump(data)) })
       return {} if full_resp == {}
 
       Oj.load(full_resp.body)
@@ -98,7 +98,7 @@ module TogglV9
     def patch(resource, data = '')
       resource.gsub!('+', '%2B')
       full_resp = _call_api(debug_output: lambda { "PATCH #{resource} / #{data}" },
-                  api_call: lambda { self.conn.patch(resource, Oj.dump(data)) })
+                            api_call: lambda { self.conn.patch(resource, Oj.dump(data)) })
       return {} if full_resp == {}
 
       Oj.load(full_resp.body)
@@ -107,7 +107,7 @@ module TogglV9
     def delete(resource)
       resource.gsub!('+', '%2B')
       full_resp = _call_api(debug_output: lambda { "DELETE #{resource}" },
-                  api_call: lambda { self.conn.delete(resource) })
+                            api_call: lambda { self.conn.delete(resource) })
       return {} if full_resp == {}
 
       full_resp.body

@@ -14,16 +14,6 @@ Gemspec/DevelopmentDependencies:
   Exclude:
     - 'togglv9.gemspec'
 
-# Offense count: 14
-# This cop supports safe autocorrection (--autocorrect).
-# Configuration parameters: EnforcedStyle, IndentationWidth.
-# SupportedStyles: with_first_argument, with_fixed_indentation
-Layout/ArgumentAlignment:
-  Exclude:
-    - 'lib/togglv9/connection.rb'
-    - 'lib/togglv9/togglv9.rb'
-    - 'spec/lib/togglv9/time_entries_spec.rb'
-
 # Offense count: 1
 # This cop supports safe autocorrection (--autocorrect).
 # Configuration parameters: EnforcedStyle, IndentationWidth.
