@@ -43,3 +43,6 @@ Metrics/MethodLength:
 
 Metrics/ParameterLists:
   MaxOptionalParameters: 5
+
+RSpec/PendingWithoutReason:
+  Enabled: false

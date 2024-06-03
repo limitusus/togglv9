@@ -40,43 +40,11 @@ RSpec/InstanceVariable:
     - 'spec/lib/togglv9/users_spec.rb'
     - 'spec/lib/togglv9/workspaces_spec.rb'
 
-# Offense count: 1
-# Configuration parameters: AllowedPatterns.
-# AllowedPatterns: ^expect_, ^assert_
-RSpec/NoExpectationExample:
-  Exclude:
-    - 'spec/lib/reportsv3_spec.rb'
-
-# Offense count: 2
-RSpec/PendingWithoutReason:
-  Exclude:
-    - 'spec/lib/reportsv3_spec.rb'
-    - 'spec/lib/togglv9/users_spec.rb'
-
-# Offense count: 11
-RSpec/VoidExpect:
-  Exclude:
-    - 'spec/lib/reportsv3_spec.rb'
-    - 'spec/spec_helper.rb'
-
-# Offense count: 12
-# Configuration parameters: AllowedConstants.
-Style/Documentation:
-  Exclude:
-    - 'spec/**/*'
-    - 'test/**/*'
-    - 'lib/reportsv3.rb'
-    - 'lib/togglv9/clients.rb'
-    - 'lib/togglv9/connection.rb'
-    - 'lib/togglv9/dashboard.rb'
-    - 'lib/togglv9/project_users.rb'
-    - 'lib/togglv9/projects.rb'
-    - 'lib/togglv9/tags.rb'
-    - 'lib/togglv9/tasks.rb'
-    - 'lib/togglv9/time_entries.rb'
-    - 'lib/togglv9/togglv9.rb'
-    - 'lib/togglv9/users.rb'
-    - 'lib/togglv9/workspaces.rb'
+# # Offense count: 11
+# RSpec/VoidExpect:
+#   Exclude:
+#     - 'spec/lib/reportsv3_spec.rb'
+#     - 'spec/spec_helper.rb'
 
 # Offense count: 16
 # This cop supports safe autocorrection (--autocorrect).

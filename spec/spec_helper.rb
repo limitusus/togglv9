@@ -64,19 +64,19 @@ def mktemp_dir
 end
 
 def file_contains(filename, pattern, maxlen = 1000)
-  expect(File.exist?(filename))
+  expect(File).to exist(filename)
   contents = File.new(filename).sysread(maxlen)
   expect(contents).to match pattern
 end
 
 def file_is_pdf(filename)
-  expect(File.exist?(filename))
+  expect(File).to exist(filename)
   first_line = File.foreach(filename).first
   expect(first_line).to eq "%PDF-1.4\n"
 end
 
 def file_is_xls(filename)
-  expect(File.exist?(filename))
+  expect(File).to exist(filename)
   header = File.new(filename).sysread(8)
   expect(header).to eq ['D0CF11E0A1B11AE1'].pack('H*')
 end

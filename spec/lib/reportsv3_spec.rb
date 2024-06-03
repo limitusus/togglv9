@@ -12,7 +12,7 @@ describe 'ReportsV3' do
   it 'initializes with api_token' do
     reports = TogglV9::ReportsV3.new(api_token: Testing::API_TOKEN)
     reports.workspace_id = @workspace_id
-    reports.list_clients
+    expect { reports.list_clients }.not_to raise_error
   end
 
   it 'does not initialize with bogus api_token' do
@@ -175,19 +175,19 @@ describe 'ReportsV3' do
       it 'summary' do
         filename = File.join(@tmp_home, 'summary.csv')
         @reports.write_summary(filename)
-        expect(file_contains(filename, /00:01:17/))
+        expect(file_contains(filename, /00:01:17/)).to be_truthy
       end
 
       it 'weekly' do
         filename = File.join(@tmp_home, 'weekly.csv')
         @reports.write_weekly(filename)
-        expect(file_contains(filename, /00:01:17/))
+        expect(file_contains(filename, /00:01:17/)).to be_truthy
       end
 
       it 'details' do
         filename = File.join(@tmp_home, 'details.csv')
         @reports.write_details(filename)
-        expect(file_contains(filename, /00:01:17/))
+        expect(file_contains(filename, /00:01:17/)).to be_truthy
       end
     end
 
@@ -195,19 +195,19 @@ describe 'ReportsV3' do
       it 'summary' do
         filename = File.join(@tmp_home, 'summary.pdf')
         @reports.write_summary(filename)
-        expect(file_is_pdf(filename))
+        expect(file_is_pdf(filename)).to be_truthy
       end
 
       it 'weekly' do
         filename = File.join(@tmp_home, 'weekly.pdf')
         @reports.write_weekly(filename)
-        expect(file_is_pdf(filename))
+        expect(file_is_pdf(filename)).to be_truthy
       end
 
       it 'details' do
         filename = File.join(@tmp_home, 'details.pdf')
         @reports.write_details(filename)
-        expect(file_is_pdf(filename))
+        expect(file_is_pdf(filename)).to be_truthy
       end
     end
 
@@ -215,13 +215,13 @@ describe 'ReportsV3' do
       it 'summary' do
         filename = File.join(@tmp_home, 'summary.xls')
         @reports.write_summary(filename)
-        expect(file_is_xls(filename))
+        expect(file_is_xls(filename)).to be_truthy
       end
 
       it 'details' do
         filename = File.join(@tmp_home, 'details.xls')
         @reports.write_details(filename)
-        expect(file_is_xls(filename))
+        expect(file_is_xls(filename)).to be_truthy
       end
     end
   end
