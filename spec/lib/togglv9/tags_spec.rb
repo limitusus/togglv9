@@ -7,7 +7,7 @@ describe 'Tags' do
     @workspace_id = @workspaces.first['id']
   end
 
-  context 'new tag' do
+  context 'with new tag' do
     before :all do
       @tag = @toggl.create_tag(@workspace_id, { 'name' => 'new tag +1' })
       tag_ids = @toggl.my_tags.map { |t| t['id'] }
@@ -35,7 +35,7 @@ describe 'Tags' do
     end
   end
 
-  context 'updated tag' do
+  context 'with updated tag' do
     before do
       @tag = @toggl.create_tag(@workspace_id, { 'name' => 'tag to update' })
     end

@@ -69,7 +69,7 @@ describe 'Users' do
     expect(my_workspaces.length).to eq 1
   end
 
-  context 'new user' do
+  context 'with new user' do
     # FIXME: user creation API is deprecated https://engineering.toggl.com/changes/2023/11/02/v9-auth-endpoints-deprecation/index.html
     xit 'creates a new user' do
       now = Time.now.to_i

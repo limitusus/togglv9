@@ -12,7 +12,7 @@ describe 'Projects' do
     expect(projects).to be_empty
   end
 
-  context 'new project' do
+  context 'with new project' do
     before :all do
       @project = @toggl.create_project(@workspace_id, { 'name' => 'new project +1' })
       project_ids = @toggl.my_projects.map { |p| p['id'] }
@@ -57,7 +57,7 @@ describe 'Projects' do
     end
   end
 
-  context 'updated project' do
+  context 'with updated project' do
     before do
       @project = @toggl.create_project(@workspace_id, { 'name' => 'project to update' })
     end
@@ -87,7 +87,7 @@ describe 'Projects' do
     end
   end
 
-  context 'multiple projects' do
+  context 'with multiple projects' do
     after :all do
       TogglV9SpecHelper.delete_all_projects(@toggl)
     end

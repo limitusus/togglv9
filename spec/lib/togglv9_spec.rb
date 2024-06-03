@@ -63,7 +63,7 @@ describe 'TogglV9' do
     end
   end
 
-  context 'handles errors' do
+  describe 'error handlings' do
     before :all do
       @toggl = TogglV9::API.new(Testing::API_TOKEN)
     end

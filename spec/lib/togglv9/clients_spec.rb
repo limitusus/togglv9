@@ -12,7 +12,7 @@ describe 'Clients' do
     expect(client).to be_empty
   end
 
-  context 'new client' do
+  context 'with new client' do
     before :all do
       @client = @toggl.create_client(@workspace_id, { 'name' => 'new client +1', 'wid' => @workspace_id })
       client_ids = @toggl.my_clients.map { |c| c['id'] }
@@ -35,7 +35,7 @@ describe 'Clients' do
       expect(client_ids).to eq [@client['id']]
     end
 
-    context 'multiple clients' do
+    context 'with multiple clients' do
       before :all do
         @client2 = @toggl.create_client(@workspace_id, { 'name' => 'new client 2', 'wid' => @workspace_id })
       end
@@ -71,13 +71,13 @@ describe 'Clients' do
       expect(client['at']).not_to be_nil
     end
 
-    context 'client projects' do
+    describe 'client projects' do
       it 'gets {} if there are no client projects' do
         projects = @toggl.get_client_projects(@workspace_id, @client['id'])
         expect(projects).to be_empty
       end
 
-      context 'new client projects' do
+      context 'with new client projects' do
         before :all do
           @project = @toggl.create_project(@workspace_id, { 'name' => 'project', 'wid' => @workspace_id, 'cid' => @client['id'] })
         end
@@ -105,7 +105,7 @@ describe 'Clients' do
     end
   end
 
-  context 'updated client' do
+  describe 'updated client' do
     before do
       @client = @toggl.create_client(@workspace_id, { 'name' => 'client to update', 'wid' => @workspace_id })
     end

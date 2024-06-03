@@ -28,7 +28,7 @@ describe 'Workspaces' do
     expect(users.last['workspace_id']).to eq @workspace_id
   end
 
-  context 'tasks', :pro_account do
+  describe 'tasks', :pro_account do
     before do
       @task = @toggl.create_task(@workspace_id, @project['id'], 'name' => 'workspace task')
     end

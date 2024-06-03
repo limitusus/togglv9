@@ -12,7 +12,7 @@ describe 'Dashboard' do
     expect(dashboard).to eq({ 'most_active_user' => {}, 'activity' => [], 'all_activity' => {} })
   end
 
-  context 'gets dashboard time entries' do
+  describe 'gets dashboard time entries' do
     before :all do
       @new_time_entry = @toggl.start_time_entry(@workspace_id, { 'workspace_id' => @workspace_id, 'description' => 'new time entry +1' })
     end

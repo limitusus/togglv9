@@ -58,7 +58,7 @@ describe 'ReportsV3' do
     end
   end
 
-  context 'handles errors' do
+  describe 'handles errors' do
     before :all do
       @reports = TogglV9::ReportsV3.new(api_token: Testing::API_TOKEN)
       @reports.workspace_id = @workspace_id
@@ -80,7 +80,7 @@ describe 'ReportsV3' do
     end
   end
 
-  xcontext 'project', :pro_account do
+  xdescribe 'project', :pro_account do
     before :all do
       @toggl = TogglV9::API.new(Testing::API_TOKEN)
       @project_name = "Project #{Time.now.iso8601}"
@@ -100,7 +100,7 @@ describe 'ReportsV3' do
     end
   end
 
-  context 'blank reports' do
+  describe 'blank reports' do
     before :all do
       @reports = TogglV9::ReportsV3.new(api_token: Testing::API_TOKEN)
       @reports.workspace_id = @workspace_id
@@ -119,7 +119,7 @@ describe 'ReportsV3' do
     end
   end
 
-  context 'reports' do
+  describe 'reports' do
     before :all do
       @toggl = TogglV9::API.new(Testing::API_TOKEN)
       time_entry_info = {
@@ -145,7 +145,7 @@ describe 'ReportsV3' do
       ENV['HOME'] = @original_home
     end
 
-    context 'JSON reports' do
+    describe 'JSON reports' do
       it 'summary' do
         summary = @reports.summary
         expect(summary['groups'].length).to eq 1
@@ -171,7 +171,7 @@ describe 'ReportsV3' do
       end
     end
 
-    context 'CSV reports' do
+    describe 'CSV reports' do
       it 'summary' do
         filename = File.join(@tmp_home, 'summary.csv')
         @reports.write_summary(filename)
@@ -191,7 +191,7 @@ describe 'ReportsV3' do
       end
     end
 
-    context 'PDF reports' do
+    describe 'PDF reports' do
       it 'summary' do
         filename = File.join(@tmp_home, 'summary.pdf')
         @reports.write_summary(filename)
@@ -211,7 +211,7 @@ describe 'ReportsV3' do
       end
     end
 
-    context 'XLS reports', :pro_account do
+    describe 'XLS reports', :pro_account do
       it 'summary' do
         filename = File.join(@tmp_home, 'summary.xls')
         @reports.write_summary(filename)

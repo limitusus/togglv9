@@ -12,7 +12,7 @@ describe 'Tasks', :pro_account do
     @toggl.delete_project(@project['id'])
   end
 
-  context 'new task' do
+  context 'with new task' do
     before :all do
       @task = @toggl.create_task({ 'name' => 'new task +1', 'pid' => @project['id'] })
       @task_ids = @toggl.get_project_tasks(@project['id']).map { |t| t['id'] }
@@ -41,7 +41,7 @@ describe 'Tasks', :pro_account do
     end
   end
 
-  context 'updated task' do
+  context 'with updated task' do
     before do
       @task = @toggl.create_task({ 'name' => 'task to update', 'pid' => @project['id'] })
     end
@@ -60,7 +60,7 @@ describe 'Tasks', :pro_account do
     end
   end
 
-  context 'multiple tasks' do
+  context 'with multiple tasks' do
     before do
       timestamp = Time.now.strftime('%H%M%S.%9N')
       @task1 = @toggl.create_task({ 'name' => "task1-#{timestamp}", 'pid' => @project['id'] })

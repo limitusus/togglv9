@@ -2,14 +2,14 @@
 
 require 'date'
 
-describe 'Time Entries' do
+describe 'TimeEntries' do
   before :all do
     @toggl = TogglV9::API.new(Testing::API_TOKEN)
     @workspaces = @toggl.workspaces
     @workspace_id = @workspaces.first['id']
   end
 
-  context 'CRUD time entry' do
+  describe 'CRUD time entry' do
     before do
       time_entry_info = {
         'wid' => @workspace_id,
@@ -87,7 +87,7 @@ describe 'Time Entries' do
     end
   end
 
-  context '+ UTC offset' do
+  context 'with + UTC offset' do
     # ISO8601 times with positive '+' UTC offsets must be properly encoded
 
     before do
@@ -166,7 +166,7 @@ describe 'Time Entries' do
     end
   end
 
-  context 'multiple time entries' do
+  context 'with multiple time entries' do
     before :all do
       time_entry_info = {
         'wid' => @workspace_id,
@@ -216,7 +216,7 @@ describe 'Time Entries' do
     end
   end
 
-  context 'start and stop time entry' do
+  describe 'start and stop time entry' do
     it 'starts and stops a time entry' do
       time_entry_info = {
         'workspace_id' => @workspace_id,
@@ -273,7 +273,7 @@ describe 'Time Entries' do
     end
   end
 
-  context 'time entry tags' do
+  describe 'time entry tags' do
     before do
       time_entry_info = {
         'wid' => @workspace_id,
@@ -391,7 +391,7 @@ describe 'Time Entries' do
     end
   end
 
-  context 'iso8601' do
+  describe 'iso8601' do
     before :all do
       @ts = DateTime.new(2008, 6, 21, 13, 30, 2, '+09:00')
       @expected = '2008-06-21T13:30:02+09:00'
@@ -419,7 +419,7 @@ describe 'Time Entries' do
       expect { @toggl.iso8601('X') }.to raise_error(ArgumentError)
     end
 
-    context 'String' do
+    context 'with String' do
       it 'converts +00:00 to Zulu' do
         ts = '2015-08-21T09:21:02+00:00'
         expected = '2015-08-21T09:21:02Z'
