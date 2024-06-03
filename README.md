@@ -1,6 +1,6 @@
 # Toggl API v9
 
-[![Gem Version](https://badge.fury.io/rb/togglv9-limitusus.svg)](https://badge.fury.io/rb/togglv9-limitusus)
+[![Gem Version](https://badge.fury.io/rb/togglv9.svg)](https://badge.fury.io/rb/togglv9)
 
 [Toggl](http://www.toggl.com) is a time tracking tool.
 
