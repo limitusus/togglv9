@@ -27,13 +27,13 @@ module TogglV9
 
     def create_time_entry(workspace_id, params)
       params['created_with'] = TogglV9::NAME unless params.key?('created_with')
-      requireParams(params, %w[wid start duration created_with])
+      require_params(params, %w[wid start duration created_with])
       post "workspaces/#{workspace_id}/time_entries", params
     end
 
     def start_time_entry(workspace_id, params)
       params['created_with'] = TogglV9::NAME unless params.key?('created_with')
-      requireParams(params, ['workspace_id'])
+      require_params(params, ['workspace_id'])
       params['start'] = iso8601(Time.now)
       params['duration'] = -1
       post "workspaces/#{workspace_id}/time_entries", params
@@ -88,7 +88,7 @@ module TogglV9
     def update_time_entries_tags(workspace_id, time_entry_ids, params)
       return if time_entry_ids.nil?
 
-      requireParams(params, %w[tags tag_action])
+      require_params(params, %w[tags tag_action])
       patch_params = [
         {
           'op' => params['tag_action'],

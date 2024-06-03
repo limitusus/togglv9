@@ -6,7 +6,7 @@ require_relative '../lib/togglv9'
 class TogglV9SpecHelper
   include Logging
 
-  def self.setUp(toggl)
+  def self.setup(toggl)
     user = toggl.me(true)
     @default_workspace_id = user['default_workspace_id']
 

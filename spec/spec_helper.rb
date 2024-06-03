@@ -37,7 +37,7 @@ RSpec.configure do |config|
 
   config.before(:suite) do
     toggl = TogglV9::API.new(Testing::API_TOKEN)
-    TogglV9SpecHelper.setUp(toggl) # start tests from known state
+    TogglV9SpecHelper.setup(toggl) # start tests from known state
   end
 end
 

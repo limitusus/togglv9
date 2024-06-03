@@ -14,7 +14,7 @@ module TogglV9
     # at    : timestamp that is sent in the response, indicates the time client was last updated
 
     def create_client(workspace_id, params)
-      requireParams(params, %w[name wid])
+      require_params(params, %w[name wid])
       post "workspaces/#{workspace_id}/clients", params
     end
 

@@ -27,7 +27,7 @@ module TogglV9
       end
     end
 
-    def requireParams(params, fields = [])
+    def require_params(params, fields = [])
       raise ArgumentError, 'params is not a Hash' unless params.is_a? Hash
       return if fields.empty?
 

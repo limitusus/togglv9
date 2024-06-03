@@ -73,7 +73,7 @@ module TogglV9
     #
     # See Toggl {Create Project}[https://github.com/toggl/toggl_api_docs/blob/master/chapters/projects.md#create-project]
     def create_project(workspace_id, params)
-      requireParams(params, ['name'])
+      require_params(params, ['name'])
       params['active'] = true unless params.key?('active')
       post "workspaces/#{workspace_id}/projects", params
     end

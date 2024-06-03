@@ -25,11 +25,6 @@ describe 'Clients' do
       expect(clients).to be_empty
     end
 
-    it 'gets a client' do
-      client_ids = @toggl.clients(@workspace_id).map { |c| c['id'] }
-      expect(client_ids).to eq [@client['id']]
-    end
-
     it 'gets a workspace client' do
       client_ids = @toggl.clients(@workspace_id).map { |c| c['id'] }
       expect(client_ids).to eq [@client['id']]
@@ -42,11 +37,6 @@ describe 'Clients' do
 
       after :all do
         @toggl.delete_client(@workspace_id, @client2['id'])
-      end
-
-      it 'gets clients' do
-        client_ids = @toggl.clients(@workspace_id).map { |c| c['id'] }
-        expect(client_ids).to contain_exactly(@client['id'], @client2['id'])
       end
 
       it 'gets workspace clients' do

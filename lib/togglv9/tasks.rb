@@ -21,7 +21,7 @@ module TogglV9
     # uname             : full name of the person to whom the task is assigned to
 
     def create_task(workspace_id, project_id, params)
-      requireParams(params, ['name'])
+      require_params(params, ['name'])
       post "workspaces/#{workspace_id}/projects/#{project_id}/tasks", params
     end
 

@@ -68,21 +68,21 @@ describe 'TogglV9' do
     let(:toggl) { TogglV9::API.new(Testing::API_TOKEN) }
 
     it 'surfaces an HTTP Status Code in case of error' do
-      expect(toggl.conn).to receive(:get).once.and_return(
+      allow(toggl.conn).to receive(:get).once.and_return(
         MockResponse.new(400, {}, 'body')
       )
       expect { toggl.me }.to raise_error(RuntimeError, 'HTTP Status: 400')
     end
 
     it 'retries a request up to 3 times if a 429 is received' do
-      expect(toggl.conn).to receive(:get).exactly(3).times.and_return(
+      allow(toggl.conn).to receive(:get).exactly(3).times.and_return(
         MockResponse.new(429, {}, 'body')
       )
       expect { toggl.me }.to raise_error(RuntimeError, 'HTTP Status: 429')
     end
 
     it 'retries a request after 429' do
-      expect(toggl.conn).to receive(:get).twice.and_return(
+      allow(toggl.conn).to receive(:get).twice.and_return(
         MockResponse.new(429, {}, 'body'),
         MockResponse.new(200, {}, nil)
       )

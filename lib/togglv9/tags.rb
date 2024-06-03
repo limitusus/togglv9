@@ -10,7 +10,7 @@ module TogglV9
     # wid  : workspace ID, where the tag will be used (integer, required)
 
     def create_tag(workspace_id, params)
-      requireParams(params, ['name'])
+      require_params(params, ['name'])
       post "workspaces/#{workspace_id}/tags", params
     end
 

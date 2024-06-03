@@ -14,38 +14,10 @@ Gemspec/DevelopmentDependencies:
   Exclude:
     - 'togglv9.gemspec'
 
-# Offense count: 4
-# Configuration parameters: AllowedMethods, AllowedPatterns, CountRepeatedAttributes.
-Metrics/AbcSize:
-  Max: 20
-
-# Offense count: 5
-# Configuration parameters: CountComments, CountAsOne, AllowedMethods, AllowedPatterns.
-Metrics/MethodLength:
-  Max: 17
-
-# Offense count: 1
-# Configuration parameters: Max, CountKeywordArgs.
-Metrics/ParameterLists:
-  MaxOptionalParameters: 4
-
 # Offense count: 1
 Naming/AccessorMethodName:
   Exclude:
     - 'lib/togglv9/time_entries.rb'
-
-# Offense count: 2
-# Configuration parameters: EnforcedStyle, AllowedPatterns.
-# SupportedStyles: snake_case, camelCase
-Naming/MethodName:
-  Exclude:
-    - 'lib/togglv9/connection.rb'
-    - 'spec/togglv9_spec_helper.rb'
-
-# Offense count: 29
-# Configuration parameters: CountAsOne.
-RSpec/ExampleLength:
-  Max: 24
 
 # Offense count: 8
 RSpec/ExpectInHook:
@@ -68,21 +40,6 @@ RSpec/InstanceVariable:
     - 'spec/lib/togglv9/users_spec.rb'
     - 'spec/lib/togglv9/workspaces_spec.rb'
 
-# Offense count: 5
-# Configuration parameters: .
-# SupportedStyles: have_received, receive
-RSpec/MessageSpies:
-  EnforcedStyle: receive
-
-# Offense count: 41
-RSpec/MultipleExpectations:
-  Max: 9
-
-# Offense count: 1
-# Configuration parameters: AllowedGroups.
-RSpec/NestedGroups:
-  Max: 4
-
 # Offense count: 1
 # Configuration parameters: AllowedPatterns.
 # AllowedPatterns: ^expect_, ^assert_
@@ -95,11 +52,6 @@ RSpec/PendingWithoutReason:
   Exclude:
     - 'spec/lib/reportsv3_spec.rb'
     - 'spec/lib/togglv9/users_spec.rb'
-
-# Offense count: 4
-RSpec/RepeatedExample:
-  Exclude:
-    - 'spec/lib/togglv9/clients_spec.rb'
 
 # Offense count: 11
 RSpec/VoidExpect:
@@ -130,8 +82,6 @@ Style/Documentation:
 # This cop supports safe autocorrection (--autocorrect).
 # Configuration parameters: AllowHeredoc, AllowURI, URISchemes, IgnoreCopDirectives, AllowedPatterns.
 # URISchemes: http, https
-Layout/LineLength:
-  Max: 184
 
 Style/OptionalBooleanParameter:
   Enabled: false
