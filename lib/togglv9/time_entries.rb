@@ -32,8 +32,8 @@ module TogglV9
     def start_time_entry(workspace_id, params)
       params['created_with'] = TogglV9::NAME unless params.has_key?('created_with')
       requireParams(params, ['workspace_id'])
-      params["start"] = iso8601(Time.now)
-      params["duration"] = -1
+      params['start'] = iso8601(Time.now)
+      params['duration'] = -1
       post "workspaces/#{workspace_id}/time_entries", params
     end
 
@@ -46,7 +46,7 @@ module TogglV9
     end
 
     def get_current_time_entry
-      get "me/time_entries/current"
+      get 'me/time_entries/current'
     end
 
     def update_time_entry(workspace_id, time_entry_id, params)
@@ -78,7 +78,7 @@ module TogglV9
       end_date = Time.now if end_date.nil?
       params.push("start_date=#{iso8601(start_date)}")
       params.push("end_date=#{iso8601(end_date)}")
-      get "me/time_entries%s" % [params.empty? ? "" : "?#{params.join('&')}"]
+      get 'me/time_entries%s' % [params.empty? ? '' : "?#{params.join('&')}"]
     end
 
     # Example params: {'tags' =>['billed','productive'], 'tag_action' => 'add'}

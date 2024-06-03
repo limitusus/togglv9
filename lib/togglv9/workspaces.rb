@@ -10,7 +10,7 @@ module TogglV9
     # at      : timestamp that is sent in the response, indicates the time item was last updated
 
     def workspaces
-      get "me/workspaces"
+      get 'me/workspaces'
     end
 
     def clients(workspace_id)
@@ -18,7 +18,7 @@ module TogglV9
     end
 
     def projects(workspace_id, params = {})
-      active = params.has_key?(:active) ? "?active=#{params[:active]}" : ""
+      active = params.has_key?(:active) ? "?active=#{params[:active]}" : ''
       get "workspaces/#{workspace_id}/projects#{active}"
     end
 
@@ -27,7 +27,7 @@ module TogglV9
     end
 
     def tasks(workspace_id, params = {})
-      active = params.has_key?(:active) ? "?active=#{params[:active]}" : ""
+      active = params.has_key?(:active) ? "?active=#{params[:active]}" : ''
       get "workspaces/#{workspace_id}/tasks#{active}"
     end
 

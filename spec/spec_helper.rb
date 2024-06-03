@@ -1,5 +1,5 @@
-require "simplecov"
-require "coveralls"
+require 'simplecov'
+require 'coveralls'
 require 'pry'
 
 SimpleCov.formatters = [
@@ -76,7 +76,7 @@ end
 def file_is_xls(filename)
   expect(File.exist?(filename))
   header = File.new(filename).sysread(8)
-  expect(header).to eq ['D0CF11E0A1B11AE1'].pack("H*")
+  expect(header).to eq ['D0CF11E0A1B11AE1'].pack('H*')
 end
 
 class Testing

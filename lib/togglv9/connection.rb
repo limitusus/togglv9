@@ -20,7 +20,7 @@ module TogglV9
         faraday.request :url_encoded
         faraday.response :logger, Logger.new('faraday.log') if opts[:log]
         faraday.adapter Faraday.default_adapter
-        faraday.headers = { "Content-Type" => "application/json" }
+        faraday.headers = { 'Content-Type' => 'application/json' }
         faraday.request :authorization, :basic, username, password
       end
     end

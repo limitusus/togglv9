@@ -60,7 +60,7 @@ describe 'Tasks', :pro_account do
 
   context 'multiple tasks' do
     before :each do
-      timestamp = Time.now.strftime("%H%M%S.%9N")
+      timestamp = Time.now.strftime('%H%M%S.%9N')
       @task1 = @toggl.create_task({ 'name' => "task1-#{timestamp}", 'pid' => @project['id'] })
       @task2 = @toggl.create_task({ 'name' => "task2-#{timestamp}", 'pid' => @project['id'] })
       @task3 = @toggl.create_task({ 'name' => "task3-#{timestamp}", 'pid' => @project['id'] })

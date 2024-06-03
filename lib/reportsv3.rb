@@ -85,7 +85,7 @@ module TogglV9
 
     # extension can be one of ['.pdf', '.csv', '.xls']. Possibly others?
     def report(type, extension, params)
-      raise "workspace_id is required" if @workspace_id.nil?
+      raise 'workspace_id is required' if @workspace_id.nil?
 
       json = true
       json = false if extension != ''
@@ -114,7 +114,7 @@ module TogglV9
     def write_report(filename)
       extension = File.extname(filename)
       report = yield(extension)
-      File.open(filename, "wb") do |file|
+      File.open(filename, 'wb') do |file|
         file.write(report)
       end
     end
@@ -155,9 +155,9 @@ module TogglV9
     # order_field string  : name/assignee/duration/billable_amount/estimated_seconds
     # order_desc string   : on/off, on for descending and off for ascending order
     def project(project_id, params = {})
-      raise "workspace_id is required" if @workspace_id.nil?
+      raise 'workspace_id is required' if @workspace_id.nil?
 
-      get "project", {
+      get 'project', {
         user_agent: @user_agent,
         workspace_id: @workspace_id,
         project_id: project_id,

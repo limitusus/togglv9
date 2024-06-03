@@ -23,7 +23,7 @@ describe 'Time Entries' do
     after :each do
       @toggl.delete_time_entry(@workspace_id, @time_entry['id'])
     rescue RuntimeError => e
-      if e.message != "HTTP Status: 404"
+      if e.message != 'HTTP Status: 404'
         raise e
       end
     end
@@ -105,7 +105,7 @@ describe 'Time Entries' do
     after :each do
       @toggl.delete_time_entry(@workspace_id, @time_entry['id'])
     rescue RuntimeError => e
-      if e.message != "HTTP Status: 404"
+      if e.message != 'HTTP Status: 404'
         raise e
       end
     end
@@ -395,7 +395,7 @@ describe 'Time Entries' do
 
   context 'iso8601' do
     before :all do
-      @ts = DateTime.new(2008, 6, 21, 13, 30, 2, "+09:00")
+      @ts = DateTime.new(2008, 6, 21, 13, 30, 2, '+09:00')
       @expected = '2008-06-21T13:30:02+09:00'
     end
 

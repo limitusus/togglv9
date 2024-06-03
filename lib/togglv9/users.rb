@@ -22,7 +22,7 @@ module TogglV9
     def me(all = nil)
       # NOTE: response['since'] is discarded because it is outside response['data']
       #       (See TogglV9::API#get in lib/togglv9.rb)
-      get "me%s" % [all.nil? ? "" : "?with_related_data=#{all}"]
+      get 'me%s' % [all.nil? ? '' : "?with_related_data=#{all}"]
     end
 
     def my_clients(user = nil)
@@ -69,7 +69,7 @@ module TogglV9
     def create_user(params)
       params['created_with'] = TogglV9::NAME unless params.has_key?('created_with')
       requireParams(params, ['email', 'password', 'timezone', 'created_with'])
-      post "signup", params
+      post 'signup', params
     end
   end
 end

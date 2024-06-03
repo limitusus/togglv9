@@ -19,7 +19,7 @@ describe 'TogglV9' do
 
   it 'does not initialize with bogus api_token' do
     toggl = TogglV9::API.new('4880nqor1orr9n241sn08070q33oq49s')
-    expect { toggl.me }.to raise_error(RuntimeError, "HTTP Status: 403")
+    expect { toggl.me }.to raise_error(RuntimeError, 'HTTP Status: 403')
   end
 
   context '.toggl file' do
@@ -69,13 +69,13 @@ describe 'TogglV9' do
     it 'surfaces an HTTP Status Code in case of error' do
       expect(@toggl.conn).to receive(:get).once.and_return(
         MockResponse.new(400, {}, 'body'))
-      expect { @toggl.me }.to raise_error(RuntimeError, "HTTP Status: 400")
+      expect { @toggl.me }.to raise_error(RuntimeError, 'HTTP Status: 400')
     end
 
     it 'retries a request up to 3 times if a 429 is received' do
       expect(@toggl.conn).to receive(:get).exactly(3).times.and_return(
         MockResponse.new(429, {}, 'body'))
-      expect { @toggl.me }.to raise_error(RuntimeError, "HTTP Status: 429")
+      expect { @toggl.me }.to raise_error(RuntimeError, 'HTTP Status: 429')
     end
 
     it 'retries a request after 429' do
