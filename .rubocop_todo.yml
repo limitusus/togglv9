@@ -65,10 +65,8 @@ RSpec/InstanceVariable:
     - 'spec/lib/togglv9/projects_spec.rb'
     - 'spec/lib/togglv9/tags_spec.rb'
     - 'spec/lib/togglv9/tasks_spec.rb'
-    - 'spec/lib/togglv9/time_entries_spec.rb'
     - 'spec/lib/togglv9/users_spec.rb'
     - 'spec/lib/togglv9/workspaces_spec.rb'
-    - 'spec/lib/togglv9_spec.rb'
 
 # Offense count: 5
 # Configuration parameters: .

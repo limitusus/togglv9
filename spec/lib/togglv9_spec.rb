@@ -25,19 +25,20 @@ describe 'TogglV9' do
   end
 
   describe '.toggl file' do
+    let(:tmp_home) { mktemp_dir }
+    let(:original_home) { Dir.home }
+
     before do
-      @tmp_home = mktemp_dir
-      @original_home = Dir.home
-      ENV['HOME'] = @tmp_home
+      ENV['HOME'] = tmp_home
     end
 
     after do
-      FileUtils.rm_rf(@tmp_home)
-      ENV['HOME'] = @original_home
+      FileUtils.rm_rf(tmp_home)
+      ENV['HOME'] = original_home
     end
 
     it 'initializes with .toggl file' do
-      toggl_file = File.join(@tmp_home, '.toggl')
+      toggl_file = File.join(tmp_home, '.toggl')
       File.write(toggl_file, Testing::API_TOKEN)
 
       toggl = TogglV9::API.new
@@ -48,7 +49,7 @@ describe 'TogglV9' do
     end
 
     it 'initializes with .toggl file ending with a newline' do
-      toggl_file = File.join(@tmp_home, '.toggl')
+      toggl_file = File.join(tmp_home, '.toggl')
       File.write(toggl_file, "#{Testing::API_TOKEN}\n")
 
       toggl = TogglV9::API.new
@@ -64,30 +65,28 @@ describe 'TogglV9' do
   end
 
   describe 'error handlings' do
-    before :all do
-      @toggl = TogglV9::API.new(Testing::API_TOKEN)
-    end
+    let(:toggl) { TogglV9::API.new(Testing::API_TOKEN) }
 
     it 'surfaces an HTTP Status Code in case of error' do
-      expect(@toggl.conn).to receive(:get).once.and_return(
+      expect(toggl.conn).to receive(:get).once.and_return(
         MockResponse.new(400, {}, 'body')
       )
-      expect { @toggl.me }.to raise_error(RuntimeError, 'HTTP Status: 400')
+      expect { toggl.me }.to raise_error(RuntimeError, 'HTTP Status: 400')
     end
 
     it 'retries a request up to 3 times if a 429 is received' do
-      expect(@toggl.conn).to receive(:get).exactly(3).times.and_return(
+      expect(toggl.conn).to receive(:get).exactly(3).times.and_return(
         MockResponse.new(429, {}, 'body')
       )
-      expect { @toggl.me }.to raise_error(RuntimeError, 'HTTP Status: 429')
+      expect { toggl.me }.to raise_error(RuntimeError, 'HTTP Status: 429')
     end
 
     it 'retries a request after 429' do
-      expect(@toggl.conn).to receive(:get).twice.and_return(
+      expect(toggl.conn).to receive(:get).twice.and_return(
         MockResponse.new(429, {}, 'body'),
         MockResponse.new(200, {}, nil)
       )
-      expect(@toggl.me).to eq({}) # response is {} in this case because body is nil
+      expect(toggl.me).to eq({}) # response is {} in this case because body is nil
     end
   end
 end

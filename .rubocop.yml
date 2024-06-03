@@ -16,3 +16,6 @@ Gemspec/RequireMFA:
 
 RSpec/BeforeAfterAll:
   Enabled: false
+
+RSpec/MultipleMemoizedHelpers:
+  Max: 15
