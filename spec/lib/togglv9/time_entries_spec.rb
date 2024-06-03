@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'date'
 
 describe 'Time Entries' do
@@ -47,7 +49,7 @@ describe 'Time Entries' do
       retrieved_time_entry = @toggl.get_time_entry(@time_entry['id'])
       retrieved_time_entry.delete('guid')
 
-      ['start', 'stop'].each do |key|
+      %w[start stop].each do |key|
         expect(retrieved_time_entry[key]).to eq_ts @time_entry[key]
         retrieved_time_entry.delete(key)
         @time_entry.delete(key)
@@ -127,7 +129,7 @@ describe 'Time Entries' do
       retrieved_time_entry = @toggl.get_time_entry(@time_entry['id'])
       retrieved_time_entry.delete('guid')
 
-      ['start', 'stop'].each do |key|
+      %w[start stop].each do |key|
         expect(retrieved_time_entry[key]).to eq_ts @time_entry[key]
         retrieved_time_entry.delete(key)
         @time_entry.delete(key)
@@ -341,20 +343,20 @@ describe 'Time Entries' do
     it 'adds and removes multiple tags' do
       # Add multiple tags
       @toggl.update_time_entries_tags_fixed(@workspace_id, @time_entry_ids,
-                                            { 'tags' => ['billed', 'productive'], 'tag_action' => 'add' })
+                                            { 'tags' => %w[billed productive], 'tag_action' => 'add' })
 
       time_entries = @toggl.get_time_entries
       tags = time_entries.map { |t| t['tags'] }
       expect(tags).to eq [
-        ['billed', 'productive'],
-        ['billed', 'productive'],
-        ['billed', 'productive'],
-        ['billed', 'productive']
+        %w[billed productive],
+        %w[billed productive],
+        %w[billed productive],
+        %w[billed productive]
       ]
 
       # Remove multiple tags
       @toggl.update_time_entries_tags_fixed(@workspace_id, @time_entry_ids,
-                                            { 'tags' => ['billed', 'productive'], 'tag_action' => 'remove' })
+                                            { 'tags' => %w[billed productive], 'tag_action' => 'remove' })
 
       time_entries = @toggl.get_time_entries
       tags = time_entries.map { |t| t['tags'] }
@@ -364,7 +366,7 @@ describe 'Time Entries' do
     it 'manages multiple tags' do
       # Add some tags
       @toggl.update_time_entries_tags_fixed(@workspace_id, @time_entry_ids,
-                                            { 'tags' => ['billed', 'productive'], 'tag_action' => 'add' })
+                                            { 'tags' => %w[billed productive], 'tag_action' => 'add' })
 
       # Remove some tags
       @toggl.update_time_entries_tags_fixed(@workspace_id, [@time6['id'], @time4['id']],
@@ -381,9 +383,9 @@ describe 'Time Entries' do
 
       tags = [time7['tags'], time6['tags'], time5['tags'], time4['tags']]
       expect(tags).to eq [
-        ['best', 'billed', 'productive'],
+        %w[best billed productive],
         ['productive'],
-        ['billed', 'productive'],
+        %w[billed productive],
         ['productive']
       ]
     end
@@ -410,7 +412,7 @@ describe 'Time Entries' do
     end
 
     it 'cannot format a FixNum' do
-      expect { @toggl.iso8601(1234567890) }.to raise_error(ArgumentError)
+      expect { @toggl.iso8601(1_234_567_890) }.to raise_error(ArgumentError)
     end
 
     it 'cannot format a malformed timestamp' do

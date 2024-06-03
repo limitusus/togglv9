@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module TogglV9
   TOGGL_REPORTS_URL = 'https://api.track.toggl.com/reports/api/'
 
@@ -114,9 +116,7 @@ module TogglV9
     def write_report(filename)
       extension = File.extname(filename)
       report = yield(extension)
-      File.open(filename, 'wb') do |file|
-        file.write(report)
-      end
+      File.binwrite(filename, report)
     end
 
     def write_weekly(filename, params = {})

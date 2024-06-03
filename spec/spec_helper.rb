@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'simplecov'
 require 'coveralls'
 require 'pry'
@@ -84,9 +86,9 @@ class Testing
   EMAIL     = ENV['TOGGL_EMAIL'] || ENV['EMAIL'] || 'togglv9@mailinator.com'
   USERNAME  = ENV['TOGGL_USERNAME'] || ENV['USERNAME'] || 'togglv9'
   PASSWORD  = ENV['TOGGL_PASSWORD'] || ENV['PASSWORD'] || 'togglv9'
-  USER_ID   = (ENV['TOGGL_USER_ID'] || ENV['USER_ID'] || 1820939).to_i
+  USER_ID   = (ENV['TOGGL_USER_ID'] || ENV['USER_ID'] || 1_820_939).to_i
 
   OTHER_EMAIL    = ENV['OTHER_EMAIL']    || 'pr5zwux59w@snkmail.com'
   OTHER_USERNAME = ENV['OTHER_USERNAME'] || 'Pr5zwux59w'
-  OTHER_USER_ID  = (ENV['OTHER_USER_ID'] || 2450739).to_i
+  OTHER_USER_ID  = (ENV['OTHER_USER_ID'] || 2_450_739).to_i
 end

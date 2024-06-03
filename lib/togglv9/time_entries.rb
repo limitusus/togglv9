@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module TogglV9
   class API
     ##
@@ -25,7 +27,7 @@ module TogglV9
 
     def create_time_entry(workspace_id, params)
       params['created_with'] = TogglV9::NAME unless params.key?('created_with')
-      requireParams(params, ['wid', 'start', 'duration', 'created_with'])
+      requireParams(params, %w[wid start duration created_with])
       post "workspaces/#{workspace_id}/time_entries", params
     end
 
@@ -86,7 +88,7 @@ module TogglV9
     def update_time_entries_tags(workspace_id, time_entry_ids, params)
       return if time_entry_ids.nil?
 
-      requireParams(params, ['tags', 'tag_action'])
+      requireParams(params, %w[tags tag_action])
       patch_params = [
         {
           'op' => params['tag_action'],

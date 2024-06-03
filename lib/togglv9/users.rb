@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module TogglV9
   class API
     ##
@@ -68,7 +70,7 @@ module TogglV9
 
     def create_user(params)
       params['created_with'] = TogglV9::NAME unless params.key?('created_with')
-      requireParams(params, ['email', 'password', 'timezone', 'created_with'])
+      requireParams(params, %w[email password timezone created_with])
       post 'signup', params
     end
   end

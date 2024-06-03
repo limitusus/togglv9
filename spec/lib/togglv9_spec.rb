@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'fileutils'
 
 describe 'TogglV9' do
@@ -36,7 +38,7 @@ describe 'TogglV9' do
 
     it 'initializes with .toggl file' do
       toggl_file = File.join(@tmp_home, '.toggl')
-      File.open(toggl_file, 'w') { |file| file.write(Testing::API_TOKEN) }
+      File.write(toggl_file, Testing::API_TOKEN)
 
       toggl = TogglV9::API.new
       me = toggl.me
@@ -47,7 +49,7 @@ describe 'TogglV9' do
 
     it 'initializes with .toggl file ending with a newline' do
       toggl_file = File.join(@tmp_home, '.toggl')
-      File.open(toggl_file, 'w') { |file| file.write("#{Testing::API_TOKEN}\n") }
+      File.write(toggl_file, "#{Testing::API_TOKEN}\n")
 
       toggl = TogglV9::API.new
       me = toggl.me

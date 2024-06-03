@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'faraday'
 require 'oj'
 
@@ -33,7 +35,7 @@ module TogglV9
       fields.each do |f|
         errors.push("params[#{f}] is required") unless params.key?(f)
       end
-      raise ArgumentError, errors.join(', ') if !errors.empty?
+      raise ArgumentError, errors.join(', ') unless errors.empty?
     end
 
     def _call_api(procs)
@@ -59,9 +61,9 @@ module TogglV9
     def get(resource, params = {})
       query_params = params.map { |k, v| "#{k}=#{v}" }.join('&')
       resource += "?#{query_params}" unless query_params.empty?
-      resource.gsub!('+', '%2B')
-      full_resp = _call_api(debug_output: -> { "GET #{resource}" },
-                            api_call: -> { conn.get(resource) })
+      resource_encoded = resource.gsub('+', '%2B')
+      full_resp = _call_api(debug_output: -> { "GET #{resource_encoded}" },
+                            api_call: -> { conn.get(resource_encoded) })
       return {} if full_resp == {}
 
       begin
@@ -75,9 +77,9 @@ module TogglV9
     end
 
     def post(resource, data = '', json_response = true)
-      resource.gsub!('+', '%2B')
-      full_resp = _call_api(debug_output: -> { "POST #{resource} / #{data}" },
-                            api_call: -> { conn.post(resource, Oj.dump(data)) })
+      resource_encoded = resource.gsub('+', '%2B')
+      full_resp = _call_api(debug_output: -> { "POST #{resource_encoded} / #{data}" },
+                            api_call: -> { conn.post(resource_encoded, Oj.dump(data)) })
       return {} if full_resp == {}
       return Oj.load(full_resp.body) if json_response
 
@@ -85,27 +87,27 @@ module TogglV9
     end
 
     def put(resource, data = '')
-      resource.gsub!('+', '%2B')
-      full_resp = _call_api(debug_output: -> { "PUT #{resource} / #{data}" },
-                            api_call: -> { conn.put(resource, Oj.dump(data)) })
+      resource_encoded = resource.gsub('+', '%2B')
+      full_resp = _call_api(debug_output: -> { "PUT #{resource_encoded} / #{data}" },
+                            api_call: -> { conn.put(resource_encoded, Oj.dump(data)) })
       return {} if full_resp == {}
 
       Oj.load(full_resp.body)
     end
 
     def patch(resource, data = '')
-      resource.gsub!('+', '%2B')
-      full_resp = _call_api(debug_output: -> { "PATCH #{resource} / #{data}" },
-                            api_call: -> { conn.patch(resource, Oj.dump(data)) })
+      resource_encoded = resource.gsub('+', '%2B')
+      full_resp = _call_api(debug_output: -> { "PATCH #{resource_encoded} / #{data}" },
+                            api_call: -> { conn.patch(resource_encoded, Oj.dump(data)) })
       return {} if full_resp == {}
 
       Oj.load(full_resp.body)
     end
 
     def delete(resource)
-      resource.gsub!('+', '%2B')
-      full_resp = _call_api(debug_output: -> { "DELETE #{resource}" },
-                            api_call: -> { conn.delete(resource) })
+      resource_encoded = resource.gsub('+', '%2B')
+      full_resp = _call_api(debug_output: -> { "DELETE #{resource_encoded}" },
+                            api_call: -> { conn.delete(resource_encoded) })
       return {} if full_resp == {}
 
       full_resp.body

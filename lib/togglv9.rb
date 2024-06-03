@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative 'togglv9/version'
 
 require_relative 'togglv9/connection'

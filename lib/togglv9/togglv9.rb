@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative 'clients'
 require_relative 'dashboard'
 require_relative 'project_users'

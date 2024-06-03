@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'fileutils'
 
 describe 'ReportsV3' do
@@ -33,7 +35,7 @@ describe 'ReportsV3' do
 
     it 'initializes with .toggl file' do
       toggl_file = File.join(@tmp_home, '.toggl')
-      File.open(toggl_file, 'w') { |file| file.write(Testing::API_TOKEN) }
+      File.write(toggl_file, Testing::API_TOKEN)
 
       reports = TogglV9::ReportsV3.new
       reports.workspace_id = @workspace_id
@@ -43,7 +45,7 @@ describe 'ReportsV3' do
 
     it 'initializes with custom toggl file' do
       toggl_file = File.join(@tmp_home, 'my_toggl')
-      File.open(toggl_file, 'w') { |file| file.write(Testing::API_TOKEN) }
+      File.write(toggl_file, Testing::API_TOKEN)
 
       reports = TogglV9::ReportsV3.new(toggl_api_file: toggl_file)
       reports.workspace_id = @workspace_id
@@ -74,7 +76,7 @@ describe 'ReportsV3' do
         MockResponse.new(429, {}, 'body'),
         MockResponse.new(200, {}, '[{"id":65220674, "name":"test1"}, {"id":65220675, "name":"test2"}]')
       )
-      expect(@reports.list_clients).to eq([{ 'id' => 65220674, 'name' => 'test1' }, { 'id' => 65220675, 'name' => 'test2' }])
+      expect(@reports.list_clients).to eq([{ 'id' => 65_220_674, 'name' => 'test1' }, { 'id' => 65_220_675, 'name' => 'test2' }])
     end
   end
 

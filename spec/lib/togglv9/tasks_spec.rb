@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 describe 'Tasks', :pro_account do
   before :all do
     @toggl = TogglV9::API.new(Testing::API_TOKEN)

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # :nocov:
 require 'logger'
 # require 'awesome_print' # for debug output

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module TogglV9
   class API
     ##

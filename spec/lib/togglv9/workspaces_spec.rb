@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 describe 'Workspaces' do
   before :all do
     @toggl = TogglV9::API.new(Testing::API_TOKEN)
