@@ -121,7 +121,7 @@ describe 'ReportsV3' do
       time_entry_info = {
         'wid' => @workspace_id,
         'start' => @toggl.iso8601(DateTime.now),
-        'duration' => 77
+        'duration' => 77,
       }
 
       @time_entry = @toggl.create_time_entry(@workspace_id, time_entry_info)

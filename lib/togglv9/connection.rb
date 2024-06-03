@@ -16,7 +16,7 @@ module TogglV9
     def self.open(username=nil, password=API_TOKEN, url=nil, opts={})
       raise 'Missing URL' if url.nil?
 
-      Faraday.new(:url => url, :ssl => {:verify => true}) do |faraday|
+      Faraday.new(url: url, ssl: {verify: true}) do |faraday|
         faraday.request :url_encoded
         faraday.response :logger, Logger.new('faraday.log') if opts[:log]
         faraday.adapter Faraday.default_adapter

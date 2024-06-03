@@ -6,3 +6,6 @@ AllCops:
 require:
   - rubocop-rake
   - rubocop-rspec
+
+Style/TrailingCommaInHashLiteral:
+  EnforcedStyleForMultiline: comma

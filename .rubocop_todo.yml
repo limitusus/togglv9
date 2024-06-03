@@ -585,19 +585,6 @@ Style/HashConversion:
   Exclude:
     - 'spec/lib/togglv9/dashboard_spec.rb'
 
-# Offense count: 14
-# This cop supports safe autocorrection (--autocorrect).
-# Configuration parameters: EnforcedStyle, EnforcedShorthandSyntax, UseHashRocketsWithSymbolValues, PreferHashRocketsForNonAlnumEndingSymbols.
-# SupportedStyles: ruby19, hash_rockets, no_mixed_keys, ruby19_no_mixed_keys
-# SupportedShorthandSyntax: always, never, either, consistent, either_consistent
-Style/HashSyntax:
-  Exclude:
-    - 'lib/reportsv3.rb'
-    - 'lib/togglv9.rb'
-    - 'lib/togglv9/connection.rb'
-    - 'spec/lib/togglv9/time_entries_spec.rb'
-    - 'spec/togglv9_spec_helper.rb'
-
 # Offense count: 3
 # This cop supports safe autocorrection (--autocorrect).
 Style/IfUnlessModifier:
@@ -724,24 +711,6 @@ Style/StringLiterals:
     - 'spec/lib/togglv9_spec.rb'
     - 'spec/spec_helper.rb'
     - 'togglv9.gemspec'
-
-# Offense count: 3
-# This cop supports safe autocorrection (--autocorrect).
-Style/SymbolLiteral:
-  Exclude:
-    - 'lib/reportsv3.rb'
-
-# Offense count: 6
-# This cop supports safe autocorrection (--autocorrect).
-# Configuration parameters: EnforcedStyleForMultiline.
-# SupportedStylesForMultiline: comma, consistent_comma, no_comma
-Style/TrailingCommaInHashLiteral:
-  Exclude:
-    - 'lib/reportsv3.rb'
-    - 'spec/lib/togglv9/clients_spec.rb'
-    - 'spec/lib/togglv9/projects_spec.rb'
-    - 'spec/lib/togglv9/tags_spec.rb'
-    - 'spec/lib/togglv9/tasks_spec.rb'
 
 # Offense count: 1
 # This cop supports safe autocorrection (--autocorrect).

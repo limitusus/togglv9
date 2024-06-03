@@ -73,11 +73,11 @@ describe 'Users' do
       now = Time.now.to_i
       user_info = {
         'email' => "test-#{now}+1@mailinator.com",
-        'timezone' => 'Etc/UTC'
+        'timezone' => 'Etc/UTC',
       }
       user_additional = {
         'password' => "password-#{now}+1",
-        'tos_accepted' => 'true'
+        'tos_accepted' => 'true',
       }
 
       new_user = @toggl.create_user(user_info.merge(user_additional))

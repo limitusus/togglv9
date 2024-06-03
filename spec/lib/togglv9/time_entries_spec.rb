@@ -12,7 +12,7 @@ describe 'Time Entries' do
       time_entry_info = {
         'wid' => @workspace_id,
         'start' => @toggl.iso8601(DateTime.now),
-        'duration' => 77
+        'duration' => 77,
       }
 
       @expected = time_entry_info.clone
@@ -37,7 +37,7 @@ describe 'Time Entries' do
     it 'requires a workspace, project, or task to create' do
       time_entry_info = {
         'start' => @toggl.iso8601(DateTime.now),
-        'duration' => 77
+        'duration' => 77,
       }
 
       expect {
@@ -66,7 +66,7 @@ describe 'Time Entries' do
     it 'updates a time entry' do
       time_entry_info = {
         'start' => '2010-02-13T23:31:30+00:00',
-        'duration' => 42
+        'duration' => 42,
       }
 
       expected = time_entry_info.clone
@@ -94,7 +94,7 @@ describe 'Time Entries' do
       time_entry_info = {
         'wid' => @workspace_id,
         'start' => '2016-01-22T12:08:14+02:00',
-        'duration' => 77
+        'duration' => 77,
       }
 
       @expected = time_entry_info.clone
@@ -119,7 +119,7 @@ describe 'Time Entries' do
     it 'requires a workspace, project, or task to create' do
       time_entry_info = {
         'start' => '2016-01-22T12:08:14+02:00',
-        'duration' => 77
+        'duration' => 77,
       }
 
       expect {
@@ -148,7 +148,7 @@ describe 'Time Entries' do
     it 'updates a time entry' do
       time_entry_info = {
         'start' => '2010-02-13T23:31:30+07:00',
-        'duration' => 42
+        'duration' => 42,
       }
 
       expected = time_entry_info.clone
@@ -172,7 +172,7 @@ describe 'Time Entries' do
     before :all do
       time_entry_info = {
         'wid' => @workspace_id,
-        'duration' => 77
+        'duration' => 77,
       }
       @now = DateTime.now
 
@@ -203,17 +203,17 @@ describe 'Time Entries' do
     end
 
     it 'gets time entries after start_date (up till now)' do
-      ids = @toggl.get_time_entries({:start_date => @now - 1}).map { |t| t['id']}
+      ids = @toggl.get_time_entries({start_date: @now - 1}).map { |t| t['id']}
       expect(ids.sort).to eq [ @now_id ]
     end
 
     it 'gets time entries between start_date and end_date' do
-      ids = @toggl.get_time_entries({:start_date => @now - 1, :end_date => @now + 1}).map { |t| t['id']}
+      ids = @toggl.get_time_entries({start_date: @now - 1, end_date: @now + 1}).map { |t| t['id']}
       expect(ids.sort).to eq [ @now_id ]
     end
 
     it 'gets time entries in the future' do
-      ids = @toggl.get_time_entries({:start_date => @now - 1, :end_date => @now + 8}).map { |t| t['id']}
+      ids = @toggl.get_time_entries({start_date: @now - 1, end_date: @now + 8}).map { |t| t['id']}
       expect(ids.sort).to eq [ @now_id, @next_week_id ]
     end
   end
@@ -222,7 +222,7 @@ describe 'Time Entries' do
     it 'starts and stops a time entry' do
       time_entry_info = {
         'workspace_id' => @workspace_id,
-        'description' => 'time entry description'
+        'description' => 'time entry description',
       }
 
       # start time entry
@@ -266,7 +266,7 @@ describe 'Time Entries' do
 
     it 'requires a workspace, project, or task to start' do
       time_entry_info = {
-        'description' => 'time entry description'
+        'description' => 'time entry description',
       }
 
       expect {
@@ -279,7 +279,7 @@ describe 'Time Entries' do
     before :each do
       time_entry_info = {
         'wid' => @workspace_id,
-        'duration' => 7777
+        'duration' => 7777,
       }
       @now = DateTime.now
 

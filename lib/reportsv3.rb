@@ -90,7 +90,7 @@ module TogglV9
       json = false if extension != ''
       post "workspace/#{@workspace_id}/#{type}/time_entries#{extension}", {
              'user_agent' => @user_agent,
-             'start_date' => (Time.now - 6 * 24 * 60 * 60).strftime('%F')
+             'start_date' => (Time.now - 6 * 24 * 60 * 60).strftime('%F'),
       }.merge(params), json_response=json
     end
 
@@ -156,9 +156,9 @@ module TogglV9
     def project(project_id, params={})
       raise "workspace_id is required" if @workspace_id.nil?
       get "project", {
-        :'user_agent' => @user_agent,
-        :'workspace_id' => @workspace_id,
-        :'project_id' => project_id,
+        user_agent: @user_agent,
+        workspace_id: @workspace_id,
+        project_id: project_id,
       }.merge(params)
     end
   end

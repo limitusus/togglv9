@@ -90,7 +90,7 @@ module TogglV9
         {
           'op' => params['tag_action'],
           'path' => '/tags',
-          'value' => params['tags']
+          'value' => params['tags'],
         }
       ]
       patch "workspaces/#{workspace_id}/time_entries/#{time_entry_ids.join(',')}", patch_params
