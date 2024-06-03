@@ -34,11 +34,11 @@ describe 'Tags' do
   end
 
   context 'updated tag' do
-    before :each do
+    before do
       @tag = @toggl.create_tag(@workspace_id, { 'name' => 'tag to update' })
     end
 
-    after :each do
+    after do
       @toggl.delete_tag(@workspace_id, @tag['id'])
     end
 

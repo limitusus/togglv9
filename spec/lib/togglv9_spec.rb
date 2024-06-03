@@ -23,13 +23,13 @@ describe 'TogglV9' do
   end
 
   context '.toggl file' do
-    before :each do
+    before do
       @tmp_home = mktemp_dir
       @original_home = Dir.home
       ENV['HOME'] = @tmp_home
     end
 
-    after :each do
+    after do
       FileUtils.rm_rf(@tmp_home)
       ENV['HOME'] = @original_home
     end

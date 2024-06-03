@@ -56,11 +56,11 @@ describe 'Projects' do
   end
 
   context 'updated project' do
-    before :each do
+    before do
       @project = @toggl.create_project(@workspace_id, { 'name' => 'project to update' })
     end
 
-    after :each do
+    after do
       @toggl.delete_project(@workspace_id, @project['id'])
     end
 

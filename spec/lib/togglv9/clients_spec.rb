@@ -104,11 +104,11 @@ describe 'Clients' do
   end
 
   context 'updated client' do
-    before :each do
+    before do
       @client = @toggl.create_client(@workspace_id, { 'name' => 'client to update', 'wid' => @workspace_id })
     end
 
-    after :each do
+    after do
       @toggl.delete_client(@workspace_id, @client['id'])
     end
 

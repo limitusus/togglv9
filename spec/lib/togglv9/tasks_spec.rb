@@ -40,11 +40,11 @@ describe 'Tasks', :pro_account do
   end
 
   context 'updated task' do
-    before :each do
+    before do
       @task = @toggl.create_task({ 'name' => 'task to update', 'pid' => @project['id'] })
     end
 
-    after :each do
+    after do
       @toggl.delete_task(@task['id'])
     end
 
@@ -59,7 +59,7 @@ describe 'Tasks', :pro_account do
   end
 
   context 'multiple tasks' do
-    before :each do
+    before do
       timestamp = Time.now.strftime('%H%M%S.%9N')
       @task1 = @toggl.create_task({ 'name' => "task1-#{timestamp}", 'pid' => @project['id'] })
       @task2 = @toggl.create_task({ 'name' => "task2-#{timestamp}", 'pid' => @project['id'] })

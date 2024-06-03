@@ -122,13 +122,6 @@ RSpec/ExpectInHook:
     - 'spec/lib/togglv9/tags_spec.rb'
     - 'spec/lib/togglv9/tasks_spec.rb'
 
-# Offense count: 21
-# This cop supports safe autocorrection (--autocorrect).
-# Configuration parameters: .
-# SupportedStyles: implicit, each, example
-RSpec/HookArgument:
-  EnforcedStyle: each
-
 # Offense count: 538
 # Configuration parameters: AssignmentOnly.
 RSpec/InstanceVariable:

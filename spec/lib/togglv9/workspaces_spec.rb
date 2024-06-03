@@ -27,11 +27,11 @@ describe 'Workspaces' do
   end
 
   context 'tasks', :pro_account do
-    before :each do
+    before do
       @task = @toggl.create_task(@workspace_id, @project['id'], 'name' => 'workspace task')
     end
 
-    after :each do
+    after do
       @toggl.delete_task(@workspace_id, @project['id'], @task['id'])
     end
 

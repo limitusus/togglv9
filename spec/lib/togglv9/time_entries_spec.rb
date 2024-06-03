@@ -8,7 +8,7 @@ describe 'Time Entries' do
   end
 
   context 'CRUD time entry' do
-    before :each do
+    before do
       time_entry_info = {
         'wid' => @workspace_id,
         'start' => @toggl.iso8601(DateTime.now),
@@ -20,7 +20,7 @@ describe 'Time Entries' do
       @time_entry = @toggl.create_time_entry(@workspace_id, time_entry_info)
     end
 
-    after :each do
+    after do
       @toggl.delete_time_entry(@workspace_id, @time_entry['id'])
     rescue RuntimeError => e
       raise e if e.message != 'HTTP Status: 404'
@@ -88,7 +88,7 @@ describe 'Time Entries' do
   context '+ UTC offset' do
     # ISO8601 times with positive '+' UTC offsets must be properly encoded
 
-    before :each do
+    before do
       time_entry_info = {
         'wid' => @workspace_id,
         'start' => '2016-01-22T12:08:14+02:00',
@@ -100,7 +100,7 @@ describe 'Time Entries' do
       @time_entry = @toggl.create_time_entry(@workspace_id, time_entry_info)
     end
 
-    after :each do
+    after do
       @toggl.delete_time_entry(@workspace_id, @time_entry['id'])
     rescue RuntimeError => e
       raise e if e.message != 'HTTP Status: 404'
@@ -272,7 +272,7 @@ describe 'Time Entries' do
   end
 
   context 'time entry tags' do
-    before :each do
+    before do
       time_entry_info = {
         'wid' => @workspace_id,
         'duration' => 7777,
@@ -294,7 +294,7 @@ describe 'Time Entries' do
       @time_entry_ids = [@time7['id'], @time6['id'], @time5['id'], @time4['id']]
     end
 
-    after :each do
+    after do
       TogglV9SpecHelper.delete_all_time_entries(@toggl)
       TogglV9SpecHelper.delete_all_tags(@toggl)
     end
