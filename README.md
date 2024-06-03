@@ -6,9 +6,7 @@
 
 [togglv9](/) is a Ruby Wrapper for [Toggl API v9](https://engineering.toggl.com/docs/). It is designed to mirror the Toggl API as closely as possible.
 
-togglv9 supports both [Toggl API](https://github.com/toggl/toggl_api_docs/blob/master/toggl_api.md) and [Reports API](https://github.com/toggl/toggl_api_docs/blob/master/reports.md)
-
-NOTE: currently Reports API is not supported yet.
+togglv9 supports both [Toggl API](https://engineering.toggl.com/docs/) and [Reports API](https://engineering.toggl.com/docs/reports_start)
 
 ## Change Log
 
@@ -24,11 +22,15 @@ gem 'togglv9'
 
 And then execute:
 
-    $ bundle
+```console
+$ bundle
+```
 
 Or install it yourself as:
 
-    $ gem install togglv9
+```console
+$ gem install togglv9
+```
 
 ## Initialization
 
@@ -42,23 +44,21 @@ TogglV9::API.new(api_token)           # explicit API token
 TogglV9::API.new(email, password)     # email & password
 ```
 
-### TogglV9::ReportsV2
+### TogglV9::ReportsV3
 
-NOTE: not supported yet. Reports V2 API is already deprecated.
-
-TogglV9::ReportsV2 communicates with [Toggl Reports API v2](https://github.com/toggl/toggl_api_docs/blob/master/reports.md) and can be initialized in one of three ways. Toggl.com requires authentication with an API token for Reports API v2.
+TogglV9::ReportsV3 communicates with [Toggl Reports API v3](https://engineering.toggl.com/docs/reports_start) and can be initialized in one of three ways. Toggl.com requires authentication with an API token for Reports API v3.
 
 ```ruby
-TogglV9::ReportsV2.new                              # reads API token from file ~/.toggl
-TogglV9::ReportsV2.new(toggl_api_file: toggl_file)  # reads API token from toggl_file
-TogglV9::ReportsV2.new(api_token: api_token)        # explicit API token
+TogglV9::ReportsV3.new                              # reads API token from file ~/.toggl
+TogglV9::ReportsV3.new(toggl_api_file: toggl_file)  # reads API token from toggl_file
+TogglV9::ReportsV3.new(api_token: api_token)        # explicit API token
 ```
 
 **Note:** `workspace_id` must be set in order to generate reports.
 
 ```ruby
 toggl = TogglV9::API.new
-reports = TogglV9::ReportsV2.new
+reports = TogglV9::ReportsV3.new
 reports.workspace_id = toggl.workspaces.first['id']
 ```
 
@@ -83,7 +83,7 @@ time_entry   = toggl_api.create_time_entry(workspace_id, {
 })
 
 begin
-  reports               = TogglV9::ReportsV2.new(api_token: <API_TOKEN>)
+  reports               = TogglV9::ReportsV3.new(api_token: <API_TOKEN>)
   begin
     reports.summary
   rescue Exception => e
@@ -99,7 +99,7 @@ begin
   reports.write_weekly('toggl_weekly.csv')
   puts "Generating details XLS..."
   reports.write_details('toggl_details.xls')
-  # Note: toggl.com does not generate Weekly XLS report (as of 2016-07-24)
+  # Note: toggl.com does not generate Weekly XLS report (as of 2024-06-03)
 ensure
   toggl_api.delete_time_entry(time_entry['id'])
 end
@@ -133,7 +133,7 @@ puts "user: #{user2['fullname']}, debug: false"
 
 ## Documentation
 
-Run `rdoc` to generate documentation. Open `doc/index.html` in your browser.
+Run `rake rdoc` to generate documentation. Open `doc/index.html` in your browser.
 
 ## Acknowledgements
 
