@@ -10,3 +10,6 @@ require:
 
 Style/TrailingCommaInHashLiteral:
   EnforcedStyleForMultiline: comma
+
+Gemspec/RequireMFA:
+  Enabled: false
