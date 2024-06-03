@@ -176,13 +176,6 @@ RSpec/VoidExpect:
     - 'spec/lib/reportsv3_spec.rb'
     - 'spec/spec_helper.rb'
 
-# Offense count: 2
-# This cop supports unsafe autocorrection (--autocorrect-all).
-Security/IoMethods:
-  Exclude:
-    - 'lib/reportsv3.rb'
-    - 'lib/togglv9/togglv9.rb'
-
 # Offense count: 12
 # Configuration parameters: AllowedConstants.
 Style/Documentation:
@@ -257,3 +250,6 @@ Style/WordArray:
 # URISchemes: http, https
 Layout/LineLength:
   Max: 184
+
+Style/OptionalBooleanParameter:
+  Enabled: false

@@ -34,7 +34,7 @@ module TogglV9
           \tand https://github.com/toggl/toggl_api_docs/blob/master/chapters/authentication.md
         EOMSG
 
-        username = IO.read(toggl_api_file).strip
+        username = File.read(toggl_api_file).strip
       end
 
       @conn = TogglV9::Connection.open(username, password,

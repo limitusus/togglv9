@@ -27,7 +27,7 @@ module TogglV9
           \tand https://github.com/toggl/toggl_api_docs/blob/master/reports.md#authentication
         EOMSG
 
-        username = IO.read(toggl_api_file)
+        username = File.read(toggl_api_file)
       end
 
       @conn = TogglV9::Connection.open(username, API_TOKEN, REPORTS_V3_URL, opts)
