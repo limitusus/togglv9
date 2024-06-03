@@ -14,11 +14,6 @@ Gemspec/DevelopmentDependencies:
   Exclude:
     - 'togglv9.gemspec'
 
-# Offense count: 1
-Naming/AccessorMethodName:
-  Exclude:
-    - 'lib/togglv9/time_entries.rb'
-
 # Offense count: 8
 RSpec/ExpectInHook:
   Exclude:

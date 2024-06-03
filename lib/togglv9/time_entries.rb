@@ -47,7 +47,7 @@ module TogglV9
       get "me/time_entries/#{time_entry_id}"
     end
 
-    def get_current_time_entry
+    def get_current_time_entry # rubocop:disable Naming/AccessorMethodName
       get 'me/time_entries/current'
     end
 
