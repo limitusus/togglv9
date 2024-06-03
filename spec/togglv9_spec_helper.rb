@@ -17,34 +17,34 @@ class TogglV9SpecHelper
 
   def self.delete_all_clients(toggl)
     clients = toggl.my_clients
-    unless clients.nil?
-      client_ids ||= clients.map { |c| c['id'] }
-      # logger.debug("Deleting #{client_ids.length} clients")
-      client_ids.each do |c_id|
-        toggl.delete_client(@default_workspace_id, c_id)
-      end
+    return if clients.nil?
+
+    client_ids ||= clients.map { |c| c['id'] }
+    # logger.debug("Deleting #{client_ids.length} clients")
+    client_ids.each do |c_id|
+      toggl.delete_client(@default_workspace_id, c_id)
     end
   end
 
   def self.delete_all_projects(toggl)
     projects = toggl.projects(@default_workspace_id)
-    unless projects.nil?
-      project_ids ||= projects.map { |p| p['id'] }
-      # logger.debug("Deleting #{project_ids.length} projects")
-      return unless project_ids.length > 0
+    return if projects.nil?
 
-      toggl.delete_projects(@default_workspace_id, project_ids)
-    end
+    project_ids ||= projects.map { |p| p['id'] }
+    # logger.debug("Deleting #{project_ids.length} projects")
+    return unless project_ids.length > 0
+
+    toggl.delete_projects(@default_workspace_id, project_ids)
   end
 
   def self.delete_all_tags(toggl)
     tags = toggl.my_tags
-    unless tags.nil?
-      tag_ids ||= tags.map { |t| t['id'] }
-      # logger.debug("Deleting #{tag_ids.length} tags")
-      tag_ids.each do |t_id|
-        toggl.delete_tag(@default_workspace_id, t_id)
-      end
+    return if tags.nil?
+
+    tag_ids ||= tags.map { |t| t['id'] }
+    # logger.debug("Deleting #{tag_ids.length} tags")
+    tag_ids.each do |t_id|
+      toggl.delete_tag(@default_workspace_id, t_id)
     end
   end
 
@@ -52,25 +52,25 @@ class TogglV9SpecHelper
     time_entries = toggl.get_time_entries(
       { start_date: DateTime.now - 30, end_date: DateTime.now + 30 }
     )
-    unless time_entries.nil?
-      time_entry_ids ||= time_entries.map { |t| t['id'] }
-      # logger.debug("Deleting #{time_entry_ids.length} time_entries")
-      time_entry_ids.each do |t_id|
-        toggl.delete_time_entry(@default_workspace_id, t_id)
-      end
+    return if time_entries.nil?
+
+    time_entry_ids ||= time_entries.map { |t| t['id'] }
+    # logger.debug("Deleting #{time_entry_ids.length} time_entries")
+    time_entry_ids.each do |t_id|
+      toggl.delete_time_entry(@default_workspace_id, t_id)
     end
   end
 
   def self.delete_all_workspaces(toggl)
     user = toggl.me(true)
     workspaces = toggl.my_workspaces(user)
-    unless workspaces.nil?
-      workspace_ids ||= workspaces.map { |w| w['id'] }
-      workspace_ids.delete(user['default_workspace_id'])
-      # logger.debug("Leaving #{workspace_ids.length} workspaces")
-      workspace_ids.each do |w_id|
-        toggl.leave_workspace(w_id)
-      end
+    return if workspaces.nil?
+
+    workspace_ids ||= workspaces.map { |w| w['id'] }
+    workspace_ids.delete(user['default_workspace_id'])
+    # logger.debug("Leaving #{workspace_ids.length} workspaces")
+    workspace_ids.each do |w_id|
+      toggl.leave_workspace(w_id)
     end
   end
 end

@@ -7,7 +7,7 @@ describe 'Dashboard' do
 
   it 'gets nil dashboard data' do
     dashboard = @toggl.dashboard(@workspace_id)
-    expect(dashboard).to eq Hash['most_active_user' => {}, 'activity' => [], 'all_activity' => {}]
+    expect(dashboard).to eq({ 'most_active_user' => {}, 'activity' => [], 'all_activity' => {} })
   end
 
   context 'gets dashboard time entries' do

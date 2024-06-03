@@ -60,7 +60,7 @@ module TogglV9
     def iso8601(timestamp)
       return nil if timestamp.nil?
 
-      if timestamp.is_a?(DateTime) or timestamp.is_a?(Date) or timestamp.is_a?(Time)
+      if timestamp.is_a?(DateTime) || timestamp.is_a?(Date) || timestamp.is_a?(Time)
         formatted_ts = timestamp.iso8601
       elsif timestamp.is_a?(String)
         formatted_ts = DateTime.parse(timestamp).iso8601
@@ -78,7 +78,7 @@ module TogglV9
       end_date = Time.now if end_date.nil?
       params.push("start_date=#{iso8601(start_date)}")
       params.push("end_date=#{iso8601(end_date)}")
-      get 'me/time_entries%s' % [params.empty? ? '' : "?#{params.join('&')}"]
+      get format('me/time_entries%s', params.empty? ? '' : "?#{params.join('&')}")
     end
 
     # Example params: {'tags' =>['billed','productive'], 'tag_action' => 'add'}

@@ -23,9 +23,7 @@ describe 'Time Entries' do
     after :each do
       @toggl.delete_time_entry(@workspace_id, @time_entry['id'])
     rescue RuntimeError => e
-      if e.message != 'HTTP Status: 404'
-        raise e
-      end
+      raise e if e.message != 'HTTP Status: 404'
     end
 
     it 'creates a time entry' do
@@ -40,9 +38,9 @@ describe 'Time Entries' do
         'duration' => 77,
       }
 
-      expect {
+      expect do
         @toggl.create_time_entry(@workspace_id, time_entry_info)
-      }.to raise_error(ArgumentError)
+      end.to raise_error(ArgumentError)
     end
 
     it 'gets a time entry' do
@@ -105,9 +103,7 @@ describe 'Time Entries' do
     after :each do
       @toggl.delete_time_entry(@workspace_id, @time_entry['id'])
     rescue RuntimeError => e
-      if e.message != 'HTTP Status: 404'
-        raise e
-      end
+      raise e if e.message != 'HTTP Status: 404'
     end
 
     it 'creates a time entry' do
@@ -122,9 +118,9 @@ describe 'Time Entries' do
         'duration' => 77,
       }
 
-      expect {
+      expect do
         @toggl.create_time_entry(@workspace_id, time_entry_info)
-      }.to raise_error(ArgumentError)
+      end.to raise_error(ArgumentError)
     end
 
     it 'gets a time entry' do
@@ -269,9 +265,9 @@ describe 'Time Entries' do
         'description' => 'time entry description',
       }
 
-      expect {
+      expect do
         @toggl.start_time_entry(@workspace_id, time_entry_info)
-      }.to raise_error(ArgumentError)
+      end.to raise_error(ArgumentError)
     end
   end
 

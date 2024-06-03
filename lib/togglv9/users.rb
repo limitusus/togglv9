@@ -22,7 +22,7 @@ module TogglV9
     def me(all = nil)
       # NOTE: response['since'] is discarded because it is outside response['data']
       #       (See TogglV9::API#get in lib/togglv9.rb)
-      get 'me%s' % [all.nil? ? '' : "?with_related_data=#{all}"]
+      get format('me%s', all.nil? ? '' : "?with_related_data=#{all}")
     end
 
     def my_clients(user = nil)

@@ -28,11 +28,11 @@ module Logging
   end
 
   def debug(debug = true)
-    if debug
-      logger.level = Logger::DEBUG
-    else
-      logger.level = Logger::WARN
-    end
+    logger.level = if debug
+                     Logger::DEBUG
+                   else
+                     Logger::WARN
+                   end
   end
 end
 # :nocov:
