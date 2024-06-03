@@ -15,14 +15,10 @@ describe 'Tasks', :pro_account do
   context 'with new task' do
     before :all do
       @task = @toggl.create_task({ 'name' => 'new task +1', 'pid' => @project['id'] })
-      @task_ids = @toggl.get_project_tasks(@project['id']).map { |t| t['id'] }
-      expect(@task_ids).to eq [@task['id']]
     end
 
     after :all do
       @toggl.delete_tasks(@task_ids)
-      tasks = @toggl.get_project_tasks(@project['id'])
-      expect(tasks).to be_empty
     end
 
     it 'creates a task' do

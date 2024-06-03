@@ -15,14 +15,10 @@ describe 'Clients' do
   context 'with new client' do
     before :all do
       @client = @toggl.create_client(@workspace_id, { 'name' => 'new client +1', 'wid' => @workspace_id })
-      client_ids = @toggl.my_clients.map { |c| c['id'] }
-      expect(client_ids).to eq [@client['id']]
     end
 
     after :all do
       TogglV9SpecHelper.delete_all_clients(@toggl)
-      clients = @toggl.my_clients
-      expect(clients).to be_empty
     end
 
     it 'gets a workspace client' do

@@ -14,14 +14,6 @@ Gemspec/DevelopmentDependencies:
   Exclude:
     - 'togglv9.gemspec'
 
-# Offense count: 8
-RSpec/ExpectInHook:
-  Exclude:
-    - 'spec/lib/togglv9/clients_spec.rb'
-    - 'spec/lib/togglv9/projects_spec.rb'
-    - 'spec/lib/togglv9/tags_spec.rb'
-    - 'spec/lib/togglv9/tasks_spec.rb'
-
 # Offense count: 538
 # Configuration parameters: AssignmentOnly.
 RSpec/InstanceVariable:
@@ -34,12 +26,6 @@ RSpec/InstanceVariable:
     - 'spec/lib/togglv9/tasks_spec.rb'
     - 'spec/lib/togglv9/users_spec.rb'
     - 'spec/lib/togglv9/workspaces_spec.rb'
-
-# # Offense count: 11
-# RSpec/VoidExpect:
-#   Exclude:
-#     - 'spec/lib/reportsv3_spec.rb'
-#     - 'spec/spec_helper.rb'
 
 # Offense count: 16
 # This cop supports safe autocorrection (--autocorrect).

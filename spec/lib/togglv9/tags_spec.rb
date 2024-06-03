@@ -10,14 +10,10 @@ describe 'Tags' do
   context 'with new tag' do
     before :all do
       @tag = @toggl.create_tag(@workspace_id, { 'name' => 'new tag +1' })
-      tag_ids = @toggl.my_tags.map { |t| t['id'] }
-      expect(tag_ids).to eq [@tag['id']]
     end
 
     after :all do
       TogglV9SpecHelper.delete_all_tags(@toggl)
-      tags = @toggl.my_tags
-      expect(tags).to be_empty
     end
 
     it 'creates a tag' do

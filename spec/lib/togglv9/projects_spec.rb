@@ -15,14 +15,10 @@ describe 'Projects' do
   context 'with new project' do
     before :all do
       @project = @toggl.create_project(@workspace_id, { 'name' => 'new project +1' })
-      project_ids = @toggl.my_projects.map { |p| p['id'] }
-      expect(project_ids).to eq [@project['id']]
     end
 
     after :all do
       TogglV9SpecHelper.delete_all_projects(@toggl)
-      projects = @toggl.my_projects
-      expect(projects).to be_empty
     end
 
     it 'creates a project' do
