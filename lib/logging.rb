@@ -27,7 +27,7 @@ module Logging
     Logging.logger
   end
 
-  def debug(debug = true)
+  def debug(debug: true)
     logger.level = if debug
                      Logger::DEBUG
                    else

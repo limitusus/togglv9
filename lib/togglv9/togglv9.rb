@@ -22,7 +22,7 @@ module TogglV9
     attr_reader :conn
 
     def initialize(username = nil, password = API_TOKEN, opts = {})
-      debug(false)
+      debug(debug: false)
       if username.nil? && password == API_TOKEN
         toggl_api_file = File.join(Dir.home, TOGGL_FILE)
         # logger.debug("toggl_api_file = #{toggl_api_file}")

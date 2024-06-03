@@ -120,13 +120,13 @@ require 'togglv9'
 
 toggl = TogglV9::API.new
 
-toggl.debug(true)  # or simply toggl.debug
+toggl.debug(debug: true)  # or simply toggl.debug
 user1 = toggl.me
 puts "user: #{user1['fullname']}, debug: true"
 
 puts '-'*80
 
-toggl.debug(false)
+toggl.debug(debug: false)
 user2 = toggl.me
 puts "user: #{user2['fullname']}, debug: false"
 ```

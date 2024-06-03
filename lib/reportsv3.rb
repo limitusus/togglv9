@@ -13,7 +13,7 @@ module TogglV9
     attr_accessor :workspace_id
 
     def initialize(opts = {})
-      debug(false)
+      debug(debug: false)
 
       @user_agent = TogglV9::NAME
 
@@ -94,7 +94,7 @@ module TogglV9
       post "workspace/#{@workspace_id}/#{type}/time_entries#{extension}", {
         'user_agent' => @user_agent,
         'start_date' => (Time.now - (6 * 24 * 60 * 60)).strftime('%F'),
-      }.merge(params), json
+      }.merge(params), json_response: json
     end
 
     def weekly(extension = '', params = {})

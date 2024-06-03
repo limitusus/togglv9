@@ -76,7 +76,7 @@ module TogglV9
       end
     end
 
-    def post(resource, data = '', json_response = true)
+    def post(resource, data = '', json_response: true)
       resource_encoded = resource.gsub('+', '%2B')
       full_resp = _call_api(debug_output: -> { "POST #{resource_encoded} / #{data}" },
                             api_call: -> { conn.post(resource_encoded, Oj.dump(data)) })
