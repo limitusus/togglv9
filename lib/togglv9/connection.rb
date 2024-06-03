@@ -31,7 +31,7 @@ module TogglV9
 
       errors = []
       for f in fields
-      errors.push("params[#{f}] is required") unless params.key?(f)
+        errors.push("params[#{f}] is required") unless params.key?(f)
       end
       raise ArgumentError, errors.join(', ') if !errors.empty?
     end

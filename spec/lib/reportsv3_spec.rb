@@ -64,14 +64,16 @@ describe 'ReportsV3' do
 
     it 'retries a request up to 3 times if a 429 is received' do
       expect(@reports.conn).to receive(:post).exactly(3).times.and_return(
-        MockResponse.new(429, {}, 'body'))
+        MockResponse.new(429, {}, 'body')
+      )
       expect { @reports.list_clients }.to raise_error(RuntimeError, 'HTTP Status: 429')
     end
 
     it 'retries a request after 429' do
       expect(@reports.conn).to receive(:post).twice.and_return(
         MockResponse.new(429, {}, 'body'),
-        MockResponse.new(200, {}, '[{"id":65220674, "name":"test1"}, {"id":65220675, "name":"test2"}]'))
+        MockResponse.new(200, {}, '[{"id":65220674, "name":"test1"}, {"id":65220675, "name":"test2"}]')
+      )
       expect(@reports.list_clients).to eq([{ 'id' => 65220674, 'name' => 'test1' }, { 'id' => 65220675, 'name' => 'test2' }])
     end
   end
